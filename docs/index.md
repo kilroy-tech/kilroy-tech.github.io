@@ -4,8 +4,10 @@
 
 ## About Kilroy
 
-Kilroy empowers anyone to build, automate, launch, and share apps, AI solutions, and DeFi strategies -no code required- by making composable decentralized technology accessible for all.
+Kilroy empowers anyone to build, automate, launch, and share apps, AI solutions, and DeFi strategies -no code required- by making composable decentralized technology accessible for all. 
 
+
+![Pipeline Editor](assets/about/about_1.png){ align=right width=300 }
 Kilroy is a desktop-first application that integrates all of your local applications with anything else on the Internet. It provides all of the
 plumbing and runtime support to connect local AI agents with messaging services, cloud platforms, and remote Kilroy users. Based around the concept of
 peer-to-peer swarms, Kilroy makes building and sharing your own version of the Internet possible. Collaborate with friends over private, end-to-end communications.
@@ -15,6 +17,8 @@ the ability to make your applications available to anyone you'd like.
 ## Kilroy Uses
 
 Out of the box, Kilroy comes with dozens of applications that are ready to use. Some include:
+
+![Kilroy Dashboard](assets/about/about_2.png){ align=right width=300 }
 
  - Full-featured, drag-and-drop AI agent pipeline creation, with local and remote agents, peer-to-peer collaboration, and support for dozens of tools and services
  - Desktop automation - tight integration with deep linking to apps on your desktop or laptop

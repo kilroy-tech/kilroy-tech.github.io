@@ -47,3 +47,4 @@ theme:
   
 plugins:
   - offline
+  - glightbox
