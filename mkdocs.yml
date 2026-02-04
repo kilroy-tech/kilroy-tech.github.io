@@ -1,7 +1,7 @@
 site_name: Kilroy Documentation
 site_url: ""
-repo_url: https://github.com/kilroy-tech/kilroy.docs
-edit_uri: edit/main/docs/docs/
+repo_url: https://github.com/kilroy-tech/kilroy-tech.github.io
+edit_uri: edit/main/docs/
 use_directory_urls: false
 markdown_extensions:
   - pymdownx.highlight:

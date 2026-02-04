@@ -7,17 +7,17 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "docsify serve docs"
+    "test": "mkdocs serve",
+    "build": "mkdocs build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kilroy-tech/kilroy.git"
+    "url": "git+https://github.com/kilroy-tech/kilroy-tech.github.io.git"
   },
   "author": "cshotton",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kilroy-tech/kilroy/issues"
+    "url": "https://github.com/kilroy-tech/kilroy-tech.github.io/issues"
   },
-  "homepage": "https://github.com/kilroy-tech/kilroy#readme"
+  "homepage": "https://docs.kilroy.tech/"
 }
