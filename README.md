@@ -1,2 +1,2 @@
 # kilroy-tech.github.io
-Kilroy Docs pages
+[Kilroy Docs](docs/) pages
