@@ -1,0 +1,23 @@
+{
+  "name": "kilroy",
+  "version": "1.0.0",
+  "description": "Documentation, examples, and media for Kilroy",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "docsify serve docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kilroy-tech/kilroy.git"
+  },
+  "author": "cshotton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kilroy-tech/kilroy/issues"
+  },
+  "homepage": "https://github.com/kilroy-tech/kilroy#readme"
+}
