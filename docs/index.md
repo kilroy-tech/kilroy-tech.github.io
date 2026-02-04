@@ -40,6 +40,3 @@ Kilroy is a free application download for desktop and laptop computers, availabl
  * [Kilroy Wiki](https://github.com/kilroy-tech/kilroy/wiki/Kilroy-Wiki)
  * [MkDocs-Material](https://squidfunk.github.io/mkdocs-material/)
  * [Kilroy Docs](https://docs.kilroy.tech/)
-
----
-[Next (Kilroy Apps)](apps.md) 
