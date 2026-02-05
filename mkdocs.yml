@@ -38,6 +38,14 @@ theme:
   name: material
   features:
     - navigation.footer
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.highlight
+    - search.share
+    - search.suggest
     - content.code.copy
     - content.action.edit
     
@@ -67,4 +75,5 @@ theme:
   
 plugins:
   - offline
+  - search
   - glightbox
