@@ -1,10 +1,11 @@
-![Logo](assets/kilroy_logo.png)
+![Logo](assets/kilroy_logo.png){ width=400 }
 
 # <span style="font-size:1.25em; color:#FF4401;">\[<span style="color:var(--md-default-fg-color);">Build the Future.</span> No Code Required.\]</span>
 
 ## About Kilroy
 
-Kilroy empowers anyone to build, automate, launch, and share apps, AI solutions, and DeFi strategies -no code required- by making composable decentralized technology accessible for all. 
+Kilroy empowers anyone to build, automate, launch, and share apps, AI solutions, and DeFi strategies -no code required- by making composable decentralized technology accessible for all. It's a single, double-clickable application that lets you control your apps, agents, and messages without the messy installation
+of command line tools and dozens of scattered pieces.
 
 
 ![Pipeline Editor](assets/about/about_1.png){ align=right width=300 }
@@ -18,11 +19,10 @@ the ability to make your applications available to anyone you'd like.
 
 Out of the box, Kilroy comes with dozens of applications that are ready to use. Some include:
 
-![Kilroy Dashboard](assets/about/about_2.png){ align=right width=300 }
-
- - Full-featured, drag-and-drop AI agent pipeline creation, with local and remote agents, peer-to-peer collaboration, and support for dozens of tools and services
+ - Full-featured, drag-and-drop AI agent pipeline creation, with local and remote agents, peer-to-peer collaboration, and support for dozens of tools and services 
+ ![Kilroy Dashboard](assets/about/about_2.png){ align=right width=300 }
  - Desktop automation - tight integration with deep linking to apps on your desktop or laptop
- - remote access to your Kilroy apps and agents via popular messaging apps like Telegram, Discord, and Whatsapp
+ - Remote access to your Kilroy apps and agents via popular messaging apps like Telegram, Discord, and Whatsapp
  - Web widgets for collecting your favorite web sites and utilities into a personal dashboard
 
 The options are endless, and anyone can create a new Kilroy app in minutes using the built-in visual editors, or native access to Javascript and your local 

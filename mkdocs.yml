@@ -3,6 +3,26 @@ site_url: "https://docs.kilroy.tech/"
 repo_url: https://github.com/kilroy-tech/kilroy-tech.github.io
 edit_uri: edit/main/docs/
 use_directory_urls: false
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Introduction: getting-started/introduction.md
+      - Quick Start: getting-started/quick-start.md
+      - Installation: getting-started/installation.md
+  - Tutorials:
+      - Tutorial 1: tutorials/tutorial1.md
+      - Tutorial 2: tutorials/tutorial2.md
+  - Developers: 
+      - Technical Overview: developers/technical.md
+      - Creating Apps: developers/apps.md
+  - FAQ: faq.md
+  - 'About the Kilroy Project': 
+      - About: about/about.md
+      - Philosophy: about/philosophy.md
+      - Team: about/team.md
+      - Contact: about/contact.md
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
