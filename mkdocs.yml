@@ -16,6 +16,7 @@ nav:
   - Developers: 
       - Technical Overview: developers/technical.md
       - Creating Apps: developers/apps.md
+      - Adding WF_Agent Webhooks: developers/adding_wf_agents.md
   - FAQ: faq.md
   - 'About the Kilroy Project': 
       - About: about/about.md
