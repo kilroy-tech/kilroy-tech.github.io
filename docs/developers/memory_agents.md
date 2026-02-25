@@ -206,6 +206,7 @@ A JSON string published back to the output swarm:
 | `memory_id` | string | **Required** | — | Memory store path |
 | `kind` | string | Optional | — | Post-FTS filter: include only records of this kind |
 | `scope` | string | Optional | — | Post-FTS filter: include only records with this scope |
+| `tags` | string | Optional | — | Post-FTS filter: JSON array string or comma-separated tag list; all tags must be present (AND semantics). e.g. `'["important","fact"]'` or `"important,fact"` |
 
 ### Example wf_webhook_args JSON
 
