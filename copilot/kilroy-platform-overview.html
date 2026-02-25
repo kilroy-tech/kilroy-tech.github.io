@@ -1,0 +1,1636 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.kilroy.tech/copilot/kilroy-platform-overview.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Kilroy Platform Overview (Working Notes) - Kilroy Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kilroy-platform-overview-working-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Kilroy Documentation" class="md-header__button md-logo" aria-label="Kilroy Documentation" data-md-component="logo">
+      
+  <img src="../assets/kilroy.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kilroy Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Kilroy Platform Overview (Working Notes)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to system preference" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kilroy-tech/kilroy-tech.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/introduction.html" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tutorials/tutorial1.md" class="md-tabs__link">
+          
+  
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../developers/technical.html" class="md-tabs__link">
+          
+  
+  
+  Developers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../about/about.html" class="md-tabs__link">
+          
+  
+  
+  About the Kilroy Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Kilroy Documentation" class="md-nav__button md-logo" aria-label="Kilroy Documentation" data-md-component="logo">
+      
+  <img src="../assets/kilroy.svg" alt="logo">
+
+    </a>
+    Kilroy Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kilroy-tech/kilroy-tech.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quick-start.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial1.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial2.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/technical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/apps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/adding_wf_agents.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding WF_Agent Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developers/memory_agents.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory Agent Blocks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About the Kilroy Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About the Kilroy Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/about.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/philosophy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Philosophy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/team.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/contact.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-kilroy-from-official-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Kilroy? (from official docs)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workspace-level-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace-Level Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kilroy-techgithubio-primary-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kilroy-tech.github.io (Primary Documentation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="kilroy-tech.github.io (Primary Documentation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#content-inventory-as-of-last-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content inventory (as of last scan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key concepts documented
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kilroybackend-architecture-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kilroy.backend Architecture Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="kilroy.backend Architecture Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entrypoints-and-runtime-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrypoints and Runtime Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-discovery-and-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Discovery and Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route-mounting-and-api-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route Mounting and API Surface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pubsub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PubSub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#platform-data-and-app-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Data and App Projects
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kilroyaiservices-inside-backend-platform-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kilroy.ai.services (inside backend platform data)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kilroyui-architecture-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kilroy.ui Architecture Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="kilroy.ui Architecture Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stack-and-buildpackaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stack and Build/Packaging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backend-http-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend HTTP Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auth-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auth Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pubsub-integration-faye" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PubSub Integration (Faye)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-project-interaction-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Project Interaction Map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-known-gaps-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Known Gaps / Caveats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggested-next-deep-dive-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suggested Next Deep-Dive Areas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kilroy-tech/kilroy-tech.github.io/edit/main/docs/copilot/kilroy-platform-overview.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="kilroy-platform-overview-working-notes">Kilroy Platform Overview (Working Notes)</h1>
+<p>This document captures a cross-project architecture snapshot of the current multi-root workspace:</p>
+<ul>
+<li><code>kilroy-tech.github.io</code> — public documentation site (MkDocs Material, published to docs.kilroy.tech)</li>
+<li><code>kilroy.backend</code> — platform runtime (Node/Express + Electron + Docker + scheduler)</li>
+<li><code>kilroy.ui</code> — Vue 3 front-end app that runs on the Kilroy platform</li>
+</ul>
+<p>It is intended as a living reference for future development tasks.</p>
+<blockquote>
+<p><strong>Note:</strong> This file lives in <code>docs/copilot/</code> and is intentionally NOT connected to the MkDocs nav. It contains internal working notes that should not be published.</p>
+</blockquote>
+<h2 id="what-is-kilroy-from-official-docs">What is Kilroy? (from official docs)</h2>
+<p>Kilroy is a <strong>desktop-first, double-clickable application</strong> that lets users build, automate, launch, and share apps, AI solutions, and DeFi strategies with <strong>no code required</strong>. Key concepts from the public docs:</p>
+<ul>
+<li><strong>Apps</strong> are self-contained JSON-driven packages (manifest + process diagrams + workflows + public assets) distributed as digitally signed zip archives, installable via the Kilroy App Store.</li>
+<li><strong>Swarms</strong> are self-organizing, peer-to-peer, end-to-end encrypted communication channels. Two Kilroy instances using the same swarm name connect directly with no servers in between, no static IPs, no firewall edits.</li>
+<li><strong>Pipelines</strong> compose agents (AI, WF, viewer, chat, webhook) into data-processing chains that communicate over swarms. The <code>kilroy.ai.services</code> app provides a 100% visual pipeline editor.</li>
+<li><strong>Process Diagrams (PDs)</strong> define the UI layout of a running app widget — nodes, buttons, images, iframes, data views, forms — and are updated in real time via pubsub.</li>
+<li><strong>Workflows</strong> are block-based or JS-scripted automations triggered by PD node actions. Each workflow step can display forms, call webhooks, manipulate data, and publish results.</li>
+<li>Runtime targets: macOS (Apple Silicon, Intel planned), Windows 11, Linux (Ubuntu planned), Docker (Intel/AMD, ARM, ARM7).</li>
+</ul>
+<h2 id="workspace-level-summary">Workspace-Level Summary</h2>
+<ul>
+<li><code>kilroy.backend</code> is the runtime host and platform substrate (Node/Express + Electron-capable combined runtime + scheduler support).</li>
+<li><code>kilroy.backend/api/platform_data/demo/apps</code> contains app packages/projects and runtime app data, including <code>kilroy.ai.services</code> and packaged artifacts like <code>kilroy.ui.zip</code>.</li>
+<li><code>kilroy.ui</code> is a Vue 3 app that talks to backend HTTP endpoints and subscribes to backend pubsub channels via Faye.</li>
+<li><code>kilroy-tech.github.io</code> is the <strong>primary public documentation</strong> site (MkDocs Material, at <code>docs.kilroy.tech</code>).</li>
+</ul>
+<h2 id="kilroy-techgithubio-primary-documentation"><code>kilroy-tech.github.io</code> (Primary Documentation)</h2>
+<p>Location: <code>/Users/cshotton/ownCloud/Documents/projects/kilroy-tech.github.io</code></p>
+<ul>
+<li><strong>Generator</strong>: MkDocs with Material theme; config in <code>mkdocs.yml</code>.</li>
+<li><strong>Published URL</strong>: <code>https://docs.kilroy.tech/</code></li>
+<li><strong>CI</strong>: GitHub Actions workflow in <code>.github/workflows/ci.yml</code>.</li>
+</ul>
+<h3 id="content-inventory-as-of-last-scan">Content inventory (as of last scan)</h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>File</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Home / landing</td>
+<td><code>docs/index.md</code></td>
+<td>Written — describes Kilroy's purpose, uses, and links</td>
+</tr>
+<tr>
+<td>Introduction</td>
+<td><code>docs/getting-started/introduction.md</code></td>
+<td>Written — swarms, privacy, agents &amp; apps overview</td>
+</tr>
+<tr>
+<td>Quick Start</td>
+<td><code>docs/getting-started/quick-start.md</code></td>
+<td>Written — platform requirements, download matrix, install steps (some sections still headings-only)</td>
+</tr>
+<tr>
+<td>Installation</td>
+<td><code>docs/getting-started/installation.md</code></td>
+<td>Stub — headings only</td>
+</tr>
+<tr>
+<td>Technical Overview</td>
+<td><code>docs/developers/technical.md</code></td>
+<td>Stub — heading only</td>
+</tr>
+<tr>
+<td>Creating Apps</td>
+<td><code>docs/developers/apps.md</code></td>
+<td>Partially written — manifest format, code snippets, section headings for PDs/workflows/public/build</td>
+</tr>
+<tr>
+<td>FAQ</td>
+<td><code>docs/faq.md</code></td>
+<td>Stub — heading only</td>
+</tr>
+<tr>
+<td>About / Philosophy / Team / Contact</td>
+<td><code>docs/about/*.md</code></td>
+<td>Stubs — headings only</td>
+</tr>
+<tr>
+<td>Tutorials</td>
+<td><code>docs/tutorials/</code></td>
+<td>Empty folder; <code>mkdocs.yml</code> references <code>tutorial1.md</code> and <code>tutorial2.md</code> that don't exist yet</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-concepts-documented">Key concepts documented</h3>
+<ul>
+<li><strong>Manifest file</strong> (<code>manifest.json</code>): <code>manifestVersion</code>, <code>id</code>, <code>displayName</code>, <code>pdClasses</code> with lifecycle hooks (<code>init</code>, <code>resume</code>, <code>pause</code>, <code>stop</code>), alias naming, visibility, and multi-instance control.</li>
+<li><strong>App packaging</strong>: self-contained zip archive containing manifest + process_diagrams + workflows + public folder.</li>
+<li><strong>Swarm networking</strong>: peer-to-peer, end-to-end encrypted, no static IP/firewall required, self-organizing.</li>
+<li><strong>Agent types</strong> listed: AI agents, WF agents, viewer agents, chat agents, webhook agents.</li>
+<li><strong>Pipeline editor</strong>: drag-and-drop visual composition of agent pipelines.</li>
+<li><strong>Block-based programming</strong>: Blockly-style visual workflow editor with JS escape hatch.</li>
+<li><strong>Preflight/postflight pattern</strong>: <code>script.js</code> files in workflow payloads export <code>preflight(authData, wfProxy)</code> and <code>postflight(...)</code> hooks.</li>
+</ul>
+<h2 id="kilroybackend-architecture-notes"><code>kilroy.backend</code> Architecture Notes</h2>
+<h3 id="entrypoints-and-runtime-modes">Entrypoints and Runtime Modes</h3>
+<p>Primary entrypoints in <code>api/</code>:</p>
+<ul>
+<li><code>main.js</code> (backend server)</li>
+<li><code>main_sched.js</code> (scheduler)</li>
+<li><code>main_combined.js</code> (combined backend + scheduler; package <code>main</code> points here)</li>
+</ul>
+<p><code>main_combined.js</code> initializes:</p>
+<ul>
+<li>global runtime namespace via <code>global.REBAR_NAMESPACE</code></li>
+<li>environment/path preflight (Node/Docker/Electron packaged/dev)</li>
+<li>first-run/update installation from zipped platform data</li>
+<li>pubsub provider and node registration/master election</li>
+<li>Express server + route mounting + static/public app serving</li>
+</ul>
+<h3 id="service-discovery-and-paths">Service Discovery and Paths</h3>
+<ul>
+<li><code>api/modules/util/service_discovery.js</code> centralizes path/url resolution and env-aware behavior.</li>
+<li><code>api/discovery/services.js</code> defines default keys including:</li>
+<li><code>API_VERSION_PREFIX</code> = <code>/api/v1</code></li>
+<li>default pubsub service/server keys</li>
+<li>platform data, db, apps, workflows, and public path conventions</li>
+</ul>
+<h3 id="route-mounting-and-api-surface">Route Mounting and API Surface</h3>
+<p>In <code>main_combined.js</code>, core routes mount at <code>API_VERSION_PREFIX</code>, e.g.:</p>
+<ul>
+<li><code>/api/v1/auth</code></li>
+<li><code>/api/v1/admin</code></li>
+<li><code>/api/v1/pd</code></li>
+<li><code>/api/v1/wf</code></li>
+<li>plus <code>activities</code>, <code>appservices</code>, <code>config</code>, <code>editor</code>, <code>panel</code>, etc.</li>
+</ul>
+<p>Additionally:</p>
+<ul>
+<li><code>/apps</code> serves app public files/folders.</li>
+<li><code>globalAPI</code> can serve UI fallback behavior (including packaged UI behavior).</li>
+</ul>
+<h3 id="pubsub">PubSub</h3>
+<ul>
+<li><code>api/modules/util/pubsub.js</code> abstracts pubsub provider selection (<code>faye</code>/<code>crossbar</code>), defaulting to configured provider from discovery.</li>
+<li><code>pubsub.Init(server)</code> is called during <code>main_combined</code> startup to wire realtime services.</li>
+<li>Backend admin broadcasts are published on <code>admin_broadcast</code> channel (used by UI).</li>
+</ul>
+<h3 id="platform-data-and-app-projects">Platform Data and App Projects</h3>
+<p>Important path:</p>
+<ul>
+<li><code>api/platform_data/demo/apps</code></li>
+</ul>
+<p>Contains many Kilroy app projects and packaged zips, including:</p>
+<ul>
+<li><code>kilroy.ai.services/</code></li>
+<li><code>kilroy.ui.zip</code></li>
+<li>multiple service apps (<code>miniflux.services</code>, <code>telegram.services</code>, etc.)</li>
+</ul>
+<p>This folder is both app catalog/runtime data and packaging target in current workflows.</p>
+<h2 id="kilroyaiservices-inside-backend-platform-data"><code>kilroy.ai.services</code> (inside backend platform data)</h2>
+<p>Location:</p>
+<ul>
+<li><code>kilroy.backend/api/platform_data/demo/apps/kilroy.ai.services</code></li>
+</ul>
+<p>Structure:</p>
+<ul>
+<li><code>manifest.json</code></li>
+<li><code>process_diagrams/</code></li>
+<li><code>workflows/</code></li>
+<li><code>public/</code></li>
+</ul>
+<p>Manifest confirms app identity and classes:</p>
+<ul>
+<li>app id: <code>kilroy.ai.services</code></li>
+<li>includes pd classes such as <code>manager</code>, <code>pipeline</code>, <code>ai_agent</code>, <code>wf_agent</code>, <code>viewer_agent</code>, <code>chat_agent</code>, <code>webhooks</code></li>
+<li><code>manager</code> and <code>webhooks</code> are configured <code>runOnStart: true</code></li>
+</ul>
+<p><code>public/README.md</code> describes the intended pipeline model:</p>
+<ul>
+<li>WF agents + AI agents + viewer/chat/webhook agents</li>
+<li>swarm-based messaging</li>
+<li>OpenAI-compatible endpoint integration pattern</li>
+</ul>
+<p>This app appears to function as a primary AI pipeline/agent orchestration app in the Kilroy ecosystem.</p>
+<h2 id="kilroyui-architecture-notes"><code>kilroy.ui</code> Architecture Notes</h2>
+<h3 id="stack-and-buildpackaging">Stack and Build/Packaging</h3>
+<ul>
+<li>Vue 3 + TypeScript + Vite + Tailwind/DaisyUI.</li>
+<li>Runtime build scripts include <code>create-kilroy-app</code>, which packages UI output into <code>kilroy.ui.zip</code> and copies it to:</li>
+<li><code>../kilroy.backend/api/platform_data/demo/apps/</code></li>
+</ul>
+<h3 id="backend-http-integration">Backend HTTP Integration</h3>
+<ul>
+<li><code>src/utils/api.ts</code> posts JSON to <code>VITE_SERVICE_ENDPOINT</code> and injects/rotates <code>auth_token</code> via <code>window.AUTH_TOKEN</code>.</li>
+<li>Typical local dev endpoint script points to:</li>
+<li><code>http://localhost:3000/api/v1</code></li>
+</ul>
+<h3 id="auth-integration">Auth Integration</h3>
+<ul>
+<li><code>src/utils/auth.ts</code> uses backend auth routes:</li>
+<li><code>/auth/authenticate</code></li>
+<li><code>/auth/validate</code></li>
+<li><code>/auth/deauthenticate</code></li>
+<li><code>/auth/authFirstPD</code></li>
+<li><code>/auth/authAppDashboardPD</code></li>
+<li>Cookie-based remember-me support stores/reloads auth token (<code>rememberme</code>).</li>
+</ul>
+<h3 id="pubsub-integration-faye">PubSub Integration (Faye)</h3>
+<ul>
+<li>Faye client URL from <code>VITE_PUBSUB_URL</code>.</li>
+<li>Dashboard subscribes to <code>/admin_broadcast</code> for backend status/events.</li>
+<li>Process Diagram component subscribes to per-diagram channel <code>/${id}</code> (with <code>-</code> converted to <code>_</code>) and reacts to <code>UPDATE_NODES</code> messages.</li>
+</ul>
+<h2 id="cross-project-interaction-map">Cross-Project Interaction Map</h2>
+<p>Primary flow observed:</p>
+<ol>
+<li>Backend (<code>main_combined</code>) starts and mounts <code>/api/v1/*</code> routes and pubsub.</li>
+<li>UI authenticates through backend auth routes and stores rolling auth token.</li>
+<li>UI invokes backend process-diagram/workflow endpoints (<code>/pd/*</code>, <code>/wf/*</code>, etc.).</li>
+<li>Backend pushes realtime updates over pubsub channels consumed by UI via Faye.</li>
+<li>UI can be packaged and deployed as a Kilroy app artifact (<code>kilroy.ui.zip</code>) into backend platform data apps.</li>
+<li><code>kilroy.ai.services</code> runs as a backend-managed app project in platform data and participates in workflow/pipeline ecosystem used by UI and other apps.</li>
+</ol>
+<h2 id="current-known-gaps-caveats">Current Known Gaps / Caveats</h2>
+<ul>
+<li>Some backend admin routes still contain permissive TODO logic (<code>if (true || auth_data.valid)</code> patterns) and should be treated carefully in production-hardening discussions.</li>
+<li>There appears to be both source-style app folders and zip artifacts in platform app storage; deployment precedence and load order should be confirmed when needed.</li>
+</ul>
+<h2 id="suggested-next-deep-dive-areas">Suggested Next Deep-Dive Areas</h2>
+<p>When needed, expand this document with:</p>
+<ul>
+<li>detailed <code>platform_data/database</code> schema and lifecycle</li>
+<li>precise app loading/manifest precedence rules (folder vs zip)</li>
+<li>workflow runtime internals (<code>wfOps</code>, script cache, workflow proxy)</li>
+<li>explicit message schemas for pubsub channels used by <code>kilroy.ui</code> and <code>kilroy.ai.services</code></li>
+<li>security model for temporary/server auth flows used by first-run/dashboard</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
