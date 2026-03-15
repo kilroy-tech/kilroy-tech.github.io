@@ -40,6 +40,12 @@ For example: `"instances/a3d8f1b2/memories"`. Using the pipeline UID in the path
 data isolated from other pipelines. The `memory_id` also serves as the default `scope` value for writes
 if no explicit `scope` is specified.
 
+> **Pipeline bundle note:** In a pipeline bundle, use the substitution token form
+> `"instances/${pipeline_uid}/memories"` rather than a literal UID. The token is replaced with the real
+> pipeline UID at deploy time, ensuring each deployed instance has its own isolated memory store. The
+> literal UID form (e.g. `"instances/a3d8f1b2/memories"`) is appropriate only when referencing a
+> specific pre-existing store by design.
+
 ### Dispatch Pattern
 
 A common pipeline design is to intercept slash-commands from a chat agent using `regex_match` relay agents,

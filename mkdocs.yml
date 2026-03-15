@@ -10,6 +10,7 @@ nav:
       - Introduction: getting-started/introduction.md
       - Quick Start: getting-started/quick-start.md
       - Installation: getting-started/installation.md
+      - Working with Windows: getting-started/working-with-windows.md
   - Tutorials:
       - Tutorial 1: tutorials/tutorial1.md
       - Tutorial 2: tutorials/tutorial2.md
@@ -18,6 +19,7 @@ nav:
       - Creating Apps: developers/apps.md
       - Adding WF_Agent Webhooks: developers/adding_wf_agents.md
       - Memory Agent Blocks: developers/memory_agents.md
+      - Implementing the Stop Button: developers/widget-window-stop.md
   - FAQ: faq.md
   - 'About the Kilroy Project': 
       - About: about/about.md
