@@ -150,6 +150,7 @@ A JSON string published back to the output swarm:
 | `kind` | string | Optional | — | If set, returns only records with this kind |
 | `scope` | string | Optional | — | If set, returns only records with this scope |
 | `source` | string | Optional | — | If set, returns only records with this source label |
+| `output_template` | string | Optional | — | When set, switches output to `text/plain`. Applied to each record; results are concatenated. Tokens: `{{content}}`, `{{kind}}`, `{{scope}}`, `{{guid}}`, `{{source}}`, `{{tags}}`. Omit to receive the default JSON array. |
 
 ### Example wf_webhook_args JSON
 
@@ -168,9 +169,15 @@ To filter to summaries only:
 }
 ```
 
----
+To load all `soul` records as plain text directly into `set_prompts`:
 
-## memory_search
+```json
+{
+  "memory_id": "instances/a3d8f1b2/cognitive",
+  "kind": "soul",
+  "output_template": "{{content}}\n\n"
+}
+```
 
 ### Description
 
@@ -205,6 +212,8 @@ A JSON string published back to the output swarm:
 | Success (no matches) | `[]` (empty array) |
 | Failure | `{ "error": "<message>" }` |
 
+When `output_template` is set, a plain-text string is published instead (see below).
+
 ### wf_webhook_args
 
 | Key | Type | Required | Default | Description |
@@ -213,6 +222,7 @@ A JSON string published back to the output swarm:
 | `kind` | string | Optional | — | Post-FTS filter: include only records of this kind |
 | `scope` | string | Optional | — | Post-FTS filter: include only records with this scope |
 | `tags` | string | Optional | — | Post-FTS filter: JSON array string or comma-separated tag list; all tags must be present (AND semantics). e.g. `'["important","fact"]'` or `"important,fact"` |
+| `output_template` | string | Optional | — | When set, switches output to `text/plain`. Applied to each result record in relevance order; results are concatenated. Tokens: `{{content}}`, `{{kind}}`, `{{scope}}`, `{{guid}}`, `{{source}}`, `{{tags}}`. Omit to receive the default JSON array. |
 
 ### Example wf_webhook_args JSON
 
@@ -304,7 +314,78 @@ To use the dispatch pattern (user provides guid at runtime via `/delete <guid>`)
 
 ---
 
-## Building a Memory Pipeline
+## memory_append
+
+### Description
+
+Appends text to an existing memory record's content, identified by `guid` or by `scope`+`kind`+`source`
+lookup. If no matching record is found, a new record is created (same behavior as `memory_write`).
+Always returns a `{ guid }` so the caller can retain it for future append calls.
+
+### Use Case
+
+Use `memory_append` to accumulate growing content into a single record without a read–modify–write cycle.
+Typical patterns:
+
+- A session observation sink appends each AI response to a running `kind: "session_log"` record.
+- A pipeline step that receives a guid from a prior `memory_write` call appends follow-up content to
+  the same record by passing the guid downstream.
+
+### Lookup Priority
+
+1. If `targs.guid` is non-empty — append to that specific record. If the guid is not found, fall through.
+2. If `targs.scope` and/or `targs.kind` are set — find the first matching record and append to it.
+   If no match, create a new record.
+3. If neither guid nor scope/kind are set — create a new record (same as `memory_write`).
+
+### Input from Swarm
+
+| Field | Required | Description |
+|---|---|---|
+| `args[0].text` | **Required** | Text to append (or full content for a new record) |
+
+### Output to Swarm
+
+A JSON string published back to the output swarm:
+
+| Condition | Response |
+|---|---|
+| Appended to existing record | `{ "guid": "<uuid>", "appended": true }` |
+| Created new record | `{ "guid": "<uuid>", "created": true }` |
+| No content in `args[0].text` | `{ "error": "no content" }` |
+| Failure | `{ "error": "<message>" }` |
+
+### wf_webhook_args
+
+| Key | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `memory_id` | string | **Required** | — | Memory store path |
+| `guid` | string | Optional | — | GUID of the record to append to. If empty or not found, falls back to scope+kind lookup. |
+| `scope` | string | Optional | `memory_id` value | Scope for lookup fallback and new-record creation |
+| `kind` | string | Optional | `"observation"` | Kind for lookup fallback and new-record creation |
+| `source` | string | Optional | Agent name | Source label for lookup fallback and new-record creation |
+| `tags` | string | Optional | `"[]"` | JSON array string of tags for new-record creation only |
+
+### Example wf_webhook_args JSON
+
+Append to a record identified by guid (guid may be populated dynamically):
+
+```json
+{
+  "memory_id": "instances/a3d8f1b2/cognitive",
+  "guid": ""
+}
+```
+
+Append to or create a `session_log` record by scope+kind lookup:
+
+```json
+{
+  "memory_id": "instances/a3d8f1b2/cognitive",
+  "scope": "instances/a3d8f1b2/cognitive",
+  "kind": "session_log"
+}
+```
 
 A complete slash-command memory pipeline wires the four memory blocks together with `regex_match` dispatch
 agents. The general pattern is:
