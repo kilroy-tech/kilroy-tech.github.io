@@ -40,4 +40,22 @@ installer directly.
 
 ## Running for the First Time
 
+When Kilroy opens for the first time, start by learning the dashboard and its widget windows.
+
+1. Open the main dashboard.
+2. Start one bundled app.
+3. Click inside the widget window to bring it to the front.
+4. Resize, tile, or stack windows as needed.
+5. Use the installed apps area and app store to expand your workspace.
+
+If the floating-window behavior is new to you, read [Working with Windows](working-with-windows.md) and [UI Basics](ui-basics.md) next.
+
 ## Installing Apps
+
+Kilroy can install additional apps from the Kilroy app store.
+
+- The store catalog is published online and exposed through the bundled `kilroy.appstore` app.
+- When you install an app, Kilroy downloads the app package into the local apps directory.
+- Installed apps live alongside bundled apps in Kilroy's platform data apps folder.
+
+For a short guide to bundled apps and the app store flow, see [Bundled Apps](../apps/bundled-apps.md).

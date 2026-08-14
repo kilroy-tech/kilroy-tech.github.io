@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "mkdocs serve",
-    "build": "mkdocs build"
+    "build": "mkdocs build",
+    "build:full": "mkdocs build -f mkdocs.yml",
+    "build:inapp": "node scripts/build-kilroy-docs.mjs"
   },
   "repository": {
     "type": "git",

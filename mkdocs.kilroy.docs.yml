@@ -1,0 +1,56 @@
+site_name: kilroy.docs
+site_url: "https://docs.kilroy.tech/apps/kilroy.docs/"
+use_directory_urls: false
+
+nav:
+  - Home: index.md
+  - UI Basics: getting-started/ui-basics.md
+  - Working with Windows: getting-started/working-with-windows.md
+  - Bundled Apps: apps/bundled-apps.md
+  - Files and Settings: getting-started/files-and-settings.md
+  - Introduction: getting-started/introduction.md
+  - FAQ: faq.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+
+theme:
+  name: material
+  features:
+    - navigation.footer
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
+    - search.highlight
+    - search.share
+    - search.suggest
+    - content.code.copy
+
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+  logo: assets/kilroy.svg
+
+extra_javascript:
+  - assets/javascripts/kilroy-docs-widget.js
+
+plugins:
+  - offline
+  - search
+  - glightbox
