@@ -1,0 +1,3387 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.kilroy.tech/developers/wfproxy-api-reference.html">
+      
+      
+        <link rel="prev" href="widget-window-stop.html">
+      
+      
+        <link rel="next" href="wf-operations-reference.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>wfProxy API Reference - Kilroy Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#wfproxy-api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Kilroy Documentation" class="md-header__button md-logo" aria-label="Kilroy Documentation" data-md-component="logo">
+      
+  <img src="../assets/kilroy.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kilroy Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              wfProxy API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to system preference" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kilroy-tech/kilroy-tech.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/introduction.html" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tutorials/tutorial1.md" class="md-tabs__link">
+          
+  
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="technical.html" class="md-tabs__link">
+          
+  
+  
+  Developers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../about/about.html" class="md-tabs__link">
+          
+  
+  
+  About the Kilroy Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Kilroy Documentation" class="md-nav__button md-logo" aria-label="Kilroy Documentation" data-md-component="logo">
+      
+  <img src="../assets/kilroy.svg" alt="logo">
+
+    </a>
+    Kilroy Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kilroy-tech/kilroy-tech.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quick-start.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/working-with-windows.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Working with Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial1.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial2.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="technical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adding_wf_agents.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding WF_Agent Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="memory_agents.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory Agent Blocks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="widget-window-stop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementing the Stop Button
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    wfProxy API Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="wfproxy-api-reference.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    wfProxy API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#obtaining-a-wfproxy-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obtaining a wfProxy instance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-value-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global value access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global value access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getglobalvaluekey" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getGlobalValue(key)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getglobalvaluesbypatternpattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getGlobalValuesByPattern(pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setglobalvaluekey-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        setGlobalValue(key, value)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlastuserid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getLastUserId()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variable-substitution-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable substitution helpers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable substitution helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supplantobjectwithvariablesobj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        supplantObjectWithVariables(obj)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supplantstringwithvariablesstr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        supplantStringWithVariables(str)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertglobalsinstringsrcstr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        insertGlobalsInString(srcStr)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asset-global-context-deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset global context (deprecated)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-identity-and-parent-process-diagram-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow identity and parent process diagram info
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow identity and parent process diagram info">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getId()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getwfversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getWfVersion()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getparentappid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getParentAppID()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getparentowner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getParentOwner()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getparentdiagramid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getParentDiagramID()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getparentdiagramownerauthdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getParentDiagramOwner(authData)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-path-priority-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow path / priority helpers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow path / priority helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getpathsuccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getPath(success)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#app-settings-and-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        App settings and installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="App settings and installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadappsettingsauthdata-app_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadAppSettings(authData, app_id)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saveappsettingsauthdata-app_id-appsettings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        saveAppSettings(authData, app_id, appSettings)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installappauthdata-appname-zdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InstallApp(authData, appName, zdata)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getserversettingsauthdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getServerSettings(authData)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-tool-catalog-and-session-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI tool catalog and session management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AI tool catalog and session management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resolveaitoolconfigauthdata-aiargs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resolveAiToolConfig(authData, aiArgs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalidateaitoolcatalogreason" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalidateAiToolCatalog(reason)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getaitoolcatalogstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getAiToolCatalogStatus()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listaisessionscopesargs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        listAiSessionScopes(args)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resetaisessionscopeargs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resetAiSessionScope(args)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-block-invocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server block invocation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Server block invocation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#callserverblockauthdata-wfopsname-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CallServerBlock(authData, wfopsName, params)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadfilepath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadFile(path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Debugging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debugenableenablestr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        debugEnable(enableStr)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#form-generation-wfproxyformgen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Form generation (wfProxy.formGen)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Form generation (wfProxy.formGen)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-a-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building a form
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Form
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Field types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#textfieldname-label-placeholder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TextField(name, label, placeholder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textareaname-label-placeholder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TextArea(name, label, placeholder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeatingtextfieldname-label-placeholder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RepeatingTextField(name, label, placeholder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkboxname-label-placeholder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CheckBox(name, label, placeholder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropdownname-label-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dropdown(name, label, pairs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radiobuttonname-label-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RadioButton(name, label, pairs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doubleradiobuttonname-leftlabel-rightlabel-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DoubleRadioButton(name, leftLabel, rightLabel, pairs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#htmlfieldname-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HtmlField(name, html)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utils
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#utilsmaxdiffbasename-title-instructions-leftheader-rightheader-alternatives-altperq-viewsperalt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utils.MaxDiff(baseName, title, instructions, leftHeader, rightHeader, alternatives, altPerQ, viewsPerAlt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilsmaxdiffscorequestions-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utils.MaxDiffScore(questions, answers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilstest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utils.Test()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-path-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow path constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-variable-name-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global variable name constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wf-operations-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Operations Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About the Kilroy Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About the Kilroy Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/about.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/philosophy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Philosophy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/team.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/contact.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#obtaining-a-wfproxy-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obtaining a wfProxy instance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-value-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global value access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global value access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getglobalvaluekey" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getGlobalValue(key)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getglobalvaluesbypatternpattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getGlobalValuesByPattern(pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setglobalvaluekey-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        setGlobalValue(key, value)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlastuserid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getLastUserId()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variable-substitution-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable substitution helpers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable substitution helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supplantobjectwithvariablesobj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        supplantObjectWithVariables(obj)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supplantstringwithvariablesstr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        supplantStringWithVariables(str)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertglobalsinstringsrcstr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        insertGlobalsInString(srcStr)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asset-global-context-deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asset global context (deprecated)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-identity-and-parent-process-diagram-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow identity and parent process diagram info
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow identity and parent process diagram info">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getId()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getwfversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getWfVersion()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getparentappid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getParentAppID()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getparentowner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getParentOwner()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getparentdiagramid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getParentDiagramID()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getparentdiagramownerauthdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getParentDiagramOwner(authData)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-path-priority-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow path / priority helpers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow path / priority helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getpathsuccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getPath(success)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#app-settings-and-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        App settings and installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="App settings and installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadappsettingsauthdata-app_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadAppSettings(authData, app_id)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saveappsettingsauthdata-app_id-appsettings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        saveAppSettings(authData, app_id, appSettings)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installappauthdata-appname-zdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InstallApp(authData, appName, zdata)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getserversettingsauthdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getServerSettings(authData)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-tool-catalog-and-session-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI tool catalog and session management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AI tool catalog and session management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resolveaitoolconfigauthdata-aiargs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resolveAiToolConfig(authData, aiArgs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalidateaitoolcatalogreason" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalidateAiToolCatalog(reason)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getaitoolcatalogstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getAiToolCatalogStatus()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#listaisessionscopesargs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        listAiSessionScopes(args)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resetaisessionscopeargs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resetAiSessionScope(args)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-block-invocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server block invocation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Server block invocation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#callserverblockauthdata-wfopsname-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CallServerBlock(authData, wfopsName, params)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadfilepath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadFile(path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Debugging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debugenableenablestr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        debugEnable(enableStr)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#form-generation-wfproxyformgen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Form generation (wfProxy.formGen)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Form generation (wfProxy.formGen)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-a-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building a form
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Form
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Field types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#textfieldname-label-placeholder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TextField(name, label, placeholder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textareaname-label-placeholder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TextArea(name, label, placeholder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeatingtextfieldname-label-placeholder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RepeatingTextField(name, label, placeholder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkboxname-label-placeholder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CheckBox(name, label, placeholder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropdownname-label-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dropdown(name, label, pairs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radiobuttonname-label-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RadioButton(name, label, pairs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doubleradiobuttonname-leftlabel-rightlabel-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DoubleRadioButton(name, leftLabel, rightLabel, pairs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#htmlfieldname-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HtmlField(name, html)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utils
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#utilsmaxdiffbasename-title-instructions-leftheader-rightheader-alternatives-altperq-viewsperalt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utils.MaxDiff(baseName, title, instructions, leftHeader, rightHeader, alternatives, altPerQ, viewsPerAlt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilsmaxdiffscorequestions-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utils.MaxDiffScore(questions, answers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilstest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utils.Test()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-path-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow path constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-variable-name-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global variable name constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kilroy-tech/kilroy-tech.github.io/edit/main/docs/developers/wfproxy-api-reference.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="wfproxy-api-reference">wfProxy API Reference</h1>
+<p><code>wfProxy</code> is the object passed into every workflow <code>script.js</code> hook
+(<code>preflight</code>, <code>begin</code>, <code>end</code>, <code>postflight</code>, <code>terminate</code>, etc.). It exposes a
+stable, safe set of functions and constants that workflow authors can rely
+on, without exposing any internal platform details.</p>
+<p>This page documents every function and constant available on <code>wfProxy</code>.
+Only the functions and constants listed here are part of the public
+<code>wfProxy</code> contract — anything not documented on this page should be
+considered unsupported and must not be relied on by workflow scripts.</p>
+<h2 id="obtaining-a-wfproxy-instance">Obtaining a wfProxy instance</h2>
+<p>Workflow scripts never construct <code>wfProxy</code> themselves. The Kilroy workflow
+runtime creates one automatically and passes it into your <code>script.js</code> hook
+functions as an argument, for example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">preflight</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="c1">// use wfProxy here</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>You do not need to do anything to obtain or initialize <code>wfProxy</code> — just
+declare it as a parameter of your hook function and use it.</p>
+<hr>
+<h2 id="global-value-access">Global value access</h2>
+<p>These functions read and write the workflow's <strong>global context</strong> — the
+key/value store of variables (<code>workflowGlobals</code>) that is shared across all
+steps of a running workflow instance, and can be referenced in JSON/XML
+blocks via <code>${key}</code> template substitution.</p>
+<h3 id="getglobalvaluekey"><code>getGlobalValue(key)</code></h3>
+<p>Get a single value from the workflow's global context.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>key</code> (<code>string</code>) — the name of the global variable to read.</li>
+<li><strong>Returns</strong></li>
+<li><code>*</code> — the current value stored under <code>key</code>, or <code>undefined</code> if it has never been set.</li>
+<li><strong>Purpose</strong>: primary way for a script to read a value previously set by a JSON block, a prior workflow step, or another <code>setGlobalValue</code> call.</li>
+</ul>
+<h3 id="getglobalvaluesbypatternpattern"><code>getGlobalValuesByPattern(pattern)</code></h3>
+<p>Get all global context entries whose key matches a regular expression.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>pattern</code> (<code>RegExp</code>) — pattern tested against every key in the global context.</li>
+<li><strong>Returns</strong></li>
+<li><code>Array&lt;{key: string, value: *}&gt;</code> — every matching key/value pair.</li>
+<li><strong>Purpose</strong>: useful when a script needs to enumerate a family of related globals (for example, all keys with a common prefix) without knowing every exact key name in advance.</li>
+</ul>
+<h3 id="setglobalvaluekey-value"><code>setGlobalValue(key, value)</code></h3>
+<p>Set a single value in the workflow's global context.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>key</code> (<code>string</code>) — the name of the global variable to write.</li>
+<li><code>value</code> (<code>*</code>) — the value to store.</li>
+<li><strong>Returns</strong></li>
+<li><code>*</code> — the same <code>value</code> that was passed in.</li>
+<li><strong>Purpose</strong>: the standard way scripts communicate data between hooks (<code>preflight</code> → <code>postflight</code>) and to downstream JSON/XML blocks via <code>${key}</code> substitution. Values set with <code>setGlobalValue</code> are automatically persisted for the rest of the workflow's execution.</li>
+</ul>
+<h3 id="getlastuserid"><code>getLastUserId()</code></h3>
+<p>Get the user ID of the current/most-recent workflow user, stored under the well-known global key <code>wfCurrentUserId</code>.</p>
+<ul>
+<li><strong>Parameters</strong>: none.</li>
+<li><strong>Returns</strong></li>
+<li><code>string|undefined</code> — the user GUID, or <code>undefined</code> if not set.</li>
+<li><strong>Purpose</strong>: convenience accessor equivalent to <code>getGlobalValue("wfCurrentUserId")</code>.</li>
+</ul>
+<hr>
+<h2 id="variable-substitution-helpers">Variable substitution helpers</h2>
+<h3 id="supplantobjectwithvariablesobj"><code>supplantObjectWithVariables(obj)</code></h3>
+<p>Recursively substitute <code>${key}</code> style variable references throughout an object using the current global context.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>obj</code> (<code>Object</code>) — the object to scan and update in place / return a substituted copy of.</li>
+<li><strong>Returns</strong></li>
+<li><code>Object</code> — the object with all <code>${key}</code> references replaced by their global-context values.</li>
+<li><strong>Purpose</strong>: lets a script take a template object (for example, arguments received from a JSON block) and resolve any variable placeholders against the workflow's current globals.</li>
+</ul>
+<h3 id="supplantstringwithvariablesstr"><code>supplantStringWithVariables(str)</code></h3>
+<p>Substitute <code>${key}</code> style variable references in a single string using the current global context.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>str</code> (<code>string</code>) — the string containing <code>${key}</code> placeholders.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — the string with all placeholders replaced by their global-context values.</li>
+</ul>
+<h3 id="insertglobalsinstringsrcstr"><code>insertGlobalsInString(srcStr)</code></h3>
+<p>Substitute <code>{key}</code> style variable references (brace-only, no <code>$</code>) in a string using the current global context.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>srcStr</code> (<code>string</code>) — the string containing <code>{key}</code> placeholders.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — the string with all placeholders replaced.</li>
+<li><strong>Purpose</strong>: similar to <code>supplantStringWithVariables</code>, but for the alternate <code>{key}</code> notation used in some legacy templates.</li>
+</ul>
+<hr>
+<h2 id="asset-global-context-deprecated">Asset global context (deprecated)</h2>
+<p><code>wfProxy</code> exposes a set of functions for reading and writing a persistent
+"asset context" store. <strong>This functionality is deprecated and should not be
+used in new workflows.</strong> It is documented here only so that existing
+references to it are recognized; do not build new functionality on it.</p>
+<hr>
+<h2 id="workflow-identity-and-parent-process-diagram-info">Workflow identity and parent process diagram info</h2>
+<h3 id="getid"><code>getId()</code></h3>
+<p>Get the ID of the currently running workflow instance.</p>
+<ul>
+<li><strong>Parameters</strong>: none.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — the workflow instance ID.</li>
+</ul>
+<h3 id="getwfversion"><code>getWfVersion()</code></h3>
+<p>Get the version of the currently running workflow.</p>
+<ul>
+<li><strong>Parameters</strong>: none.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — the workflow's version string.</li>
+</ul>
+<h3 id="getparentappid"><code>getParentAppID()</code></h3>
+<p>Get the app ID of the process diagram that launched/owns this workflow.</p>
+<ul>
+<li><strong>Parameters</strong>: none.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — the parent process diagram's app ID, or <code>""</code> if unavailable.</li>
+</ul>
+<h3 id="getparentowner"><code>getParentOwner()</code></h3>
+<p>Get the user ID of the user who launched the parent process diagram.</p>
+<ul>
+<li><strong>Parameters</strong>: none.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — the owning user's GUID, or <code>""</code> if unavailable.</li>
+</ul>
+<h3 id="getparentdiagramid"><code>getParentDiagramID()</code></h3>
+<p>Get the process diagram ID (PD instance ID) of the parent process diagram.</p>
+<ul>
+<li><strong>Parameters</strong>: none.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — the parent process diagram's ID, or <code>""</code> if unavailable.</li>
+</ul>
+<h3 id="getparentdiagramownerauthdata"><code>getParentDiagramOwner(authData)</code></h3>
+<p>Look up the user ID of the parent process diagram's owner. Unlike
+<code>getParentOwner</code>, which returns a value already available on the workflow,
+this function performs an asynchronous ownership lookup and should be used
+when you need the most current owner information.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>authData</code> (<code>Object</code>) — Kilroy auth data for the current user/platform.</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;string&gt;</code> — resolves to the owning user's GUID, or <code>""</code> if the diagram ID is unavailable or no owner can be found.</li>
+</ul>
+<hr>
+<h2 id="workflow-path-priority-helpers">Workflow path / priority helpers</h2>
+<h3 id="getpathsuccess"><code>getPath(success)</code></h3>
+<p>Translate a boolean success/fail result into the workflow path enum value
+expected by the workflow engine's step-result contract.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>success</code> (<code>boolean|undefined</code>) — <code>true</code> for success, <code>false</code> for failure, or <code>undefined</code>/<code>null</code> to stay on the current step.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — one of <code>PATH_SUCCESS</code>, <code>PATH_FAILURE</code>, or <code>PATH_STAY</code> (see <a href="#constants">Constants</a> below).</li>
+</ul>
+<hr>
+<h2 id="app-settings-and-installation">App settings and installation</h2>
+<h3 id="loadappsettingsauthdata-app_id"><code>loadAppSettings(authData, app_id)</code></h3>
+<p>Load the persisted settings object for an installed app.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>authData</code> (<code>Object</code>) — Kilroy auth data for the current user/platform.</li>
+<li><code>app_id</code> (<code>string</code>) — the app's identifier.</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;Object&gt;</code> — resolves to the app's settings object.</li>
+</ul>
+<h3 id="saveappsettingsauthdata-app_id-appsettings"><code>saveAppSettings(authData, app_id, appSettings)</code></h3>
+<p>Persist a settings object for an installed app.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>authData</code> (<code>Object</code>) — Kilroy auth data for the current user/platform.</li>
+<li><code>app_id</code> (<code>string</code>) — the app's identifier.</li>
+<li><code>appSettings</code> (<code>Object</code>) — the settings object to save.</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;*&gt;</code> — resolves with the result of the save operation.</li>
+</ul>
+<h3 id="installappauthdata-appname-zdata"><code>InstallApp(authData, appName, zdata)</code></h3>
+<p>Install a Kilroy app from a binary zip buffer.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>authData</code> (<code>Object</code>) — Kilroy auth data for the current user/platform.</li>
+<li><code>appName</code> (<code>string</code>) — the name to install the app under.</li>
+<li><code>zdata</code> (<code>Buffer</code>) — the app's zip archive contents as a binary buffer.</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;Object&gt;</code> — resolves with the result of the install operation.</li>
+</ul>
+<h3 id="getserversettingsauthdata"><code>getServerSettings(authData)</code></h3>
+<p>Load the Kilroy server's own settings (<code>server_name</code>, <code>server_guid</code>,
+<code>wallet_address</code>, <code>username</code>, etc.) for use in workflow scripts.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>authData</code> (<code>Object</code>) — Kilroy auth data for the current user/platform.</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;Object&gt;</code> — resolves to the server settings object.</li>
+<li><strong>Purpose</strong>: the preferred way for a workflow to read current server identity values.</li>
+</ul>
+<hr>
+<h2 id="ai-tool-catalog-and-session-management">AI tool catalog and session management</h2>
+<h3 id="resolveaitoolconfigauthdata-aiargs"><code>resolveAiToolConfig(authData, aiArgs)</code></h3>
+<p>Resolve an app's configured AI tool catalog/instances into the runtime tool
+configuration used by the AI agent.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>authData</code> (<code>Object</code>) — Kilroy auth data for the current user/platform.</li>
+<li><code>aiArgs</code> (<code>Object</code>) — the <code>ai_args</code> configuration object (tool selection, <code>tool_instances</code>, etc.).</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;Object&gt;</code> — resolves to the resolved tool configuration.</li>
+</ul>
+<h3 id="invalidateaitoolcatalogreason"><code>invalidateAiToolCatalog(reason)</code></h3>
+<p>Force the cached AI tool catalog to be rebuilt on next use.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>reason</code> (<code>string</code>) — a short human-readable reason, used for logging/diagnostics. Optional.</li>
+<li><strong>Returns</strong></li>
+<li><code>*</code> — the result of the invalidation request.</li>
+</ul>
+<h3 id="getaitoolcatalogstatus"><code>getAiToolCatalogStatus()</code></h3>
+<p>Get diagnostic status information about the current AI tool catalog cache.</p>
+<ul>
+<li><strong>Parameters</strong>: none.</li>
+<li><strong>Returns</strong></li>
+<li><code>Object</code> — status/diagnostic information about the tool catalog.</li>
+</ul>
+<h3 id="listaisessionscopesargs"><code>listAiSessionScopes(args)</code></h3>
+<p>List persisted AI session scopes for an app.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>args</code> (<code>Object</code>) — identifies which app's session scopes to list, including a session scope ID, a session scope namespace, and an app alias (defaults to <code>"kilroy.ai"</code> if not provided).</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;{success: boolean, args?: Object, error?: string}&gt;</code> — resolves with the list of persisted session scopes, or a failure/error result if session scopes cannot be retrieved.</li>
+</ul>
+<h3 id="resetaisessionscopeargs"><code>resetAiSessionScope(args)</code></h3>
+<p>Reset (clear) a persisted AI session scope.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>args</code> (<code>Object</code>) — same shape as <code>listAiSessionScopes</code>, identifying the session scope to reset.</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;{success: boolean, args?: Object, error?: string}&gt;</code> — resolves with the result of the reset operation, or a failure/error result if the session scope cannot be reset.</li>
+</ul>
+<hr>
+<h2 id="server-block-invocation">Server block invocation</h2>
+<h3 id="callserverblockauthdata-wfopsname-params"><code>CallServerBlock(authData, wfopsName, params)</code></h3>
+<p><code>CallServerBlock</code> is the primary mechanism for calling additional Kilroy
+functionality from JavaScript that is otherwise only exposed as a Blockly
+block in the workflow editor. Any Blockly block that has a corresponding
+server-side workflow operation can be invoked this way: construct a
+<code>params</code> object equivalent to that block's Blockly arguments, then call the
+operation by its workflow-operation name (the same name that appears as the
+operation in a workflow's generated JSON output).</p>
+<p>This lets a script perform the same action a JSON/XML block would (for
+example, swarm commands, order operations) but decide dynamically, in code,
+when and how to invoke it — including passing computed values as arguments
+and handling the result programmatically.</p>
+<p>See the <a href="wf-operations-reference.html">Workflow Operations Reference</a> for the
+catalog of available <code>wfopsName</code> values and the <code>params</code> each one expects.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>authData</code> (<code>Object</code>) — Kilroy auth data for the current user/platform.</li>
+<li><code>wfopsName</code> (<code>string</code>) — the workflow-operation name of the block to call, matching the <code>operation</code> value used for that block in a workflow's JSON definition. See the <a href="wf-operations-reference.html">Workflow Operations Reference</a> for the full list of supported values.</li>
+<li><code>params</code> (<code>Object</code>) — the arguments for the operation, matching the same argument names the equivalent Blockly block would use. See the <a href="wf-operations-reference.html">Workflow Operations Reference</a> for the expected parameters of each operation.</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;Object&gt;</code> — resolves with the operation's result object. If the named operation cannot be found, resolves with <code>{success: false, errors: {exception: true, msg: "block run script not found"}}</code>. If the operation throws, resolves with <code>{success: false, errors: {exception: true, msg: "Internal Error"}}</code>.</li>
+</ul>
+<hr>
+<h2 id="file-access">File access</h2>
+<h3 id="loadfilepath"><code>loadFile(path)</code></h3>
+<p>Read the contents of a text file from disk.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>path</code> (<code>string</code>) — filesystem path to the file to read.</li>
+<li><strong>Returns</strong></li>
+<li><code>string</code> — the file's contents as UTF-8 text, or <code>""</code> if the file could not be read.</li>
+<li><strong>Purpose</strong>: general-purpose file loader used by scripts. This function is <strong>not currently sandboxed</strong> — callers are responsible for only passing trusted, expected paths.</li>
+</ul>
+<hr>
+<h2 id="debugging">Debugging</h2>
+<h3 id="debugenableenablestr"><code>debugEnable(enableStr)</code></h3>
+<p>Enable Node.js <code>debug</code> module namespaces at runtime, equivalent to setting
+the <code>DEBUG</code> environment variable dynamically.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>enableStr</code> (<code>string</code>) — a <code>debug</code>-style namespace pattern (for example, <code>"myapp:*"</code>).</li>
+<li><strong>Returns</strong></li>
+<li><code>Error|null</code> — <code>null</code> on success, or the caught error object if enabling debug output failed.</li>
+</ul>
+<hr>
+<h2 id="form-generation-wfproxyformgen">Form generation (<code>wfProxy.formGen</code>)</h2>
+<p><code>wfProxy.formGen</code> is a sub-namespace on the proxy that provides a small
+toolkit of classes for building dynamic, structured form definitions in
+code. It is most useful in a workflow's form-related hook (for example, a
+<code>begin</code> hook) when the fields, labels, or choices in a form need to be
+computed at runtime rather than authored as a static form definition.</p>
+<p>A form definition built with <code>formGen</code> is a nested structure:</p>
+<ul>
+<li>a <strong>Form</strong> contains one or more <strong>Panels</strong> (pages of the form)</li>
+<li>a <strong>Panel</strong> contains one or more <strong>Sections</strong></li>
+<li>a <strong>Section</strong> contains one or more <strong>Fields</strong></li>
+</ul>
+<p>Each class exposes a <code>.value</code> property that returns the plain
+JSON-serializable object for that piece of the form. Only the outermost
+<code>Form.value</code> needs to be returned to the workflow runtime — it already
+contains the full nested structure of panels, sections, and fields.</p>
+<h3 id="building-a-form">Building a form</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">begin</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">,</span><span class="w"> </span><span class="nx">step</span><span class="p">,</span><span class="w"> </span><span class="nx">theForm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Form</span><span class="p">,</span><span class="w"> </span><span class="nx">Panel</span><span class="p">,</span><span class="w"> </span><span class="nx">Section</span><span class="p">,</span><span class="w"> </span><span class="nx">TextField</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">formGen</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Form</span><span class="p">(</span><span class="s2">"survey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quick Survey"</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">panel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Panel</span><span class="p">(</span><span class="s2">"Page 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Please answer the following:"</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Section</span><span class="p">();</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_color"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite color"</span><span class="p">));</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_food"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite food"</span><span class="p">));</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nx">panel</span><span class="p">.</span><span class="nx">addSection</span><span class="p">(</span><span class="nx">section</span><span class="p">);</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nx">form</span><span class="p">.</span><span class="nx">addPanel</span><span class="p">(</span><span class="nx">panel</span><span class="p">);</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">PATH_SUCCESS</span><span class="p">,</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">        </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="form"><code>Form</code></h3>
+<p>Represents the top-level form definition.</p>
+<ul>
+<li><strong><code>new Form(name, description)</code></strong></li>
+<li><code>name</code> (<code>string</code>, optional) — internal form name.</li>
+<li><code>description</code> (<code>string</code>, optional) — form description.</li>
+<li><strong><code>addPanel(panel)</code></strong></li>
+<li><code>panel</code> (<code>Panel</code> instance or plain object) — a panel to append to the form.</li>
+<li>Returns the <code>Form</code> instance, so calls can be chained.</li>
+<li><strong><code>value</code></strong> (property) — returns the plain object representation of the form, including all panels/sections/fields added so far. This is the object you return to the workflow runtime as the form definition.</li>
+</ul>
+<h3 id="panel"><code>Panel</code></h3>
+<p>Represents one page/panel of a form.</p>
+<ul>
+<li><strong><code>new Panel(name, description)</code></strong></li>
+<li><code>name</code> (<code>string</code>, optional) — panel name, typically shown as a page title.</li>
+<li><code>description</code> (<code>string</code>, optional) — panel description/instructions.</li>
+<li><strong><code>addSection(section)</code></strong></li>
+<li><code>section</code> (<code>Section</code> instance or plain object) — a section to append to the panel.</li>
+<li>Returns the <code>Panel</code> instance, so calls can be chained.</li>
+<li><strong><code>value</code></strong> (property) — returns the plain object representation of the panel.</li>
+</ul>
+<h3 id="section"><code>Section</code></h3>
+<p>Represents a grouping of fields within a panel.</p>
+<ul>
+<li><strong><code>new Section()</code></strong> — takes no arguments.</li>
+<li><strong><code>addField(field)</code></strong></li>
+<li><code>field</code> (a field instance such as <code>TextField</code>, <code>Dropdown</code>, etc., or a plain object) — a field to append to the section.</li>
+<li>Returns the <code>Section</code> instance, so calls can be chained.</li>
+<li><strong><code>value</code></strong> (property) — returns the plain object representation of the section.</li>
+</ul>
+<h3 id="field-types">Field types</h3>
+<p>Each field type below is constructed with a field <code>name</code> (used as the key
+under which the user's answer is returned) plus additional type-specific
+parameters, and is added to a <code>Section</code> with <code>addField</code>.</p>
+<h4 id="textfieldname-label-placeholder"><code>TextField(name, label, placeholder)</code></h4>
+<p>A single-line text input.</p>
+<ul>
+<li><code>name</code> (<code>string</code>) — field name/key.</li>
+<li><code>label</code> (<code>string</code>, optional) — label displayed to the user.</li>
+<li><code>placeholder</code> (<code>string</code>, optional) — placeholder text shown in the empty input.</li>
+</ul>
+<h4 id="textareaname-label-placeholder"><code>TextArea(name, label, placeholder)</code></h4>
+<p>A multi-line text input. Same parameters as <code>TextField</code>.</p>
+<h4 id="repeatingtextfieldname-label-placeholder"><code>RepeatingTextField(name, label, placeholder)</code></h4>
+<p>A text input that allows the user to add multiple repeated text entries.
+Same parameters as <code>TextField</code>.</p>
+<h4 id="checkboxname-label-placeholder"><code>CheckBox(name, label, placeholder)</code></h4>
+<p>A single checkbox field. Same parameters as <code>TextField</code>.</p>
+<h4 id="dropdownname-label-pairs"><code>Dropdown(name, label, pairs)</code></h4>
+<p>A dropdown/select field.</p>
+<ul>
+<li><code>name</code> (<code>string</code>) — field name/key.</li>
+<li><code>label</code> (<code>string</code>, optional) — label displayed to the user.</li>
+<li><code>pairs</code> (<code>Array&lt;{name: string, value: string}&gt;</code>, optional) — the list of selectable options, where <code>name</code> is the label shown to the user and <code>value</code> is what gets returned when that option is chosen.</li>
+</ul>
+<h4 id="radiobuttonname-label-pairs"><code>RadioButton(name, label, pairs)</code></h4>
+<p>A single-select radio button group. Same parameters as <code>Dropdown</code>.</p>
+<h4 id="doubleradiobuttonname-leftlabel-rightlabel-pairs"><code>DoubleRadioButton(name, leftLabel, rightLabel, pairs)</code></h4>
+<p>A paired left/right radio button scale, useful for "this vs. that"
+comparison questions.</p>
+<ul>
+<li><code>name</code> (<code>string</code>) — field name/key.</li>
+<li><code>leftLabel</code> (<code>string</code>, optional) — label shown on the left side of the scale.</li>
+<li><code>rightLabel</code> (<code>string</code>, optional) — label shown on the right side of the scale.</li>
+<li><code>pairs</code> (<code>Array&lt;{name: string, value: string}&gt;</code>, optional) — the pair of alternatives being compared.</li>
+</ul>
+<h4 id="htmlfieldname-html"><code>HtmlField(name, html)</code></h4>
+<p>A read-only field that renders arbitrary HTML content inline within the form.</p>
+<ul>
+<li><code>name</code> (<code>string</code>) — field name/key.</li>
+<li><code>html</code> (<code>string</code>, optional) — the HTML markup to display.</li>
+</ul>
+<h3 id="utils"><code>Utils</code></h3>
+<p>A small set of static helper functions for building and scoring more
+specialized survey-style forms.</p>
+<h4 id="utilsmaxdiffbasename-title-instructions-leftheader-rightheader-alternatives-altperq-viewsperalt"><code>Utils.MaxDiff(baseName, title, instructions, leftHeader, rightHeader, alternatives, altPerQ, viewsPerAlt)</code></h4>
+<p>Generate a complete multi-page MaxDiff-style questionnaire (a series of
+"pick the best / pick the worst" comparison questions built from a list of
+alternatives).</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>baseName</code> (<code>string</code>) — base field name used to build each question's field name.</li>
+<li><code>title</code> (<code>string</code>) — title used for each page/panel of the questionnaire.</li>
+<li><code>instructions</code> (<code>string</code>) — instructions/description shown on each page.</li>
+<li><code>leftHeader</code> (<code>string</code>) — header label for the left side of each comparison.</li>
+<li><code>rightHeader</code> (<code>string</code>) — header label for the right side of each comparison.</li>
+<li><code>alternatives</code> (<code>Array&lt;string&gt;</code>) — the list of alternatives to be compared.</li>
+<li><code>altPerQ</code> (<code>number</code>) — how many alternatives to present per question.</li>
+<li><code>viewsPerAlt</code> (<code>number</code>) — how many times each alternative should appear across the whole questionnaire.</li>
+<li><strong>Returns</strong></li>
+<li><code>Object</code> — a complete form definition (equivalent to <code>Form.value</code>), with one panel per generated question.</li>
+</ul>
+<h4 id="utilsmaxdiffscorequestions-answers"><code>Utils.MaxDiffScore(questions, answers)</code></h4>
+<p>Score/rank the results of a MaxDiff questionnaire generated by
+<code>Utils.MaxDiff</code>.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>questions</code> (<code>Array&lt;string&gt;</code>) — the original list of alternatives (matching the <code>alternatives</code> passed to <code>Utils.MaxDiff</code>).</li>
+<li><code>answers</code> (<code>Object</code>) — the form answers returned by the user for the questionnaire.</li>
+<li><strong>Returns</strong></li>
+<li><code>Array&lt;{text: string, score: number, qindex: number}&gt;</code> — the alternatives ranked from highest to lowest score.</li>
+</ul>
+<h4 id="utilstest"><code>Utils.Test()</code></h4>
+<p>Returns a small, ready-made sample form. Useful as a quick reference for
+what a finished form definition looks like, or for verifying that a form is
+rendering correctly.</p>
+<ul>
+<li><strong>Parameters</strong>: none.</li>
+<li><strong>Returns</strong></li>
+<li><code>Object</code> — a sample form definition with a couple of text fields across two panels.</li>
+</ul>
+<hr>
+<h2 id="constants">Constants</h2>
+<p>These are static values exposed on the proxy object for use in script
+comparisons and return values; they are not functions.</p>
+<h3 id="workflow-path-constants">Workflow path constants</h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PATH_STAY</code></td>
+<td><code>"STAY"</code></td>
+<td>Remain on the current workflow step.</td>
+</tr>
+<tr>
+<td><code>PATH_SUCCESS</code></td>
+<td><code>"SUCCESS"</code></td>
+<td>Advance along the success path.</td>
+</tr>
+<tr>
+<td><code>PATH_FAILURE</code></td>
+<td><code>"FAILURE"</code></td>
+<td>Advance along the failure path.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="priority-constants">Priority constants</h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PRIORITY_LOW</code></td>
+<td><code>"LOW"</code></td>
+<td>Low task/step priority.</td>
+</tr>
+<tr>
+<td><code>PRIORITY_NORMAL</code></td>
+<td><code>"NORMAL"</code></td>
+<td>Normal task/step priority.</td>
+</tr>
+<tr>
+<td><code>PRIORITY_URGENT</code></td>
+<td><code>"URGENT"</code></td>
+<td>Urgent task/step priority.</td>
+</tr>
+<tr>
+<td><code>PRIORITY_LATE</code></td>
+<td><code>"LATE"</code></td>
+<td>Overdue/late task/step priority.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="global-variable-name-constants">Global variable name constants</h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GLOBAL_RESULTS_VAR</code></td>
+<td><code>"__results__"</code></td>
+<td>Well-known global key under which a step's/hook's result payload is conventionally stored.</td>
+</tr>
+<tr>
+<td><code>GLOBAL_RAW_ARGS</code></td>
+<td><code>"__raw_args"</code></td>
+<td>Well-known global key for a step's unprocessed/raw input arguments.</td>
+</tr>
+<tr>
+<td><code>GLOBAL_EXCHANGE_INFO</code></td>
+<td><code>"__exchange_info__"</code></td>
+<td>Well-known global key for exchange/trading-related context data.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="other-constants">Other constants</h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UPLOAD_BUCKET</code></td>
+<td><code>"tempdata.concluent.io"</code></td>
+<td>Default bucket name used for temporary upload storage.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="widget-window-stop.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Implementing the Stop Button">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Implementing the Stop Button
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="wf-operations-reference.html" class="md-footer__link md-footer__link--next" aria-label="Next: Workflow Operations Reference">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Workflow Operations Reference
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

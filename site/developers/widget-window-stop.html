@@ -5,13 +5,13 @@
       
       
       
-        <link rel="canonical" href="https://docs.kilroy.tech/developers/technical.html">
+        <link rel="canonical" href="https://docs.kilroy.tech/developers/widget-window-stop.html">
       
       
-        <link rel="prev" href="../getting-started/working-with-windows.html">
+        <link rel="prev" href="memory_agents.html">
       
       
-        <link rel="next" href="apps.html">
+        <link rel="next" href="wfproxy-api-reference.html">
       
       
         
@@ -22,7 +22,7 @@
     
     
       
-        <title>Technical Overview - Kilroy Documentation</title>
+        <title>Implementing the Stop Button - Kilroy Documentation</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#technical-overview" class="md-skip">
+        <a href="#implementing-the-stop-button-ui_stop_wf" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Technical Overview
+              Implementing the Stop Button
             
           </span>
         </div>
@@ -768,19 +768,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="technical.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="technical.html" class="md-nav__link">
         
   
   
@@ -796,7 +787,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -890,10 +880,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="widget-window-stop.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementing the Stop Button
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="widget-window-stop.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -909,6 +926,87 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declaring-ui_stop_wf-in-your-app-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declaring ui_stop_wf in Your App Manifest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-the-stop-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing the Stop Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing the Stop Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal-example-scriptjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal example (script.js)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1195,6 +1293,75 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declaring-ui_stop_wf-in-your-app-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declaring ui_stop_wf in Your App Manifest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-the-stop-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing the Stop Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing the Stop Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal-example-scriptjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal example (script.js)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1210,7 +1377,7 @@
 
 
   
-    <a href="https://github.com/kilroy-tech/kilroy-tech.github.io/edit/main/docs/developers/technical.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/kilroy-tech/kilroy-tech.github.io/edit/main/docs/developers/widget-window-stop.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -1218,7 +1385,59 @@
   
 
 
-<h1 id="technical-overview">Technical Overview</h1>
+<h1 id="implementing-the-stop-button-ui_stop_wf">Implementing the Stop Button (<code>ui_stop_wf</code>)</h1>
+<p>The traffic-light <strong>red button</strong> in a widget window's title bar lets users stop a running app directly from the dashboard UI. This button is inactive (greyed out) by default — it only activates for process diagram classes that declare a <code>ui_stop_wf</code> workflow.</p>
+<hr>
+<h2 id="how-it-works">How It Works</h2>
+<p>When a user clicks the red button on a widget window, the dashboard looks up the <code>ui_stop_wf</code> field for the running diagram's pdClass in the app manifest. If a value is present, the dashboard calls that named workflow on the running PDI. The workflow is responsible for performing whatever cleanup the app requires before the stop.</p>
+<hr>
+<h2 id="declaring-ui_stop_wf-in-your-app-manifest">Declaring <code>ui_stop_wf</code> in Your App Manifest</h2>
+<p>In your app's <code>manifest.json</code>, add <code>ui_stop_wf</code> to the pdClass definition:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"pdClasses"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">"my_agent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Agent"</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="nt">"desc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Does something useful"</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">      </span><span class="nt">"ui_stop_wf"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stop_hook"</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
+</code></pre></div>
+<p>The value is the <strong>workflow name</strong> to invoke — it must exist in your PDI's workflow library and be callable as a named workflow trigger.</p>
+<hr>
+<h2 id="writing-the-stop-workflow">Writing the Stop Workflow</h2>
+<p>The stop workflow is invoked via <code>triggerNamedWorkflow</code> from the dashboard. It receives no special arguments — its job is simply to perform an orderly shutdown of whatever the PDI is doing.</p>
+<p>Typical stop workflow responsibilities:</p>
+<ul>
+<li>Publish a final status message to any active swarms</li>
+<li>Cancel any pending timers or in-flight HTTP requests</li>
+<li>Write any state that should persist to memory or disk</li>
+<li>Call <code>stop_hook</code> on child PDIs if the agent manages sub-diagrams</li>
+</ul>
+<p>The workflow follows the standard 3-file convention (<code>json.json</code>, <code>xml.xml</code>, <code>script.js</code>). Most stop hooks are all-preflight — the Blockly wrapper is trivial.</p>
+<h3 id="minimal-example-scriptjs">Minimal example (<code>script.js</code>)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">preflight</span><span class="p">(</span><span class="nx">wfProxy</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">alias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">getGlobalValue</span><span class="p">(</span><span class="s1">'pd_alias'</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1">// publish a shutdown notification to the agent's send swarm</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">sendSwarm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">getGlobalValue</span><span class="p">(</span><span class="s1">'agent_send_swarm'</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">sendSwarm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">publishToSwarm</span><span class="p">(</span><span class="nx">sendSwarm</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">            </span><span class="kr">from</span><span class="o">:</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">getGlobalValue</span><span class="p">(</span><span class="s1">'wf_agent_name'</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">alias</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">            </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">alias</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">            </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s1">'system'</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">'[agent stopped]'</span><span class="p">,</span><span class="w"> </span><span class="nx">timestamp</span><span class="o">:</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">(),</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'text/plain'</span><span class="w"> </span><span class="p">}]</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="p">});</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nx">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
+</code></pre></div>
+<hr>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>If <code>ui_stop_wf</code> is absent or empty in the manifest, the red button is rendered but is visually greyed and non-interactive — no error is shown.</li>
+<li>The stop workflow does <strong>not</strong> automatically shut down the PDI process itself. If you want the PDI to exit after stop, call the appropriate teardown API from within the workflow.</li>
+<li>For <code>kilroy.ai.services</code> pipeline agents (<code>ai_agent</code>, <code>wf_agent</code>, etc.), the stop lifecycle is managed by the pipeline's <code>stop_hook</code> workflow — you do not need to declare <code>ui_stop_wf</code> on individual agent pdClasses unless you want per-agent granular stop controls.</li>
+</ul>
 
 
 
@@ -1254,7 +1473,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../getting-started/working-with-windows.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Working with Windows">
+          <a href="memory_agents.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Memory Agent Blocks">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -1264,20 +1483,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Working with Windows
+                Memory Agent Blocks
               </div>
             </div>
           </a>
         
         
           
-          <a href="apps.html" class="md-footer__link md-footer__link--next" aria-label="Next: Creating Apps">
+          <a href="wfproxy-api-reference.html" class="md-footer__link md-footer__link--next" aria-label="Next: wfProxy API Reference">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Creating Apps
+                wfProxy API Reference
               </div>
             </div>
             <div class="md-footer__button md-icon">

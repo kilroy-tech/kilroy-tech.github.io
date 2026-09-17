@@ -5,13 +5,13 @@
       
       
       
-        <link rel="canonical" href="https://docs.kilroy.tech/developers/technical.html">
+        <link rel="canonical" href="https://docs.kilroy.tech/developers/wf-operations-reference.html">
       
       
-        <link rel="prev" href="../getting-started/working-with-windows.html">
+        <link rel="prev" href="wfproxy-api-reference.html">
       
       
-        <link rel="next" href="apps.html">
+        <link rel="next" href="../faq.html">
       
       
         
@@ -22,7 +22,7 @@
     
     
       
-        <title>Technical Overview - Kilroy Documentation</title>
+        <title>Workflow Operations Reference - Kilroy Documentation</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#technical-overview" class="md-skip">
+        <a href="#workflow-operations-reference" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Technical Overview
+              Workflow Operations Reference
             
           </span>
         </div>
@@ -768,19 +768,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="technical.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="technical.html" class="md-nav__link">
         
   
   
@@ -796,7 +787,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -946,10 +936,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="wf-operations-reference.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Operations Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="wf-operations-reference.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -965,6 +982,191 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#app_services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        app_services
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#call_web_service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        call_web_service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_qrcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_qrcode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_signature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#critical_section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        critical_section
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete_pd_alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        delete_pd_alias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set_pd_alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_pd_alias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exchange_command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exchange_command
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list_add" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        list_add
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list_reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        list_reset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send_pubsub_cmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        send_pubsub_cmd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start_process_diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_process_diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start_workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swarm_command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        swarm_command
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trigger_pd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trigger_pd
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1195,6 +1397,179 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#app_services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        app_services
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#call_web_service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        call_web_service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_qrcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_qrcode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_signature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#critical_section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        critical_section
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete_pd_alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        delete_pd_alias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set_pd_alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_pd_alias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exchange_command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exchange_command
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list_add" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        list_add
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list_reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        list_reset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send_pubsub_cmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        send_pubsub_cmd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start_process_diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_process_diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start_workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        start_workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swarm_command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        swarm_command
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trigger_pd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trigger_pd
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1210,7 +1585,7 @@
 
 
   
-    <a href="https://github.com/kilroy-tech/kilroy-tech.github.io/edit/main/docs/developers/technical.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/kilroy-tech/kilroy-tech.github.io/edit/main/docs/developers/wf-operations-reference.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
     </a>
@@ -1218,7 +1593,183 @@
   
 
 
-<h1 id="technical-overview">Technical Overview</h1>
+<h1 id="workflow-operations-reference">Workflow Operations Reference</h1>
+<p>This page is a companion reference to the
+<a href="wfproxy-api-reference.html">wfProxy API Reference</a>. It catalogs the built-in
+workflow operations (the same operations that appear as Blockly blocks in
+the workflow editor) that can be invoked directly from script code using:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">CallServerBlock</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfopsName</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">)</span>
+</code></pre></div>
+<p>For each operation below, <code>wfopsName</code> is the exact string to pass as
+<code>CallServerBlock</code>'s second argument, and <code>params</code> should be an object
+containing the listed argument names, with values equivalent to what you
+would enter into that operation's fields in the workflow editor.</p>
+<p>This catalog omits:</p>
+<ul>
+<li>Order-related operations, which are being revised separately.</li>
+<li>The basic variable-assignment operations (setting a global from a literal,
+  another variable, or an object path). Use <code>wfProxy.getGlobalValue</code> and
+  <code>wfProxy.setGlobalValue</code> instead of calling those operations directly.</li>
+<li>Form and UI hand-off operations (<code>display_inline_form</code>, <code>list_export</code>,
+  <code>show_url</code>, <code>start_widget</code>). These must be executed as inline Blockly
+  blocks in a workflow step for their hand-off to the browser UI to work
+  correctly, and will not behave correctly if invoked through
+  <code>CallServerBlock</code>.</li>
+<li>Blockly-only control-flow operations (<code>if_then_else</code>, <code>while_loop</code>,
+  <code>step_group</code>), which have no purpose in <code>script.js</code> code since JavaScript
+  already has native conditional and looping constructs.</li>
+<li>Deprecated operations (<code>reset_process_diagram</code>, <code>send_docusign_template</code>,
+  <code>send_email</code>, <code>write_event</code>, <code>write_manifest</code>).</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Never set <code>__results__</code> directly</p>
+<p>Some of these operations report their result by writing it to the
+well-known <code>GLOBAL_RESULTS_VAR</code> (<code>__results__</code>) global. That is
+internal plumbing used by the workflow engine to hand a result back to
+the workflow that invoked the operation.</p>
+<p>Your own <code>script.js</code> code should <strong>never</strong> set <code>__results__</code> directly.
+Instead:</p>
+<ul>
+<li>If you are simply returning a value from a hook function, return it in
+  a resolved <code>Promise</code>, as shown in the examples throughout this and the
+  <a href="wfproxy-api-reference.html">wfProxy API Reference</a>.</li>
+<li>If you need to make a value available to later steps or to the
+  caller, use <code>wfProxy.setGlobalValue(key, value)</code> with your own
+  descriptive key name.</li>
+</ul>
+</div>
+<hr>
+<h2 id="app_services"><code>app_services</code></h2>
+<p>Manage installed apps and their process diagrams.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>cmd</code> (<code>string</code>) — one of <code>delete_installed</code>, <code>delete_running</code>, <code>download</code>, <code>launch</code>, <code>save_app_settings</code>, <code>start_app_diagram</code>, <code>show_app_diagram</code>, <code>stop_app_diagram</code>.</li>
+<li><code>app_id</code> (<code>string</code>) — the target app's identifier.</li>
+<li><code>settings</code> (<code>Object</code>, for <code>save_app_settings</code>) — the settings values to save.</li>
+<li><code>pdclass</code> (<code>string</code>, for <code>start_app_diagram</code>) — the process diagram class name to launch.</li>
+<li><code>pdalias</code> (<code>string</code>, for <code>start_app_diagram</code> / <code>stop_app_diagram</code>) — the alias to assign to (or identify) the process diagram instance.</li>
+<li><code>pddesc</code> (<code>string</code>, for <code>start_app_diagram</code>) — a description for the launched instance.</li>
+<li><code>pdargs</code> (<code>Object</code>, for <code>start_app_diagram</code>) — arguments passed to the launched process diagram.</li>
+<li><code>launchParent</code> (<code>string</code>, for <code>start_app_diagram</code>, optional) — one of <code>"manifest"</code>, <code>"root"</code>, or <code>"child"</code>.</li>
+</ul>
+<h2 id="call_web_service"><code>call_web_service</code></h2>
+<p>Call an external HTTP web service.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>url</code> (<code>string</code>) — the endpoint URL to call.</li>
+<li><code>method</code> (<code>string</code>) — the HTTP method (for example, <code>GET</code>, <code>POST</code>).</li>
+<li><code>mime_type</code> (<code>string</code>) — the content type of the payload (for example, <code>application/json</code>).</li>
+<li><code>payload</code> (<code>string</code> or <code>Object</code>) — the request body.</li>
+<li><code>headers</code> (<code>Object</code> or JSON string, optional) — additional HTTP headers.</li>
+</ul>
+<h2 id="create_qrcode"><code>create_qrcode</code></h2>
+<p>Generate a QR code image from a string of data.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>data</code> (<code>string</code>) — the data to encode.</li>
+<li><code>result_key</code> (<code>string</code>, optional) — the global key to also store the result under (defaults to <code>qr_code_result</code>).</li>
+<li><code>scale</code> (<code>number</code>, optional) — the pixel scale of the generated QR code.</li>
+</ul>
+<h2 id="create_signature"><code>create_signature</code></h2>
+<p>Generate a cryptographic HMAC signature for a piece of data.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>data</code> (<code>string</code>) — the data to sign.</li>
+<li><code>secret_key</code> (<code>string</code>) — the shared secret used to compute the signature.</li>
+<li><code>encryption_type</code> (<code>string</code>, optional) — currently only <code>HMAC</code> is supported.</li>
+<li><code>algorithm</code> (<code>string</code>, optional) — the hash algorithm to use (defaults to <code>sha256</code>).</li>
+<li><code>digest</code> (<code>string</code>, optional) — the output digest encoding (defaults to <code>hex</code>).</li>
+</ul>
+<h2 id="critical_section"><code>critical_section</code></h2>
+<p>Enter or exit a named critical section, useful for serializing access to a
+shared resource across concurrent workflow executions.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>id</code> (<code>string</code>) — the name of the critical section.</li>
+<li><code>command</code> (<code>string</code>) — <code>cs_entry</code> to acquire/enter the critical section, or any other value to release/exit it.</li>
+</ul>
+<h2 id="delete_pd_alias"><code>delete_pd_alias</code></h2>
+<p>Remove a process diagram alias.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>alias</code> (<code>string</code>) — the alias to delete.</li>
+</ul>
+<h2 id="set_pd_alias"><code>set_pd_alias</code></h2>
+<p>Assign an alias to a process diagram instance.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>alias</code> (<code>string</code>) — the alias name to assign.</li>
+<li><code>id</code> (<code>string</code>) — the process diagram instance ID the alias should point to.</li>
+</ul>
+<h2 id="exchange_command"><code>exchange_command</code></h2>
+<p>Issue a trading/exchange-related command using the exchange configuration
+previously established for the workflow.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>command</code> (<code>string</code>) — the command to execute, or <code>exchange_block</code> to set the active exchange configuration for subsequent commands.</li>
+<li><code>command_args</code> (<code>Object</code>) — arguments for the command. When <code>command</code> is <code>exchange_block</code>, this includes an <code>exchange</code> field identifying which exchange to use.</li>
+</ul>
+<h2 id="list_add"><code>list_add</code></h2>
+<p>Append a value to a named list stored in the global context, creating the
+list if it does not already exist.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>list_name</code> (<code>string</code>) — the global key holding the list.</li>
+<li><code>list_item</code> (<code>string</code>) — the name of a global variable whose current value should be appended to the list.</li>
+</ul>
+<h2 id="list_reset"><code>list_reset</code></h2>
+<p>Reset (empty) a named list stored in the global context.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>list_name</code> (<code>string</code>) — the global key holding the list to reset.</li>
+</ul>
+<h2 id="send_pubsub_cmd"><code>send_pubsub_cmd</code></h2>
+<p>Publish a command to a pub/sub topic.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>topic</code> (<code>string</code>) — the topic to publish to.</li>
+<li><code>command</code> (<code>string</code>) — the command name.</li>
+<li><code>args</code> (<code>Object</code> or JSON string) — arguments for the command.</li>
+</ul>
+<h2 id="start_process_diagram"><code>start_process_diagram</code></h2>
+<p>Launch a new process diagram instance from a template.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>name</code> (<code>string</code>) — the process diagram template name to launch.</li>
+<li><code>args</code> (<code>Object</code> or JSON string, optional) — arguments passed to the new process diagram.</li>
+<li><code>roles</code> (<code>string</code>, optional) — the role/group the new instance should run under.</li>
+</ul>
+<h2 id="start_workflow"><code>start_workflow</code></h2>
+<p>Launch a new workflow instance.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>name</code> (<code>string</code>) — the workflow template name to launch.</li>
+<li><code>args</code> (<code>Object</code> or JSON string, optional) — arguments passed to the new workflow.</li>
+</ul>
+<h2 id="swarm_command"><code>swarm_command</code></h2>
+<p>Join, leave, publish to, or query information about a peer-to-peer swarm
+topic.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>command</code> (<code>string</code>) — one of <code>join</code>, <code>leave</code>, <code>publish</code>, or <code>info</code>.</li>
+<li><code>command_args</code> (<code>Object</code>) — arguments for the command:<ul>
+<li><code>topic</code> (<code>string</code>) — the swarm topic name.</li>
+<li><code>seed</code> (<code>string</code>, for <code>join</code>, optional) — a seed value for the swarm.</li>
+<li><code>data</code> (<code>*</code>, for <code>publish</code>) — the value to publish to the topic.</li>
+</ul>
+</li>
+</ul>
+<h2 id="trigger_pd"><code>trigger_pd</code></h2>
+<p>Invoke a named webhook/trigger on a process diagram, optionally waiting
+synchronously for its result.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>pd_id</code> (<code>string</code>) — the target process diagram's identifier.</li>
+<li><code>trigger_name</code> (<code>string</code>) — the name of the trigger/webhook to invoke.</li>
+<li><code>args</code> (<code>Object</code> or JSON string, optional) — arguments passed to the trigger.</li>
+<li><code>sync</code> (<code>boolean</code>, optional) — if <code>true</code>, wait for the triggered workflow to complete and return its result.</li>
+<li><code>copyOutputs</code> (<code>boolean</code>, optional) — if <code>true</code> (and <code>sync</code> is <code>true</code>), copy the triggered workflow's declared output globals into the caller's global context.</li>
+</ul>
 
 
 
@@ -1254,7 +1805,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../getting-started/working-with-windows.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Working with Windows">
+          <a href="wfproxy-api-reference.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: wfProxy API Reference">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -1264,20 +1815,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Working with Windows
+                wfProxy API Reference
               </div>
             </div>
           </a>
         
         
           
-          <a href="apps.html" class="md-footer__link md-footer__link--next" aria-label="Next: Creating Apps">
+          <a href="../faq.html" class="md-footer__link md-footer__link--next" aria-label="Next: FAQ">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Creating Apps
+                FAQ
               </div>
             </div>
             <div class="md-footer__button md-icon">
