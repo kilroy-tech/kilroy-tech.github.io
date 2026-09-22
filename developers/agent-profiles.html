@@ -1,0 +1,2272 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.kilroy.tech/developers/agent-profiles.html">
+      
+      
+        <link rel="prev" href="../getting-started/working-with-windows.html">
+      
+      
+        <link rel="next" href="technical.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Sub-Agent Profiles - Kilroy Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-and-managing-sub-agent-profiles" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Kilroy Documentation" class="md-header__button md-logo" aria-label="Kilroy Documentation" data-md-component="logo">
+      
+  <img src="../assets/kilroy.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kilroy Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sub-Agent Profiles
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to system preference" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kilroy-tech/kilroy-tech.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/introduction.html" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tutorials/tutorial1.md" class="md-tabs__link">
+          
+  
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="agent-profiles.html" class="md-tabs__link">
+          
+  
+  
+  AI Agents
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="technical.html" class="md-tabs__link">
+          
+  
+  
+  Developers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../about/about.html" class="md-tabs__link">
+          
+  
+  
+  About the Kilroy Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Kilroy Documentation" class="md-nav__button md-logo" aria-label="Kilroy Documentation" data-md-component="logo">
+      
+  <img src="../assets/kilroy.svg" alt="logo">
+
+    </a>
+    Kilroy Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kilroy-tech/kilroy-tech.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quick-start.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/working-with-windows.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Working with Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial1.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/tutorial2.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agents
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Agents
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sub-Agent Profiles
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="agent-profiles.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sub-Agent Profiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#before-you-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before You Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-profiles-with-an-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Profiles With an Agent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing Profiles With an Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-one-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find one profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-or-replace-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create or replace a profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete a profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-profile-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Profile Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#field-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Field Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-identity-and-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required identity and instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-instance-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool instance syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-and-endpoint-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model and endpoint overrides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime overrides
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running a Profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#builtin-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Builtin Profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="technical.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apps.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adding_wf_agents.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding WF_Agent Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="memory_agents.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory Agent Blocks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="widget-window-stop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementing the Stop Button
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wfproxy-api-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    wfProxy API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wf-operations-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Operations Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About the Kilroy Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About the Kilroy Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/about.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/philosophy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Philosophy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/team.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/contact.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#before-you-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before You Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-profiles-with-an-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Profiles With an Agent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing Profiles With an Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-one-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find one profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-or-replace-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create or replace a profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delete a profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-profile-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Profile Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#field-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Field Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-identity-and-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required identity and instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-instance-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool instance syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-and-endpoint-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model and endpoint overrides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime overrides
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running a Profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#builtin-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Builtin Profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kilroy-tech/kilroy-tech.github.io/edit/main/docs/developers/agent-profiles.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"></path></svg>
+    </a>
+  
+  
+
+
+<h1 id="creating-and-managing-sub-agent-profiles">Creating and Managing Sub-Agent Profiles</h1>
+<p>Agent profiles define reusable specialist agents that a Kilroy AI agent can invoke for focused work. A profile controls the sub-agent's instructions, tools, active skills, model endpoint, context limits, working directory, and timeout.</p>
+<p>Profiles are stored in <code>apps/kilroy.ai/agent_library</code>. You normally manage them by asking a Kilroy AI agent that has the <code>agent_profile</code> tool.</p>
+<h2 id="before-you-start">Before You Start</h2>
+<p>The parent AI agent needs these tool instances:</p>
+<ul>
+<li><code>agent_profile</code> to create, find, list, and delete profiles.</li>
+<li><code>subagent_op</code> to run profiles and retrieve their results.</li>
+<li><code>edit_agent_profile</code> only if you want the agent to use the profile editor.</li>
+</ul>
+<p>A sub-agent profile does not create a process diagram. Each invocation is an isolated, in-process run with its own session scope.</p>
+<h2 id="managing-profiles-with-an-agent">Managing Profiles With an Agent</h2>
+<p>You can ask the agent naturally, for example:</p>
+<blockquote>
+<p>List all available sub-agent profiles.</p>
+<p>Create a read-only profile named dependency_reviewer using the profile JSON below.</p>
+<p>Find the dependency_reviewer profile and show me its complete JSON.</p>
+<p>Replace dependency_reviewer with this revised profile.</p>
+<p>Delete the dependency_reviewer profile.</p>
+</blockquote>
+<p>The agent translates those requests into <code>agent_profile</code> tool calls.</p>
+<h3 id="list-profiles">List profiles</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"opcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list_all"</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="find-one-profile">Find one profile</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">"opcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"find"</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">"agent_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dependency_reviewer"</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="create-or-replace-a-profile">Create or replace a profile</h3>
+<p><code>create</code> is an upsert keyed by <code>agent_id</code>. Calling it again with the same <code>agent_id</code> replaces the stored profile.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"opcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"create"</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">"agent_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dependency_reviewer"</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reviews dependency changes for compatibility and risk."</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">"system_prompt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You are a dependency review specialist. Inspect the requested changes, identify compatibility and security risks, and return findings ordered by severity. Do not modify files."</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">"tools"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"read"</span><span class="p">,</span><span class="w"> </span><span class="s2">"grep"</span><span class="p">,</span><span class="w"> </span><span class="s2">"find"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ls"</span><span class="p">],</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">"kilroy_tools"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">"tool_instances"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="nt">"skills"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nt">"inherit_skills"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="nt">"relay_progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="nt">"timeout_ms"</span><span class="p">:</span><span class="w"> </span><span class="mi">600000</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="delete-a-profile">Delete a profile</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"opcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delete"</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">"agent_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dependency_reviewer"</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>You may also delete by the <code>guid</code> returned by <code>find</code> or <code>list_all</code>.</p>
+<h2 id="complete-profile-example">Complete Profile Example</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">"agent_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"implementation_specialist"</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Implements a focused code change and reports validation results."</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">"system_prompt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You are an implementation specialist. Make only the requested change, preserve repository conventions, validate the affected behavior, and report changed files and remaining concerns."</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">"tools"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"read"</span><span class="p">,</span><span class="w"> </span><span class="s2">"grep"</span><span class="p">,</span><span class="w"> </span><span class="s2">"find"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ls"</span><span class="p">,</span><span class="w"> </span><span class="s2">"write"</span><span class="p">,</span><span class="w"> </span><span class="s2">"edit"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bash"</span><span class="p">],</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">"kilroy_tools"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">"tool_instances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">      </span><span class="nt">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kilroy.ai.services.skill_template_op"</span><span class="p">,</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">      </span><span class="nt">"as"</span><span class="p">:</span><span class="w"> </span><span class="s2">"skill_template"</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Load complete instructions for an active skill by skill_id."</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">      </span><span class="nt">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kilroy.ai.services.manage_skill"</span><span class="p">,</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">      </span><span class="nt">"as"</span><span class="p">:</span><span class="w"> </span><span class="s2">"manage_skill"</span><span class="p">,</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"List the sub-agent's active skills."</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">  </span><span class="nt">"skills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"skill_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"focused-code-change"</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"guid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"saved-skill-record-guid"</span><span class="p">,</span><span class="w"> </span><span class="nt">"skill_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run-targeted-tests"</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">  </span><span class="nt">"inherit_skills"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">  </span><span class="nt">"relay_progress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">  </span><span class="nt">"pi_model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gpt-5"</span><span class="p">,</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">  </span><span class="nt">"pi_provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openai"</span><span class="p">,</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">  </span><span class="nt">"pi_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.openai.com/v1"</span><span class="p">,</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">  </span><span class="nt">"pi_api"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openai-completions"</span><span class="p">,</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">  </span><span class="nt">"pi_api_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPENAI_SUBAGENT_API_KEY"</span><span class="p">,</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">  </span><span class="nt">"context_depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">  </span><span class="nt">"content_max_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">16000</span><span class="p">,</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">  </span><span class="nt">"compact_context_percentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">  </span><span class="nt">"pi_working_dir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/workspace/project"</span><span class="p">,</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">  </span><span class="nt">"timeout_ms"</span><span class="p">:</span><span class="w"> </span><span class="mi">600000</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="field-reference">Field Reference</h2>
+<h3 id="required-identity-and-instructions">Required identity and instructions</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Semantics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>agent_id</code></td>
+<td>string</td>
+<td>Stable profile identifier used by <code>subagent_op</code>. Must be non-empty. Creating the same ID again replaces that profile.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>string</td>
+<td>Short description shown to parent agents when selecting a specialist. Keep it specific enough to support good delegation decisions.</td>
+</tr>
+<tr>
+<td><code>system_prompt</code></td>
+<td>string</td>
+<td>Complete inline instructions for the sub-agent. The parent supplies the task separately. Prompt-library references are not resolved here in the current implementation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tool-fields">Tool fields</h3>
+<p>The three tool fields are resolved independently.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Semantics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tools</code></td>
+<td>array of strings, <code>null</code>, or omitted</td>
+<td>Pi built-in tools such as <code>read</code>, <code>grep</code>, <code>find</code>, <code>ls</code>, <code>write</code>, <code>edit</code>, and <code>bash</code>. An array replaces the parent's complete <code>tools</code> list. <code>[]</code> disables all built-in tools. <code>null</code> or omission inherits the parent list.</td>
+</tr>
+<tr>
+<td><code>kilroy_tools</code></td>
+<td>array of strings, <code>null</code>, or omitted</td>
+<td>Kilroy tool-class patterns such as <code>kilroy.ai.services.guid</code>. An array replaces the parent's complete class allowlist. <code>[]</code> disables this category. <code>null</code> or omission inherits it.</td>
+</tr>
+<tr>
+<td><code>tool_instances</code></td>
+<td>array, <code>null</code>, or omitted</td>
+<td>Explicit configured Kilroy tool instances. An array replaces all parent instances. <code>[]</code> disables this category. <code>null</code> or omission inherits the parent's already-resolved instances.</td>
+</tr>
+</tbody>
+</table>
+<p>These fields do not merge with the parent. If you provide an array, include every item the sub-agent needs in that category.</p>
+<h3 id="tool-instance-syntax">Tool instance syntax</h3>
+<p>A tool instance may use string shorthand:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="s2">"kilroy.ai.services.guid"</span>
+</code></pre></div>
+<p>The object form supports:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kilroy.ai.services.memory_op"</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">"as"</span><span class="p">:</span><span class="w"> </span><span class="s2">"project_memory"</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Search project-specific memory records."</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">"bind"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">"memory_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"apps/example/project_memory"</span><span class="p">,</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"facts"</span><span class="p">,</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"observation"</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>use</code></td>
+<td>Fully qualified tool class, for example <code>kilroy.ai.services.memory_op</code>.</td>
+</tr>
+<tr>
+<td><code>as</code></td>
+<td>Optional runtime tool name exposed to the model.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Optional description override shown to the model.</td>
+</tr>
+<tr>
+<td><code>bind</code></td>
+<td>Class-specific configuration used to resolve <code>${bind.*}</code> values.</td>
+</tr>
+<tr>
+<td><code>override</code></td>
+<td>Optional low-level tool-definition overrides supported by the tool resolver. Use only when the class contract requires it.</td>
+</tr>
+</tbody>
+</table>
+<p>Profile-declared instances may use these broker-resolved placeholders:</p>
+<ul>
+<li><code>${parent.group_name}</code></li>
+<li><code>${parent.pd_alias}</code></li>
+<li><code>${parent.scope_id}</code></li>
+<li><code>${parent.working_dir}</code></li>
+<li><code>${parent.username}</code></li>
+</ul>
+<p>Other <code>${...}</code> pipeline tokens are not resolved inside stored profiles. Inherited parent instances are already rendered and need no additional substitution.</p>
+<h3 id="skill-fields">Skill fields</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Semantics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>skills</code></td>
+<td>array</td>
+<td>Skills pre-activated in the sub-agent's isolated session before work begins. Entries may identify a skill by <code>skill_id</code>, or by both <code>guid</code> and <code>skill_id</code>. Default: <code>[]</code>.</td>
+</tr>
+<tr>
+<td><code>inherit_skills</code></td>
+<td>boolean</td>
+<td>When <code>true</code>, adds the parent's active skills to the profile's skills. Profile entries win when the same normalized <code>skill_id</code> appears in both sets. Default: <code>false</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The sub-agent receives a compact manifest of active skill names and descriptions in its system prompt. To load complete skill instructions at runtime, expose <code>skill_template_op</code> and call it with <code>opcode: "find"</code> and the <code>skill_id</code>.</p>
+<p>To let a sub-agent inspect its active skill list, expose <code>manage_skill</code> and call:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"opcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list_active"</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>The sub-agent execution context automatically scopes this operation to the sub-agent rather than the parent.</p>
+<h3 id="model-and-endpoint-overrides">Model and endpoint overrides</h3>
+<p>Each field overrides independently. Omitted fields inherit from the parent agent.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Semantics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pi_model</code></td>
+<td>string</td>
+<td>Model name sent to the Pi SDK. Override alone to use another model on the parent's endpoint.</td>
+</tr>
+<tr>
+<td><code>pi_provider</code></td>
+<td>string</td>
+<td>Pi provider identifier, commonly <code>openai</code>.</td>
+</tr>
+<tr>
+<td><code>pi_url</code></td>
+<td>string</td>
+<td>Provider base URL, for example <code>https://api.openai.com/v1</code>.</td>
+</tr>
+<tr>
+<td><code>pi_api</code></td>
+<td>string</td>
+<td>Pi API protocol adapter, for example <code>openai-completions</code>.</td>
+</tr>
+<tr>
+<td><code>pi_api_key</code></td>
+<td>string</td>
+<td><strong>Environment-variable name</strong>, not a literal key. The broker resolves the variable immediately before dispatch. If omitted, the parent's already-resolved API key is inherited.</td>
+</tr>
+</tbody>
+</table>
+<p>Example environment setup:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_SUBAGENT_API_KEY</span><span class="o">=</span><span class="s2">"your-api-key"</span>
+</code></pre></div>
+<p>Then set:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">"pi_api_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPENAI_SUBAGENT_API_KEY"</span>
+</code></pre></div>
+<p>An invalid variable name or an unset/empty variable causes the run to fail. The resolved secret is not stored back into the profile.</p>
+<h3 id="runtime-overrides">Runtime overrides</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Semantics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>context_depth</code></td>
+<td>integer</td>
+<td>Maximum recent conversation turns retained for the sub-agent. Omitted means inherit the parent.</td>
+</tr>
+<tr>
+<td><code>content_max_tokens</code></td>
+<td>integer</td>
+<td>Token budget used to trigger context compaction. Omitted means inherit the parent.</td>
+</tr>
+<tr>
+<td><code>compact_context_percentage</code></td>
+<td>integer</td>
+<td>Percentage of older context compacted when limits are exceeded. Omitted means inherit the parent.</td>
+</tr>
+<tr>
+<td><code>pi_working_dir</code></td>
+<td>string</td>
+<td>Working directory used by Pi filesystem and shell tools. Omitted means inherit the parent.</td>
+</tr>
+<tr>
+<td><code>timeout_ms</code></td>
+<td>integer</td>
+<td>Maximum active model-call duration in milliseconds. On timeout, the Pi session is aborted and the run fails. Omitted or invalid values use the broker default of 600000 ms.</td>
+</tr>
+<tr>
+<td><code>relay_progress</code></td>
+<td>string</td>
+<td>Reserved progress policy: <code>none</code>, <code>tools</code>, or <code>full</code>. Only <code>none</code> has observable behavior today; progress relay is a future enhancement.</td>
+</tr>
+</tbody>
+</table>
+<p>Session-scope and session-storage fields are broker-controlled and cannot be overridden by a profile. Every invocation receives a unique <code>sub.&lt;profile&gt;.&lt;run&gt;</code> session identity.</p>
+<h2 id="running-a-profile">Running a Profile</h2>
+<p>Dispatch one task:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">"opcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">"agent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dependency_reviewer"</span><span class="p">,</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">"task"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Review the package upgrade for compatibility and security risks."</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>Dispatch several independent tasks in one batch:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">"opcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">      </span><span class="nt">"agent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scout"</span><span class="p">,</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">      </span><span class="nt">"task"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Locate the code that owns authentication token refresh."</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">      </span><span class="nt">"agent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reviewer"</span><span class="p">,</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">      </span><span class="nt">"task"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Review the current authentication flow for failure handling."</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>run</code> returns immediately with a <code>batch_id</code> and one <code>run_id</code> per task. It does not return the answers.</p>
+<p>Wait for completion:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">"opcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"wait"</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="nt">"batch_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"batch_..."</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="nt">"timeout_ms"</span><span class="p">:</span><span class="w"> </span><span class="mi">600000</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>You may also use <code>status</code> for a bounded status check or <code>result</code> to retrieve available output. Results are pull-based; Kilroy does not currently inject completed sub-agent results into the parent automatically.</p>
+<h2 id="builtin-profiles">Builtin Profiles</h2>
+<p>Kilroy ships five coding-oriented profiles:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scout</code></td>
+<td>Read-only codebase reconnaissance and call-path tracing.</td>
+</tr>
+<tr>
+<td><code>planner</code></td>
+<td>Implementation planning grounded in the current repository.</td>
+</tr>
+<tr>
+<td><code>builder</code></td>
+<td>Focused code changes with targeted validation.</td>
+</tr>
+<tr>
+<td><code>test_runner</code></td>
+<td>Test execution, reproduction, and failure diagnosis.</td>
+</tr>
+<tr>
+<td><code>reviewer</code></td>
+<td>Independent defect, regression, security, and test review.</td>
+</tr>
+</tbody>
+</table>
+<p>Builtins are seeded by stable <code>agent_id</code> and may be customized in place. Kilroy stores a baseline hash for the last bundled version installed. A later app update upgrades an untouched builtin but preserves one whose content differs from that baseline. To reset a modified builtin to the latest shipped version, delete it and restart or reinitialize the harness manager.</p>
+<h2 id="current-limitations">Current Limitations</h2>
+<ul>
+<li>Sub-agents cannot dispatch nested sub-agents.</li>
+<li>Active runtime settings cannot be mutated after a sub-agent starts; create another profile and invoke a new run instead.</li>
+<li>Runs and queues are process-local and are discarded when Kilroy restarts.</li>
+<li>Large results are returned inline; <code>output_ref</code> storage is not implemented.</li>
+<li>Progress relay and automatic completion injection are not implemented.</li>
+</ul>
+<p><em>Last updated: 2026-09-22</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../getting-started/working-with-windows.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Working with Windows">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Working with Windows
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="technical.html" class="md-footer__link md-footer__link--next" aria-label="Next: Technical Overview">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Technical Overview
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.share", "search.suggest", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
