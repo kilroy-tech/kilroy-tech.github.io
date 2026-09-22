@@ -7,6 +7,8 @@ nav:
   - UI Basics: getting-started/ui-basics.md
   - Working with Windows: getting-started/working-with-windows.md
   - Bundled Apps: apps/bundled-apps.md
+  - AI Agents:
+      - Sub-Agent Profiles: developers/agent-profiles.md
   - Files and Settings: getting-started/files-and-settings.md
   - Introduction: getting-started/introduction.md
   - FAQ: faq.md

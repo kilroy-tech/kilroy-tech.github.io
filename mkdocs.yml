@@ -14,6 +14,8 @@ nav:
   - Tutorials:
       - Tutorial 1: tutorials/tutorial1.md
       - Tutorial 2: tutorials/tutorial2.md
+  - AI Agents:
+      - Sub-Agent Profiles: developers/agent-profiles.md
   - Developers: 
       - Technical Overview: developers/technical.md
       - Creating Apps: developers/apps.md
