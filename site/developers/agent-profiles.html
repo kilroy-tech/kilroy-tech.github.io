@@ -8,7 +8,7 @@
         <link rel="canonical" href="https://docs.kilroy.tech/developers/agent-profiles.html">
       
       
-        <link rel="prev" href="../getting-started/working-with-windows.html">
+        <link rel="prev" href="ai-agent-configuration.html">
       
       
         <link rel="next" href="technical.html">
@@ -299,7 +299,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="agent-profiles.html" class="md-tabs__link">
+        <a href="ai-agent-configuration.html" class="md-tabs__link">
           
   
   
@@ -783,6 +783,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ai-agent-configuration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1771,6 +1799,7 @@
 <h1 id="creating-and-managing-sub-agent-profiles">Creating and Managing Sub-Agent Profiles</h1>
 <p>Agent profiles define reusable specialist agents that a Kilroy AI agent can invoke for focused work. A profile controls the sub-agent's instructions, tools, active skills, model endpoint, context limits, working directory, and timeout.</p>
 <p>Profiles are stored in <code>apps/kilroy.ai/agent_library</code>. You normally manage them by asking a Kilroy AI agent that has the <code>agent_profile</code> tool.</p>
+<p>For inspector fields, Pi <code>ai_args</code>, legacy distinctions, and profile inheritance, see <a href="ai-agent-configuration.html">AI Agent Configuration</a>.</p>
 <h2 id="before-you-start">Before You Start</h2>
 <p>The parent AI agent needs these tool instances:</p>
 <ul>
@@ -2039,6 +2068,11 @@
 <td>string</td>
 <td><strong>Environment-variable name</strong>, not a literal key. The broker resolves the variable immediately before dispatch. If omitted, the parent's already-resolved API key is inherited.</td>
 </tr>
+<tr>
+<td><code>ai_temperature</code></td>
+<td>number</td>
+<td>Optional sampling temperature, 0-2 inclusive. Alias: <code>temperature</code>; <code>ai_temperature</code> wins. Omission inherits the parent's value, or leaves provider defaults when neither specifies one. Provider/model support is required.</td>
+</tr>
 </tbody>
 </table>
 <p>Example environment setup:</p>
@@ -2079,14 +2113,19 @@
 <td>Working directory used by Pi filesystem and shell tools. Omitted means inherit the parent.</td>
 </tr>
 <tr>
+<td><code>ai_timeout</code></td>
+<td>number</td>
+<td>Active prompt-call timeout in seconds. Omission inherits the parent timeout, then <code>PI_PROMPT_TIMEOUT_MS</code> or the 300-second default. Explicit invalid values fail validation.</td>
+</tr>
+<tr>
 <td><code>timeout_ms</code></td>
-<td>integer</td>
-<td>Maximum active model-call duration in milliseconds. On timeout, the Pi session is aborted and the run fails. Omitted or invalid values use the broker default of 600000 ms.</td>
+<td>number</td>
+<td>Compatibility timeout in milliseconds; takes precedence over <code>ai_timeout</code> at the same level. A profile's explicit timeout takes precedence over the parent's. Timeouts are bounded to 20000-99999000 ms. On expiry, the Pi session is aborted and the run fails.</td>
 </tr>
 <tr>
 <td><code>relay_progress</code></td>
 <td>string</td>
-<td>Reserved progress policy: <code>none</code>, <code>tools</code>, or <code>full</code>. Only <code>none</code> has observable behavior today; progress relay is a future enhancement.</td>
+<td>Reserved policy field; currently not consulted by the broker. Child thinking and tool activity can relay through the active parent's enabled thinking stream.</td>
 </tr>
 </tbody>
 </table>
@@ -2162,9 +2201,9 @@
 <li>Active runtime settings cannot be mutated after a sub-agent starts; create another profile and invoke a new run instead.</li>
 <li>Runs and queues are process-local and are discarded when Kilroy restarts.</li>
 <li>Large results are returned inline; <code>output_ref</code> storage is not implemented.</li>
-<li>Progress relay and automatic completion injection are not implemented.</li>
+<li>Progress relay requires an active parent thinking stream. Automatic completion injection is not implemented; retrieve completed reports with <code>wait</code> or <code>result</code>.</li>
 </ul>
-<p><em>Last updated: 2026-09-22</em></p>
+<p><em>Last updated: 2026-10-14</em></p>
 
 
 
@@ -2200,7 +2239,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../getting-started/working-with-windows.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Working with Windows">
+          <a href="ai-agent-configuration.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Agent Configuration">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -2210,7 +2249,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Working with Windows
+                Agent Configuration
               </div>
             </div>
           </a>

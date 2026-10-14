@@ -4,6 +4,8 @@ Agent profiles define reusable specialist agents that a Kilroy AI agent can invo
 
 Profiles are stored in `apps/kilroy.ai/agent_library`. You normally manage them by asking a Kilroy AI agent that has the `agent_profile` tool.
 
+For inspector fields, Pi `ai_args`, legacy distinctions, and profile inheritance, see [AI Agent Configuration](ai-agent-configuration.md).
+
 ## Before You Start
 
 The parent AI agent needs these tool instances:
@@ -213,6 +215,7 @@ Each field overrides independently. Omitted fields inherit from the parent agent
 | `pi_url` | string | Provider base URL, for example `https://api.openai.com/v1`. |
 | `pi_api` | string | Pi API protocol adapter, for example `openai-completions`. |
 | `pi_api_key` | string | **Environment-variable name**, not a literal key. The broker resolves the variable immediately before dispatch. If omitted, the parent's already-resolved API key is inherited. |
+| `ai_temperature` | number | Optional sampling temperature, 0-2 inclusive. Alias: `temperature`; `ai_temperature` wins. Omission inherits the parent's value, or leaves provider defaults when neither specifies one. Provider/model support is required. |
 
 Example environment setup:
 
@@ -236,8 +239,9 @@ An invalid variable name or an unset/empty variable causes the run to fail. The 
 | `content_max_tokens` | integer | Token budget used to trigger context compaction. Omitted means inherit the parent. |
 | `compact_context_percentage` | integer | Percentage of older context compacted when limits are exceeded. Omitted means inherit the parent. |
 | `pi_working_dir` | string | Working directory used by Pi filesystem and shell tools. Omitted means inherit the parent. |
-| `timeout_ms` | integer | Maximum active model-call duration in milliseconds. On timeout, the Pi session is aborted and the run fails. Omitted or invalid values use the broker default of 600000 ms. |
-| `relay_progress` | string | Reserved progress policy: `none`, `tools`, or `full`. Only `none` has observable behavior today; progress relay is a future enhancement. |
+| `ai_timeout` | number | Active prompt-call timeout in seconds. Omission inherits the parent timeout, then `PI_PROMPT_TIMEOUT_MS` or the 300-second default. Explicit invalid values fail validation. |
+| `timeout_ms` | number | Compatibility timeout in milliseconds; takes precedence over `ai_timeout` at the same level. A profile's explicit timeout takes precedence over the parent's. Timeouts are bounded to 20000-99999000 ms. On expiry, the Pi session is aborted and the run fails. |
+| `relay_progress` | string | Reserved policy field; currently not consulted by the broker. Child thinking and tool activity can relay through the active parent's enabled thinking stream. |
 
 Session-scope and session-storage fields are broker-controlled and cannot be overridden by a profile. Every invocation receives a unique `sub.<profile>.<run>` session identity.
 
@@ -305,6 +309,6 @@ Builtins are seeded by stable `agent_id` and may be customized in place. Kilroy 
 - Active runtime settings cannot be mutated after a sub-agent starts; create another profile and invoke a new run instead.
 - Runs and queues are process-local and are discarded when Kilroy restarts.
 - Large results are returned inline; `output_ref` storage is not implemented.
-- Progress relay and automatic completion injection are not implemented.
+- Progress relay requires an active parent thinking stream. Automatic completion injection is not implemented; retrieve completed reports with `wait` or `result`.
 
-_Last updated: 2026-09-22_
+_Last updated: 2026-10-14_
