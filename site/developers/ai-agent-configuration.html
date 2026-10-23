@@ -934,6 +934,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#image-generation-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Generation Tool
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Generation Tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared-output-folders-and-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared Output Folders and Cleanup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example-child-override" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1551,6 +1579,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#image-generation-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Generation Tool
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Generation Tool">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared-output-folders-and-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared Output Folders and Cleanup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example-child-override" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1842,6 +1898,60 @@
 </tbody>
 </table>
 <p>Profiles also define <code>skills</code> and <code>inherit_skills</code>. They do not inherit the parent's system prompt: each profile must define its own <code>system_prompt</code>. See <a href="agent-profiles.html">Sub-Agent Profiles</a> for creation, tools, skills, API-key handling, and run/wait/result examples.</p>
+<h2 id="image-generation-tool">Image Generation Tool</h2>
+<p>The harness provides an optional one-shot <code>generate_image</code> tool through the manager PDI webhook. It is an ordinary configured tool instance, not a new process-diagram class or an <code>ai_args.image_model</code> setting. The tool instance owns provider settings and paths; the model only supplies a prompt and optional output dimensions.</p>
+<p>The Basic Group Agent and Basic Task Board Agent templates expose <code>ai_image_api</code>, <code>ai_image_url</code>, <code>ai_image_model</code>, <code>ai_image_api_key</code>, <code>ai_image_size</code>, <code>ai_image_count</code>, <code>ai_image_steps</code>, <code>ai_image_response_format</code>, and <code>ai_image_keep_images</code> as group-deployment variables. Their defaults now match the tested local VMLX request: <code>openai-images</code>, <code>http://localhost:11434/v1</code>, <code>flux2-klein-4b</code>, <code>local-key</code>, <code>512x512</code>, one image, four steps, and <code>b64_json</code>. The templates default <code>ai_working_dir</code> to <code>{{kilroypublic}}</code>, which resolves to the deployment host's configured public directory.</p>
+<table>
+<thead>
+<tr>
+<th>Instance bind</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>image_api</code></td>
+<td>Protocol adapter: <code>openai-images</code> for <code>/v1/images/generations</code>, or <code>openrouter-images</code> for <code>/v1/chat/completions</code> image modalities.</td>
+</tr>
+<tr>
+<td><code>image_url</code></td>
+<td>Absolute HTTP(S) base endpoint, for example <code>http://localhost:11434/v1</code>.</td>
+</tr>
+<tr>
+<td><code>image_model</code></td>
+<td>Image model ID, for example <code>flux2-klein-4b</code>.</td>
+</tr>
+<tr>
+<td><code>image_api_key</code></td>
+<td>Explicit image-service API key. It is separate from the AI agent's LLM key and is sent only in the server-side Authorization header. Pipeline substitutions may supply it as a deployment variable.</td>
+</tr>
+<tr>
+<td><code>image_params.size</code></td>
+<td>Bound default output size; the model may override it with the tool's optional <code>size</code> argument. Template variable: <code>ai_image_size</code>, default <code>512x512</code>.</td>
+</tr>
+<tr>
+<td><code>image_params.n</code></td>
+<td>Number of images per request, bound rather than model-controlled. Template variable: <code>ai_image_count</code>, default <code>1</code>; maximum is four.</td>
+</tr>
+<tr>
+<td><code>output_dir</code></td>
+<td>Explicit absolute destination directory. The service writes directly into this directory; it does not append or compute a child folder. The default group template uses <code>${ai_working_dir}/ai_images</code>.</td>
+</tr>
+<tr>
+<td><code>keep_images</code></td>
+<td>Retention limit, default 16, valid 1-1000. Cleanup only examines files with the <code>kimg_</code> generated-image prefix; unrelated files are untouched.</td>
+</tr>
+<tr>
+<td><code>image_params</code></td>
+<td>Optional JSON object encoded as a string. Its values are passed through to the selected image API, allowing server-specific settings such as <code>steps</code>, <code>guidance</code>, <code>quality</code>, or <code>seed</code>. The default template binds <code>steps</code> and <code>response_format</code>; use <code>ai_image_steps=0</code> to omit <code>steps</code>, and set <code>ai_image_response_format</code> blank to omit <code>response_format</code> for models such as <code>gpt-image-1</code>. Unsupported fields are rejected by strict providers.</td>
+</tr>
+</tbody>
+</table>
+<p>The model-call schema contains only <code>prompt</code> and optional <code>size</code> (for example, <code>512x512</code>). A model-supplied size overrides a bound <code>image_params.size</code>; endpoint, model, API key, output directory, retention, count and other generation parameters remain instance-controlled. Image count <code>n</code> is capped at four per call. No arbitrary 15-second tool timeout is configured; the normal AI turn timeout remains the overall caller limit.</p>
+<p><code>openai-images</code> accepts OpenAI-compatible <code>b64_json</code> or URL image results. <code>openrouter-images</code> accepts the OpenRouter chat-completions image result shape. The adapters normalize results to PNG/JPEG/WebP, enforce a 20 MiB per-image limit, and save short unique names such as <code>kimg_&lt;timestamp&gt;_&lt;id&gt;.png</code>. On Windows, output paths longer than 240 characters are rejected before writing. Image editing/input images are not part of the initial tool.</p>
+<h3 id="shared-output-folders-and-cleanup">Shared Output Folders and Cleanup</h3>
+<p>Agents using the same <code>output_dir</code> share one image pool, regardless of group or tool instance. Immediately before each image is written, cleanup counts generated images; when the count is at least that caller's <code>keep_images</code>, it deletes up to the two oldest files, then writes one uniquely named image. This stores no retention metadata. With different limits, the largest setting acts as the pool's ceiling; lower-limit calls gradually trim the pool, while each call keeps the count at or below its own limit. A low setting can evict another agent's older links. Pipeline authors who need isolated pools should bind distinct output directories. The cleanup lock serializes callers within one Kilroy backend process.</p>
+<p>Images inside Kilroy's configured kilroypublic tree receive <code>/kilroypublic/...</code> URLs and ready-to-use Markdown links. Other output directories return filesystem paths only; Kilroy does not serve them. This is an intentional choice for agent workspaces that target another server's document tree or an image-processing folder. The tool appends <code>/ai_images</code> to the deployment's <code>ai_working_dir</code>; the workflow expands <code>{{kilroypublic}}</code> in the explicit output path using service discovery, matching the Pi working-directory behavior. A blank value still resolves to <code>/ai_images</code>, which the workflow rejects rather than creating a root-level folder. Authors can edit the tool-instance <code>output_dir</code> bind to choose another explicit destination.</p>
 <h2 id="example-child-override">Example Child Override</h2>
 <p>Merge these values into the complete profile before replacing it with <code>agent_profile</code> -&gt; <code>create</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>

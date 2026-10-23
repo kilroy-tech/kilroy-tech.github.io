@@ -112,6 +112,34 @@ The orchestrator's overall run limit is derived from this timeout: the resolved 
 
 Profiles also define `skills` and `inherit_skills`. They do not inherit the parent's system prompt: each profile must define its own `system_prompt`. See [Sub-Agent Profiles](agent-profiles.md) for creation, tools, skills, API-key handling, and run/wait/result examples.
 
+## Image Generation Tool
+
+The harness provides an optional one-shot `generate_image` tool through the manager PDI webhook. It is an ordinary configured tool instance, not a new process-diagram class or an `ai_args.image_model` setting. The tool instance owns provider settings and paths; the model only supplies a prompt and optional output dimensions.
+
+The Basic Group Agent and Basic Task Board Agent templates expose `ai_image_api`, `ai_image_url`, `ai_image_model`, `ai_image_api_key`, `ai_image_size`, `ai_image_count`, `ai_image_steps`, `ai_image_response_format`, and `ai_image_keep_images` as group-deployment variables. Their defaults now match the tested local VMLX request: `openai-images`, `http://localhost:11434/v1`, `flux2-klein-4b`, `local-key`, `512x512`, one image, four steps, and `b64_json`. The templates default `ai_working_dir` to `{{kilroypublic}}`, which resolves to the deployment host's configured public directory.
+
+| Instance bind | Meaning |
+|---|---|
+| `image_api` | Protocol adapter: `openai-images` for `/v1/images/generations`, or `openrouter-images` for `/v1/chat/completions` image modalities. |
+| `image_url` | Absolute HTTP(S) base endpoint, for example `http://localhost:11434/v1`. |
+| `image_model` | Image model ID, for example `flux2-klein-4b`. |
+| `image_api_key` | Explicit image-service API key. It is separate from the AI agent's LLM key and is sent only in the server-side Authorization header. Pipeline substitutions may supply it as a deployment variable. |
+| `image_params.size` | Bound default output size; the model may override it with the tool's optional `size` argument. Template variable: `ai_image_size`, default `512x512`. |
+| `image_params.n` | Number of images per request, bound rather than model-controlled. Template variable: `ai_image_count`, default `1`; maximum is four. |
+| `output_dir` | Explicit absolute destination directory. The service writes directly into this directory; it does not append or compute a child folder. The default group template uses `${ai_working_dir}/ai_images`. |
+| `keep_images` | Retention limit, default 16, valid 1-1000. Cleanup only examines files with the `kimg_` generated-image prefix; unrelated files are untouched. |
+| `image_params` | Optional JSON object encoded as a string. Its values are passed through to the selected image API, allowing server-specific settings such as `steps`, `guidance`, `quality`, or `seed`. The default template binds `steps` and `response_format`; use `ai_image_steps=0` to omit `steps`, and set `ai_image_response_format` blank to omit `response_format` for models such as `gpt-image-1`. Unsupported fields are rejected by strict providers. |
+
+The model-call schema contains only `prompt` and optional `size` (for example, `512x512`). A model-supplied size overrides a bound `image_params.size`; endpoint, model, API key, output directory, retention, count and other generation parameters remain instance-controlled. Image count `n` is capped at four per call. No arbitrary 15-second tool timeout is configured; the normal AI turn timeout remains the overall caller limit.
+
+`openai-images` accepts OpenAI-compatible `b64_json` or URL image results. `openrouter-images` accepts the OpenRouter chat-completions image result shape. The adapters normalize results to PNG/JPEG/WebP, enforce a 20 MiB per-image limit, and save short unique names such as `kimg_<timestamp>_<id>.png`. On Windows, output paths longer than 240 characters are rejected before writing. Image editing/input images are not part of the initial tool.
+
+### Shared Output Folders and Cleanup
+
+Agents using the same `output_dir` share one image pool, regardless of group or tool instance. Immediately before each image is written, cleanup counts generated images; when the count is at least that caller's `keep_images`, it deletes up to the two oldest files, then writes one uniquely named image. This stores no retention metadata. With different limits, the largest setting acts as the pool's ceiling; lower-limit calls gradually trim the pool, while each call keeps the count at or below its own limit. A low setting can evict another agent's older links. Pipeline authors who need isolated pools should bind distinct output directories. The cleanup lock serializes callers within one Kilroy backend process.
+
+Images inside Kilroy's configured kilroypublic tree receive `/kilroypublic/...` URLs and ready-to-use Markdown links. Other output directories return filesystem paths only; Kilroy does not serve them. This is an intentional choice for agent workspaces that target another server's document tree or an image-processing folder. The tool appends `/ai_images` to the deployment's `ai_working_dir`; the workflow expands `{{kilroypublic}}` in the explicit output path using service discovery, matching the Pi working-directory behavior. A blank value still resolves to `/ai_images`, which the workflow rejects rather than creating a root-level folder. Authors can edit the tool-instance `output_dir` bind to choose another explicit destination.
+
 ## Example Child Override
 
 Merge these values into the complete profile before replacing it with `agent_profile` -> `create`:
