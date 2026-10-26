@@ -81,4 +81,4 @@ function preflight(authData, wfProxy) {
 # Build, Test, Distribute
 
 ---
-[Home](../index.md)
+[Intro to Kilroy](../index.md)

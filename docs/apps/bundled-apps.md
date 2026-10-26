@@ -64,6 +64,6 @@ Catalog contents can change over time as new apps and updates are published.
 
 ## Related Reading
 
-- [Quick Start](../index.md#quick-start)
-- [Kilroy Groups App](../index.md#kilroy-groups-app)
+- [Quick Start](../getting-started/quick-start.md)
+- [Kilroy Groups](../getting-started/quick-start.md#kilroy-groups-app)
 - [Files and Settings](../getting-started/files-and-settings.md)

@@ -5,14 +5,19 @@ edit_uri: edit/main/docs/
 use_directory_urls: false
 exclude_docs: |
   copilot/
+  inapp-home.md
 
 nav:
-  - Home: index.md
   - Getting Started:
-      - Introduction: getting-started/introduction.md
+      - Intro to Kilroy: index.md
       - Quick Start: getting-started/quick-start.md
-      - Installation: getting-started/installation.md
+      - Download and Install: getting-started/installation.md
+      - Docker Installation: getting-started/docker-installation.md
+      - UI Basics: getting-started/ui-basics.md
       - Working with Windows: getting-started/working-with-windows.md
+      - Files and Settings: getting-started/files-and-settings.md
+  - Apps:
+      - Bundled Apps: apps/bundled-apps.md
   - Tutorials:
       - Tutorial 1: tutorials/tutorial1.md
       - Tutorial 2: tutorials/tutorial2.md
