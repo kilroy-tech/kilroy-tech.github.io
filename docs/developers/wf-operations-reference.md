@@ -31,21 +31,23 @@ This catalog omits:
 - Deprecated operations (`reset_process_diagram`, `send_docusign_template`,
   `send_email`, `write_event`, `write_manifest`).
 
-!!! warning "Never set `__results__` directly"
-    Some of these operations report their result by writing it to the
-    well-known `GLOBAL_RESULTS_VAR` (`__results__`) global. That is
-    internal plumbing used by the workflow engine to hand a result back to
-    the workflow that invoked the operation.
+!!! warning "Final results depend on the execution phase"
+    Operations can write their results to `GLOBAL_RESULTS_VAR` (`__results__`)
+    in the workflow instance's global context. Do not set this slot in
+    `preflight` expecting it to survive as the final workflow return value:
+    the subsequent Blockly phase overwrites it, even for a visually empty
+    workflow with execution scaffolding.
 
-    Your own `script.js` code should **never** set `__results__` directly.
-    Instead:
+    Store intermediate data with `wfProxy.setGlobalValue(key, value)` under
+    a descriptive name. Return it through the final result-producing Blockly
+    block, or deliberately assign `__results__` in `postflight`, after Blockly
+    has finished. Both return patterns are valid.
 
-    - If you are simply returning a value from a hook function, return it in
-      a resolved `Promise`, as shown in the examples throughout this and the
-      [wfProxy API Reference](wfproxy-api-reference.md).
-    - If you need to make a value available to later steps or to the
-      caller, use `wfProxy.setGlobalValue(key, value)` with your own
-      descriptive key name.
+    A hook's resolved Promise reports hook completion; it is not a substitute
+    for the workflow's final result slot. Persistence to the parent PDI is
+    separately governed by the workflow's declared output-variable rules.
+    See [Workflow Execution Lifecycle](wfproxy-api-reference.md#workflow-execution-lifecycle)
+    for the complete ordering and context boundaries.
 
 ---
 

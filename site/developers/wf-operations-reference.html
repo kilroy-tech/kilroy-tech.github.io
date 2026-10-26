@@ -277,7 +277,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../tutorials/tutorial1.md" class="md-tabs__link">
+        <a href="../tutorials/tutorial1.html" class="md-tabs__link">
           
   
   
@@ -671,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/tutorial1.md" class="md-nav__link">
+      <a href="../tutorials/tutorial1.html" class="md-nav__link">
         
   
   
@@ -699,7 +699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/tutorial2.md" class="md-nav__link">
+      <a href="../tutorials/tutorial2.html" class="md-nav__link">
         
   
   
@@ -1757,21 +1757,21 @@ would enter into that operation's fields in the workflow editor.</p>
   <code>send_email</code>, <code>write_event</code>, <code>write_manifest</code>).</li>
 </ul>
 <div class="admonition warning">
-<p class="admonition-title">Never set <code>__results__</code> directly</p>
-<p>Some of these operations report their result by writing it to the
-well-known <code>GLOBAL_RESULTS_VAR</code> (<code>__results__</code>) global. That is
-internal plumbing used by the workflow engine to hand a result back to
-the workflow that invoked the operation.</p>
-<p>Your own <code>script.js</code> code should <strong>never</strong> set <code>__results__</code> directly.
-Instead:</p>
-<ul>
-<li>If you are simply returning a value from a hook function, return it in
-  a resolved <code>Promise</code>, as shown in the examples throughout this and the
-  <a href="wfproxy-api-reference.html">wfProxy API Reference</a>.</li>
-<li>If you need to make a value available to later steps or to the
-  caller, use <code>wfProxy.setGlobalValue(key, value)</code> with your own
-  descriptive key name.</li>
-</ul>
+<p class="admonition-title">Final results depend on the execution phase</p>
+<p>Operations can write their results to <code>GLOBAL_RESULTS_VAR</code> (<code>__results__</code>)
+in the workflow instance's global context. Do not set this slot in
+<code>preflight</code> expecting it to survive as the final workflow return value:
+the subsequent Blockly phase overwrites it, even for a visually empty
+workflow with execution scaffolding.</p>
+<p>Store intermediate data with <code>wfProxy.setGlobalValue(key, value)</code> under
+a descriptive name. Return it through the final result-producing Blockly
+block, or deliberately assign <code>__results__</code> in <code>postflight</code>, after Blockly
+has finished. Both return patterns are valid.</p>
+<p>A hook's resolved Promise reports hook completion; it is not a substitute
+for the workflow's final result slot. Persistence to the parent PDI is
+separately governed by the workflow's declared output-variable rules.
+See <a href="wfproxy-api-reference.html#workflow-execution-lifecycle">Workflow Execution Lifecycle</a>
+for the complete ordering and context boundaries.</p>
 </div>
 <hr>
 <h2 id="app_services"><code>app_services</code></h2>

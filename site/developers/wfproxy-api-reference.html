@@ -277,7 +277,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../tutorials/tutorial1.md" class="md-tabs__link">
+        <a href="../tutorials/tutorial1.html" class="md-tabs__link">
           
   
   
@@ -671,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/tutorial1.md" class="md-nav__link">
+      <a href="../tutorials/tutorial1.html" class="md-nav__link">
         
   
   
@@ -699,7 +699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/tutorial2.md" class="md-nav__link">
+      <a href="../tutorials/tutorial2.html" class="md-nav__link">
         
   
   
@@ -1110,6 +1110,17 @@
     <span class="md-ellipsis">
       
         Obtaining a wfProxy instance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-execution-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Execution Lifecycle
       
     </span>
   </a>
@@ -2123,6 +2134,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#workflow-execution-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Execution Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#global-value-access" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2893,6 +2915,49 @@ functions as an argument, for example:</p>
 </code></pre></div>
 <p>You do not need to do anything to obtain or initialize <code>wfProxy</code> — just
 declare it as a parameter of your hook function and use it.</p>
+<h2 id="workflow-execution-lifecycle">Workflow Execution Lifecycle</h2>
+<p>The workflow instance has its own global context. It is not a live reference
+that writes every change directly into the parent process diagram instance
+(PDI). Normal completion follows these phases:</p>
+<ol>
+<li><strong>Context creation.</strong> Kilroy creates the workflow instance's copy of global
+  context from incoming argument data and the parent PDI global context.</li>
+<li><strong>Preflight.</strong> Kilroy loads and runs <code>preflight</code> JavaScript. Changes made
+  through <code>wfProxy</code> are preserved in the workflow instance's context for the
+  following phases.</li>
+<li><strong>Blockly execution.</strong> Kilroy runs the compiled blocks incrementally, one
+  logical block at a time. Block results update <code>__results__</code> and are persisted
+  in the workflow instance's context. A visually empty workflow still runs its
+  execution scaffold; it does not bypass this phase. Interactive <code>begin</code> and
+  <code>end</code> hooks execute during the relevant form steps.</li>
+<li><strong>Postflight.</strong> JavaScript runs after Blockly, with the accumulated context.
+  It may deliberately override <code>__results__</code>; no later Blockly phase overwrites
+  that final assignment.</li>
+<li><strong>Completion and output export.</strong> Kilroy evaluates the completion Promise
+  and context changes, then updates parent PDI global state according to the
+  workflow's declared output-variable rules.</li>
+</ol>
+<p>Three mechanisms must not be confused:</p>
+<ul>
+<li>A hook's resolved Promise reports that hook's completion; returning an object
+  from <code>preflight</code> is not a substitute for setting the final workflow result.</li>
+<li><code>__results__</code> is the workflow result slot. An assignment in <code>preflight</code> is
+  overwritten by subsequent Blockly execution. Store intermediate data in a
+  named global, then use the final result-producing Blockly block or assign
+  the final result in <code>postflight</code>.</li>
+<li>The <code>outputs</code> rules in <code>json.json</code> control which workflow-context values are
+  exported to the parent PDI. Setting a named global or returning a result does
+  not by itself make every context change persistent in the parent.</li>
+</ul>
+<p>A valid postflight final-result pattern is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">postflight</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">   </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">setGlobalValue</span><span class="p">(</span><span class="s2">"__results__"</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">getGlobalValue</span><span class="p">(</span><span class="s2">"resp"</span><span class="p">));</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>Here, an earlier phase stores the application result in <code>resp</code>. If a separate
+value must persist in the parent PDI after completion, it must also satisfy the
+workflow's output-variable rules.</p>
 <hr>
 <h2 id="global-value-access">Global value access</h2>
 <p>These functions read and write the workflow's <strong>global context</strong> — the
@@ -2925,7 +2990,7 @@ blocks via <code>${key}</code> template substitution.</p>
 <li><code>value</code> (<code>*</code>) — the value to store.</li>
 <li><strong>Returns</strong></li>
 <li><code>*</code> — the same <code>value</code> that was passed in.</li>
-<li><strong>Purpose</strong>: the standard way scripts communicate data between hooks (<code>preflight</code> → <code>postflight</code>) and to downstream JSON/XML blocks via <code>${key}</code> substitution. Values set with <code>setGlobalValue</code> are automatically persisted for the rest of the workflow's execution.</li>
+<li><strong>Purpose</strong>: the standard way scripts communicate data between hooks (<code>preflight</code> → <code>postflight</code>) and to downstream JSON/XML blocks via <code>${key}</code> substitution. Values set with <code>setGlobalValue</code> are preserved in the workflow instance's context for subsequent phases, subject to later assignments. Export to the parent PDI at completion is controlled separately by the workflow's declared output-variable rules.</li>
 </ul>
 <h3 id="getlastuserid"><code>getLastUserId()</code></h3>
 <p>Get the user ID of the current/most-recent workflow user, stored under the well-known global key <code>wfCurrentUserId</code>.</p>
@@ -3176,25 +3241,25 @@ JSON-serializable object for that piece of the form. Only the outermost
 <code>Form.value</code> needs to be returned to the workflow runtime — it already
 contains the full nested structure of panels, sections, and fields.</p>
 <h3 id="building-a-form">Building a form</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">begin</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">,</span><span class="w"> </span><span class="nx">step</span><span class="p">,</span><span class="w"> </span><span class="nx">theForm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Form</span><span class="p">,</span><span class="w"> </span><span class="nx">Panel</span><span class="p">,</span><span class="w"> </span><span class="nx">Section</span><span class="p">,</span><span class="w"> </span><span class="nx">TextField</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">formGen</span><span class="p">;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Form</span><span class="p">(</span><span class="s2">"survey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quick Survey"</span><span class="p">);</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">panel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Panel</span><span class="p">(</span><span class="s2">"Page 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Please answer the following:"</span><span class="p">);</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Section</span><span class="p">();</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_color"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite color"</span><span class="p">));</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_food"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite food"</span><span class="p">));</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nx">panel</span><span class="p">.</span><span class="nx">addSection</span><span class="p">(</span><span class="nx">section</span><span class="p">);</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nx">form</span><span class="p">.</span><span class="nx">addPanel</span><span class="p">(</span><span class="nx">panel</span><span class="p">);</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">PATH_SUCCESS</span><span class="p">,</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">        </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="p">});</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">begin</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">,</span><span class="w"> </span><span class="nx">step</span><span class="p">,</span><span class="w"> </span><span class="nx">theForm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Form</span><span class="p">,</span><span class="w"> </span><span class="nx">Panel</span><span class="p">,</span><span class="w"> </span><span class="nx">Section</span><span class="p">,</span><span class="w"> </span><span class="nx">TextField</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">formGen</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Form</span><span class="p">(</span><span class="s2">"survey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quick Survey"</span><span class="p">);</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">panel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Panel</span><span class="p">(</span><span class="s2">"Page 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Please answer the following:"</span><span class="p">);</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Section</span><span class="p">();</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_color"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite color"</span><span class="p">));</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_food"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite food"</span><span class="p">));</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nx">panel</span><span class="p">.</span><span class="nx">addSection</span><span class="p">(</span><span class="nx">section</span><span class="p">);</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="nx">form</span><span class="p">.</span><span class="nx">addPanel</span><span class="p">(</span><span class="nx">panel</span><span class="p">);</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">PATH_SUCCESS</span><span class="p">,</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="form"><code>Form</code></h3>
 <p>Represents the top-level form definition.</p>

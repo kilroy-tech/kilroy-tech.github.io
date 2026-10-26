@@ -25,6 +25,54 @@ function preflight(authData, wfProxy) {
 You do not need to do anything to obtain or initialize `wfProxy` — just
 declare it as a parameter of your hook function and use it.
 
+## Workflow Execution Lifecycle
+
+The workflow instance has its own global context. It is not a live reference
+that writes every change directly into the parent process diagram instance
+(PDI). Normal completion follows these phases:
+
+1. **Context creation.** Kilroy creates the workflow instance's copy of global
+  context from incoming argument data and the parent PDI global context.
+2. **Preflight.** Kilroy loads and runs `preflight` JavaScript. Changes made
+  through `wfProxy` are preserved in the workflow instance's context for the
+  following phases.
+3. **Blockly execution.** Kilroy runs the compiled blocks incrementally, one
+  logical block at a time. Block results update `__results__` and are persisted
+  in the workflow instance's context. A visually empty workflow still runs its
+  execution scaffold; it does not bypass this phase. Interactive `begin` and
+  `end` hooks execute during the relevant form steps.
+4. **Postflight.** JavaScript runs after Blockly, with the accumulated context.
+  It may deliberately override `__results__`; no later Blockly phase overwrites
+  that final assignment.
+5. **Completion and output export.** Kilroy evaluates the completion Promise
+  and context changes, then updates parent PDI global state according to the
+  workflow's declared output-variable rules.
+
+Three mechanisms must not be confused:
+
+- A hook's resolved Promise reports that hook's completion; returning an object
+  from `preflight` is not a substitute for setting the final workflow result.
+- `__results__` is the workflow result slot. An assignment in `preflight` is
+  overwritten by subsequent Blockly execution. Store intermediate data in a
+  named global, then use the final result-producing Blockly block or assign
+  the final result in `postflight`.
+- The `outputs` rules in `json.json` control which workflow-context values are
+  exported to the parent PDI. Setting a named global or returning a result does
+  not by itself make every context change persistent in the parent.
+
+A valid postflight final-result pattern is:
+
+```js
+function postflight(authData, wfProxy) {
+   wfProxy.setGlobalValue("__results__", wfProxy.getGlobalValue("resp"));
+   return Promise.resolve({ success: true });
+}
+```
+
+Here, an earlier phase stores the application result in `resp`. If a separate
+value must persist in the parent PDI after completion, it must also satisfy the
+workflow's output-variable rules.
+
 ---
 
 ## Global value access
@@ -63,7 +111,7 @@ Set a single value in the workflow's global context.
   - `value` (`*`) — the value to store.
 - **Returns**
   - `*` — the same `value` that was passed in.
-- **Purpose**: the standard way scripts communicate data between hooks (`preflight` → `postflight`) and to downstream JSON/XML blocks via `${key}` substitution. Values set with `setGlobalValue` are automatically persisted for the rest of the workflow's execution.
+- **Purpose**: the standard way scripts communicate data between hooks (`preflight` → `postflight`) and to downstream JSON/XML blocks via `${key}` substitution. Values set with `setGlobalValue` are preserved in the workflow instance's context for subsequent phases, subject to later assignments. Export to the parent PDI at completion is controlled separately by the workflow's declared output-variable rules.
 
 ### `getLastUserId()`
 

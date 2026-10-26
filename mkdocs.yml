@@ -3,6 +3,8 @@ site_url: "https://docs.kilroy.tech/"
 repo_url: https://github.com/kilroy-tech/kilroy-tech.github.io
 edit_uri: edit/main/docs/
 use_directory_urls: false
+exclude_docs: |
+  copilot/
 
 nav:
   - Home: index.md

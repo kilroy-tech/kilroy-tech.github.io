@@ -1,6 +1,8 @@
 site_name: kilroy.docs
 site_url: "https://docs.kilroy.tech/apps/kilroy.docs/"
 use_directory_urls: false
+exclude_docs: |
+  copilot/
 
 nav:
   - Home: index.md
