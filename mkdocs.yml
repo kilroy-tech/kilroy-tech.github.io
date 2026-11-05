@@ -18,6 +18,8 @@ nav:
       - Files and Settings: getting-started/files-and-settings.md
   - Apps:
       - Bundled Apps: apps/bundled-apps.md
+      - Kilroy Groups:
+        - External Events and Listener Bridge: apps/groups-listener-bridge.md
   - Tutorials:
       - Tutorial 1: tutorials/tutorial1.md
       - Tutorial 2: tutorials/tutorial2.md
@@ -27,6 +29,8 @@ nav:
   - Developers: 
       - Technical Overview: developers/technical.md
       - Creating Apps: developers/apps.md
+      - Integrations:
+        - Listener API and Swarm Routing: developers/listener-api.md
       - Adding WF_Agent Webhooks: developers/adding_wf_agents.md
       - Memory Agent Blocks: developers/memory_agents.md
       - Implementing the Stop Button: developers/widget-window-stop.md

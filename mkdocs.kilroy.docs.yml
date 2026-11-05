@@ -14,6 +14,8 @@ nav:
   - UI Basics: getting-started/ui-basics.md
   - Working with Windows: getting-started/working-with-windows.md
   - Bundled Apps: apps/bundled-apps.md
+  - Advanced Features:
+      - Listener Bridge: apps/groups-listener-bridge.md
   - AI Agents:
       - Agent Configuration: developers/ai-agent-configuration.md
       - Sub-Agent Profiles: developers/agent-profiles.md

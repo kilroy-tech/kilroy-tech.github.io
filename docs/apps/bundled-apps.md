@@ -19,6 +19,8 @@ The app includes a `manager` class plus several user-facing agent views such as 
 
 If you want to understand how Kilroy feels as a collaborative application platform, start here.
 
+To send events from external applications into a group's AI, see [External Events and Listener Bridge](groups-listener-bridge.md).
+
 ## Other Common Bundled Apps
 
 ### kilroy.ai.services

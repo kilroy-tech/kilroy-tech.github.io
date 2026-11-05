@@ -143,6 +143,8 @@ all (or none) of the add-ons for use with your group. Be careful not to select t
    * Basic Matrix - an idle time widget for sharing doodles and pixel art with others in your group
 
 
+To connect external apps, scheduled jobs, or system alerts to a group AI, see [External Events and Listener Bridge](../apps/groups-listener-bridge.md). The HTTP caller receives an injection acknowledgement; any AI results are delivered separately through tools under the external integration's contract.
+
 *[Placeholder: add narrative instructions for adding add-ons to your group.]*
 
 #### 4. Editing Variables
