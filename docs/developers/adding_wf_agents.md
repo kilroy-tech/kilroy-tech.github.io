@@ -10,6 +10,8 @@ Adding a new `wf_agent` requires coordinated changes in three places:
 2. **The webhooks process diagram** — registers the webhook trigger endpoint
 3. **The workflow** — implements the actual processing logic in JavaScript and workflow JSON
 
+For existing file operations, use the registered `file_read`, `file_write`, and `file_edit` webhooks rather than duplicating filesystem logic in a new workflow. Their structured message arguments, `targs` policy, catalog classes, and location macros are described in [File Tools and Folder Locations](file-tools.md). The old `read_file` and `write_file` hooks retain their separate filename-template interfaces.
+
 ---
 
 ## Overview: How wf_agents Work

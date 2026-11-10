@@ -25,6 +25,7 @@ nav:
       - Tutorial 2: tutorials/tutorial2.md
   - AI Agents:
       - Agent Configuration: developers/ai-agent-configuration.md
+      - File Tools and Folder Locations: developers/file-tools.md
       - Sub-Agent Profiles: developers/agent-profiles.md
   - Developers: 
       - Technical Overview: developers/technical.md

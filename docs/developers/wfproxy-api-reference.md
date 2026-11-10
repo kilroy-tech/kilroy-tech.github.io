@@ -364,6 +364,29 @@ catalog of available `wfopsName` values and the `params` each one expects.
 
 ## File access
 
+### `readTextFile(args, options)` / `writeTextFile(args, options)` / `editTextFile(args, options)`
+
+Asynchronous UTF-8 text operations delegated to the backend `modules/util/file_storage` library.
+
+| Method | `args` | Behavior |
+|---|---|---|
+| `readTextFile` | `{path, offset?, limit?}` | Reads a 1-based line range with output limits and continuation metadata. |
+| `writeTextFile` | `{path, content}` | Creates or rewrites a file, accepting empty strings. Append and overwrite permissions are options, not call arguments. |
+| `editTextFile` | `{path, edits: [{oldText, newText}]}` | Applies unique, non-overlapping replacements against the original file and returns diff/patch details. |
+
+`options.path_prefix` sets the allowed directory and relative-path base. Folder macros such as `{{kilroypublic}}`, `{{documents}}`, and `{{downloads}}` are expanded by service discovery. For direct proxy calls, an omitted or empty prefix means unrestricted access; relative paths then use `kilroypublic`. This differs from agent catalog instances, which default to a `{{kilroypublic}}` prefix. A nonempty prefix must identify an existing absolute directory.
+
+All three return a Promise resolving to `{success: true, path, ...}` or `{success: false, error, code}`. File-operation and directory-resolution failures are trapped and logged in the library. Existing `loadFile` behavior is unchanged.
+
+```javascript
+const result = await wfProxy.readTextFile(
+  { path: "notes.txt", offset: 1, limit: 50 },
+  { path_prefix: "{{kilroypublic}}/projects/example" }
+);
+```
+
+See [File Tools and Folder Locations](file-tools.md) for all policy options, result fields, platform overrides, and confinement limitations. Low-level directory discovery methods are available from service discovery, not as additional `wfProxy` methods.
+
 ### `loadFile(path)`
 
 Read the contents of a text file from disk.

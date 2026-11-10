@@ -112,6 +112,12 @@ The orchestrator's overall run limit is derived from this timeout: the resolved 
 
 Profiles also define `skills` and `inherit_skills`. They do not inherit the parent's system prompt: each profile must define its own `system_prompt`. See [Sub-Agent Profiles](agent-profiles.md) for creation, tools, skills, API-key handling, and run/wait/result examples.
 
+## File Tools and Folder Locations
+
+The harness reference tool configuration replaces Pi's native `read`, `write`, and `edit` with `kilroy.ai.services.file_read`, `file_write`, and `file_edit` instances under those same names. Their `path_prefix` bindings use `${ai_working_dir}`; catalog defaults use `{{kilroypublic}}`. Pi `bash`, `grep`, `find`, and `ls` remain enabled, and Kilroy `system` is unchanged, so this is not agent-wide sandboxing.
+
+See [File Tools and Folder Locations](file-tools.md) for tool arguments/results, instance limits, supported folder macros, Docker mappings, deployment-variable versus runtime-macro expansion, and activation steps. Inject the updated reference JSON into actual agent `ai_args`; changing the reference file alone does not update deployed agents.
+
 ## Image Generation Tool
 
 The harness provides an optional one-shot `generate_image` tool through the manager PDI webhook. It is an ordinary configured tool instance, not a new process-diagram class or an `ai_args.image_model` setting. The tool instance owns provider settings and paths; the model only supplies a prompt and optional output dimensions.

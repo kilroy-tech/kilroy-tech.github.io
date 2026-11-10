@@ -18,6 +18,7 @@ nav:
       - Listener Bridge: apps/groups-listener-bridge.md
   - AI Agents:
       - Agent Configuration: developers/ai-agent-configuration.md
+      - File Tools and Folder Locations: developers/file-tools.md
       - Sub-Agent Profiles: developers/agent-profiles.md
   - Files and Settings: getting-started/files-and-settings.md
   - FAQ: faq.md
