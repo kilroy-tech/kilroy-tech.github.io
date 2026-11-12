@@ -104,10 +104,12 @@ The actual response can include additional workflow metadata. An asynchronous tr
 The catalogued Listener Bridge is a `pipeline_template_addon` with `allow_multiple: false`. Its graph is:
 
 ```text
-${listener_swarm} -> listener_bridge (pass-through wf_agent) -> ${group_private_swarm}
+{{listener_swarm}} -> listener_bridge (pass-through wf_agent) -> ${group_private_swarm}
 ```
 
-- `listener_swarm` defaults to `listener_swarm` and must match the service's Listener Swarm Name exactly.
+- The Listener Bridge add-on exposes a visible `listener_swarm_name` pipeline variable whose default is `{{listener_swarm}}`. Group Manager shows that macro in Edit Variables; leaving it unchanged resolves to the effective listener name of the Kilroy backend deploying the pipeline. Ordinary `${...}` defaults and group overrides are applied first, and the reserved macro is then expanded only in the selected variable value. A literal remote swarm name overrides the macro and is passed through without local resolution.
+- The backend creates and persists a random UUIDv4-format default Listener Swarm Name in its platform key-value service settings on first WebHooks PDI initialization. User-entered and `LISTENER_SWARM_NAME` override values may be any nonempty swarm name accepted by the underlying swarm library. If the environment variable is set, the WebHooks Settings UI displays its value as read-only.
+- Setting changes affect new deployments. Existing bridges stay joined to their old topic and require group redeployment.
 - The Groups manager supplies `group_private_swarm`. It is not an external caller's destination argument.
 - The bridge receives all sender names (`*`) and calls no transformation webhook. It supplies no reverse edge from the group back to the listener swarm.
 - The standard Basic Group Agent private-input filter accepts `/wa` messages from senders other than `Kilroy` and forwards accepted traffic toward its AI input. Other templates must be checked against their own routing rules.

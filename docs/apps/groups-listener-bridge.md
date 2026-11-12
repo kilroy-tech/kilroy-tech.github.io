@@ -28,9 +28,9 @@ The listener is part of `kilroy.ai.services`. Its settings and endpoints are hos
 1. Open **WebHooks for WF Agents** under Kilroy AI Services.
 2. Click **Settings**.
 3. Check **Enable Listener Webhook**.
-4. Set **Listener Swarm Name** and save the settings.
+4. The listener name is generated and saved automatically the first time the WebHooks PDI starts. Optionally replace it with another swarm name accepted by the underlying swarm library in **Listener Swarm Name** and save.
 
-The default swarm name is `listener_swarm`. The listener has one configured destination swarm for both input endpoints; it does not select a group from each HTTP request.
+The saved name is a backend-owned service setting in Kilroy's platform key-value store, independent of the AI Services app's installation data. `LISTENER_SWARM_NAME`, when configured in the Kilroy backend environment, overrides the saved value; the UI shows the effective value as environment-controlled and does not allow editing it. The listener has one configured destination swarm for both input endpoints; it does not select a group from each HTTP request.
 
 The Connected indicator describes the listener's configured connection state. It is not proof that a group bridge or AI agent has received a particular message.
 
@@ -39,12 +39,17 @@ The Connected indicator describes the listener's configured connection state. It
 1. Stop the group before modifying its add-ons or variables.
 2. In Group Manager, edit the group and select **Add Add-on**.
 3. Add **Listener Bridge** from the template catalog.
-4. Open **Edit Variables** and set the add-on's `listener_swarm` to exactly the same name configured in Listener Settings.
-5. Save the variables and the group configuration, then start the group.
+4. In **Edit Variables**, leave `listener_swarm_name` at `{{listener_swarm}}` to bridge this Kilroy instance's listener, or enter a remote Kilroy instance's public listener swarm name. Save the group configuration, then start it.
+
+The macro is shown as the add-on variable's default in Group Manager. At deployment, ordinary `${...}` pipeline variables and group overrides are applied first; only then does the reserved `{{listener_swarm}}` macro in the selected `listener_swarm_name` value resolve to this backend's effective Listener Swarm Name. A literal remote swarm name is passed through unchanged, so the receiving Kilroy instance does not need to be the same instance running the group.
 
 The template is a pipeline add-on and does not allow multiple copies within the same group configuration. The Groups manager supplies `group_private_swarm`; do not replace it with the listener swarm name or copy it into external requests.
 
 If several groups deploy bridges listening on the same listener swarm, they can all receive its traffic. A swarm name is routing configuration, not a per-request group selector or an authorization credential.
+
+Changing Listener Swarm Name affects new pipeline deployments. Saving a new name reconfigures the WebHooks listener immediately, but existing group bridges stay on their deployed topic until those groups are stopped and redeployed.
+
+After updating an existing group to the new Listener Bridge template, open **Edit Variables**, review `listener_swarm_name`, and save the group configuration. The Groups manager detects the template revision change and requires this review before the group can start again. Leave `{{listener_swarm}}` for the local listener or enter a remote listener topic.
 
 ## 3. Send a Message
 
