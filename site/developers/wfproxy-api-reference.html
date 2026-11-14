@@ -1047,6 +1047,34 @@
   
   
     <li class="md-nav__item">
+      <a href="file-tools.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Tools and Folder Locations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="agent-profiles.html" class="md-nav__link">
         
   
@@ -1856,6 +1884,17 @@
   
     <nav class="md-nav" aria-label="File access">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#readtextfileargs-options-writetextfileargs-options-edittextfileargs-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        readTextFile(args, options) / writeTextFile(args, options) / editTextFile(args, options)
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#loadfilepath" class="md-nav__link">
@@ -2875,6 +2914,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#readtextfileargs-options-writetextfileargs-options-edittextfileargs-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        readTextFile(args, options) / writeTextFile(args, options) / editTextFile(args, options)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#loadfilepath" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3527,6 +3577,42 @@ catalog of available <code>wfopsName</code> values and the <code>params</code> e
 </ul>
 <hr>
 <h2 id="file-access">File access</h2>
+<h3 id="readtextfileargs-options-writetextfileargs-options-edittextfileargs-options"><code>readTextFile(args, options)</code> / <code>writeTextFile(args, options)</code> / <code>editTextFile(args, options)</code></h3>
+<p>Asynchronous UTF-8 text operations delegated to the backend <code>modules/util/file_storage</code> library.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th><code>args</code></th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>readTextFile</code></td>
+<td><code>{path, offset?, limit?}</code></td>
+<td>Reads a 1-based line range with output limits and continuation metadata.</td>
+</tr>
+<tr>
+<td><code>writeTextFile</code></td>
+<td><code>{path, content}</code></td>
+<td>Creates or rewrites a file, accepting empty strings. Append and overwrite permissions are options, not call arguments.</td>
+</tr>
+<tr>
+<td><code>editTextFile</code></td>
+<td><code>{path, edits: [{oldText, newText}]}</code></td>
+<td>Applies unique, non-overlapping replacements against the original file and returns diff/patch details.</td>
+</tr>
+</tbody>
+</table>
+<p><code>options.path_prefix</code> sets the allowed directory and relative-path base. Folder macros such as <code>{{kilroypublic}}</code>, <code>{{documents}}</code>, and <code>{{downloads}}</code> are expanded by service discovery. For direct proxy calls, an omitted or empty prefix means unrestricted access; relative paths then use <code>kilroypublic</code>. This differs from agent catalog instances, which default to a <code>{{kilroypublic}}</code> prefix. A nonempty prefix must identify an existing absolute directory.</p>
+<p>All three return a Promise resolving to <code>{success: true, path, ...}</code> or <code>{success: false, error, code}</code>. File-operation and directory-resolution failures are trapped and logged in the library. Existing <code>loadFile</code> behavior is unchanged.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">readTextFile</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">"notes.txt"</span><span class="p">,</span><span class="w"> </span><span class="nx">offset</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">path_prefix</span><span class="o">:</span><span class="w"> </span><span class="s2">"{{kilroypublic}}/projects/example"</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">);</span>
+</code></pre></div>
+<p>See <a href="file-tools.html">File Tools and Folder Locations</a> for all policy options, result fields, platform overrides, and confinement limitations. Low-level directory discovery methods are available from service discovery, not as additional <code>wfProxy</code> methods.</p>
 <h3 id="loadfilepath"><code>loadFile(path)</code></h3>
 <p>Read the contents of a text file from disk.</p>
 <ul>
@@ -3565,25 +3651,25 @@ JSON-serializable object for that piece of the form. Only the outermost
 <code>Form.value</code> needs to be returned to the workflow runtime — it already
 contains the full nested structure of panels, sections, and fields.</p>
 <h3 id="building-a-form">Building a form</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">begin</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">,</span><span class="w"> </span><span class="nx">step</span><span class="p">,</span><span class="w"> </span><span class="nx">theForm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Form</span><span class="p">,</span><span class="w"> </span><span class="nx">Panel</span><span class="p">,</span><span class="w"> </span><span class="nx">Section</span><span class="p">,</span><span class="w"> </span><span class="nx">TextField</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">formGen</span><span class="p">;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Form</span><span class="p">(</span><span class="s2">"survey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quick Survey"</span><span class="p">);</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">panel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Panel</span><span class="p">(</span><span class="s2">"Page 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Please answer the following:"</span><span class="p">);</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Section</span><span class="p">();</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_color"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite color"</span><span class="p">));</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_food"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite food"</span><span class="p">));</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nx">panel</span><span class="p">.</span><span class="nx">addSection</span><span class="p">(</span><span class="nx">section</span><span class="p">);</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="nx">form</span><span class="p">.</span><span class="nx">addPanel</span><span class="p">(</span><span class="nx">panel</span><span class="p">);</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">PATH_SUCCESS</span><span class="p">,</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="p">});</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">begin</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">,</span><span class="w"> </span><span class="nx">step</span><span class="p">,</span><span class="w"> </span><span class="nx">theForm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Form</span><span class="p">,</span><span class="w"> </span><span class="nx">Panel</span><span class="p">,</span><span class="w"> </span><span class="nx">Section</span><span class="p">,</span><span class="w"> </span><span class="nx">TextField</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">formGen</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Form</span><span class="p">(</span><span class="s2">"survey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quick Survey"</span><span class="p">);</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">panel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Panel</span><span class="p">(</span><span class="s2">"Page 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Please answer the following:"</span><span class="p">);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Section</span><span class="p">();</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_color"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite color"</span><span class="p">));</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_food"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite food"</span><span class="p">));</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="nx">panel</span><span class="p">.</span><span class="nx">addSection</span><span class="p">(</span><span class="nx">section</span><span class="p">);</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="nx">form</span><span class="p">.</span><span class="nx">addPanel</span><span class="p">(</span><span class="nx">panel</span><span class="p">);</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">PATH_SUCCESS</span><span class="p">,</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">        </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="form"><code>Form</code></h3>
 <p>Represents the top-level form definition.</p>

@@ -1047,6 +1047,34 @@
   
   
     <li class="md-nav__item">
+      <a href="file-tools.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Tools and Folder Locations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="agent-profiles.html" class="md-nav__link">
         
   
@@ -1396,6 +1424,78 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standalone-listener-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standalone Listener Agent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Standalone Listener Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure the Profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-only-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final-Only JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ndjson-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NDJSON Streaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limits-and-failure-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits and Failure Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deferred-api-key-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deferred API-Key Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1887,6 +1987,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#standalone-listener-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standalone Listener Agent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Standalone Listener Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure the Profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-only-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final-Only JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ndjson-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NDJSON Streaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limits-and-failure-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits and Failure Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deferred-api-key-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deferred API-Key Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#implementation-map" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1925,6 +2097,7 @@
 <h1 id="listener-api-and-swarm-routing">Listener API and Swarm Routing</h1>
 <p>The listener endpoints provide one-way HTTP-to-swarm injection. They let external tools, operating-system services, and scheduled processes submit events or tasks to Kilroy without holding an HTTP connection open for an LLM interaction.</p>
 <p>For UI setup, see <a href="../apps/groups-listener-bridge.html">External Events and Listener Bridge</a>.</p>
+<p>For isolated request/response execution without a swarm, see <a href="#standalone-listener-agent">Standalone Listener Agent</a> below. It is a separate API and does not change the one-way listener contract.</p>
 <h2 id="contract-and-ownership">Contract and Ownership</h2>
 <ol>
 <li>The caller submits a message to the listener.</li>
@@ -2012,10 +2185,12 @@
 <p><code>OK</code> confirms injection, not delivery to every swarm participant, acceptance by an AI input filter, successful tool execution, or delivery of an out-of-band result. Callers must not use a longer HTTP timeout to wait for AI completion. The listener provides no queue, replay, deduplication, or exactly-once processing guarantee in this workflow; retries may produce duplicate work.</p>
 <h2 id="bridge-and-receiving-pipeline-contract">Bridge and Receiving Pipeline Contract</h2>
 <p>The catalogued Listener Bridge is a <code>pipeline_template_addon</code> with <code>allow_multiple: false</code>. Its graph is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>${listener_swarm} -&gt; listener_bridge (pass-through wf_agent) -&gt; ${group_private_swarm}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{{listener_swarm}} -&gt; listener_bridge (pass-through wf_agent) -&gt; ${group_private_swarm}
 </code></pre></div>
 <ul>
-<li><code>listener_swarm</code> defaults to <code>listener_swarm</code> and must match the service's Listener Swarm Name exactly.</li>
+<li>The Listener Bridge add-on exposes a visible <code>listener_swarm_name</code> pipeline variable whose default is <code>{{listener_swarm}}</code>. Group Manager shows that macro in Edit Variables; leaving it unchanged resolves to the effective listener name of the Kilroy backend deploying the pipeline. Ordinary <code>${...}</code> defaults and group overrides are applied first, and the reserved macro is then expanded only in the selected variable value. A literal remote swarm name overrides the macro and is passed through without local resolution.</li>
+<li>The backend creates and persists a random UUIDv4-format default Listener Swarm Name in its platform key-value service settings on first WebHooks PDI initialization. User-entered and <code>LISTENER_SWARM_NAME</code> override values may be any nonempty swarm name accepted by the underlying swarm library. If the environment variable is set, the WebHooks Settings UI displays its value as read-only.</li>
+<li>Setting changes affect new deployments. Existing bridges stay joined to their old topic and require group redeployment.</li>
 <li>The Groups manager supplies <code>group_private_swarm</code>. It is not an external caller's destination argument.</li>
 <li>The bridge receives all sender names (<code>*</code>) and calls no transformation webhook. It supplies no reverse edge from the group back to the listener swarm.</li>
 <li>The standard Basic Group Agent private-input filter accepts <code>/wa</code> messages from senders other than <code>Kilroy</code> and forwards accepted traffic toward its AI input. Other templates must be checked against their own routing rules.</li>
@@ -2046,6 +2221,104 @@
 <h2 id="security-and-trust-boundaries">Security and Trust Boundaries</h2>
 <p>The current backend <code>ValidateServerKey</code> implementation is a permissive stub, not a demonstrated per-caller credential check. A token-shaped URL must not be presented as sufficient protection for an Internet-exposed listener. Keep access constrained to trusted callers using appropriate deployment/network controls and a verified authentication boundary.</p>
 <p>External event text can influence an AI with tools. Validate events and establish action permissions in the receiving integration. Sender labels, swarm names, and a Connected indicator do not establish caller authorization. Avoid including secrets in request text, URLs, logs, or raw forwarded arguments.</p>
+<h2 id="standalone-listener-agent">Standalone Listener Agent</h2>
+<p>The combined Kilroy backend also exposes a direct Pi-backed service:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>POST /api/v1/ai/listener_agent
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>POST /api/v1/ai/listener_agent/{profile_name}
+</code></pre></div>
+<p>The <code>/ai</code> router is backend-owned, not an app webhook. The API version prefix follows the backend's existing configuration. The omitted profile name selects <code>/system/default</code>; <code>research</code> selects the exact database profile name <code>/system/research</code>. These names are database identifiers, not filesystem paths. Names accept 1-64 letters, digits, underscores or hyphens and must start with a letter or digit. A missing explicitly named profile returns <code>404</code>, without falling back to default.</p>
+<p>Each request runs an independent agent turn, including tool calls and follow-up inference. It has no parent PDI, listener swarm, conversation reuse, or retained conversation history. Its final response is returned over the original HTTP connection. Explicitly configured memory/file tools can still persist their own data; this is distinct from conversation persistence.</p>
+<h3 id="configure-the-profile">Configure the Profile</h3>
+<ol>
+<li>Install/update Kilroy AI Harness and load its bundled profiles using the existing manager initialization or <code>load_agent_profiles</code> operation. The bundle includes an intentionally unconfigured example named <code>example/system/default</code>; it is outside the <code>/system/</code> namespace used by this endpoint.</li>
+<li>Use the existing <code>agent_profile</code> tools to find <code>example/system/default</code>, then create a copy with <code>agent_id</code> set to <code>/system/default</code>. Configure that copy using the existing tools or profile editor; do not rename the bundled example itself. See <a href="agent-profiles.html">Agent Profiles</a>.</li>
+<li>Replace its model, provider URL and working-directory placeholders. Set <code>pi_working_dir</code> to an existing absolute backend directory or a supported location-macro path such as <code>{{kilroypublic}}</code>, and configure the appropriate provider/API fields.</li>
+<li>Set the backend environment variable named by <code>pi_api_key</code>. The starter names <code>KILROY_SYSTEM_AGENT_API_KEY</code>; the profile stores the variable name, not its secret value.</li>
+<li>Review the system prompt and tool permissions before making a request. Kilroy AI Services must be installed and its <code>kilroy.ai.webhooks</code> PDI running for the starter's Kilroy tools. A running group or harness agent is not required for execution.</li>
+</ol>
+<p>All model fields and the <code>tools</code>, <code>kilroy_tools</code>, <code>tool_instances</code>, <code>skills</code> arrays must be explicit; <code>inherit_skills</code> must be false. Empty arrays disable that category. Unresolved deployment or parent placeholders, missing credentials, and invalid tool bindings fail before inference. Supported invocation macros such as <code>{{text}}</code>, and file-location macros such as <code>{{kilroypublic}}</code>, remain available in appropriate tool definitions.</p>
+<p>The standalone service expands the six shared directory macros in <code>pi_working_dir</code> and explicit tool-instance <code>bind.path_prefix</code> / <code>bind.output_dir</code> values: <code>{{kilroypublic}}</code>, <code>{{home}}</code>, <code>{{temp}}</code>, <code>{{documents}}</code>, <code>{{downloads}}</code>, and <code>{{desktop}}</code>. Names are case insensitive; paths can include suffixes, such as <code>{{documents}}/project</code> or <code>{{kilroypublic}}/ai_images</code>. See <a href="file-tools.html">Directory Macros</a> for environment overrides and container mappings. The working directory must exist after expansion. Unknown, malformed or circular location references are configuration errors.</p>
+<p>Expansion changes only the per-request configuration snapshot, not the stored profile. It does not apply to the system prompt, request text, memory IDs or command templates, and it does not substitute <code>${...}</code> variables. <code>{{text}}</code> remains an invocation-time command/template placeholder; it is not valid as a directory macro.</p>
+<p>The canonical starter includes text-file read/write/edit confined to <code>{{kilroypublic}}</code>, weather/stock/crypto lookups, GUID/timestamp tools, and explicitly scoped service memory. It excludes shell tools, scheduling, group chat, task boards, group history, parent controls, and UI tools. Advanced profiles may bind group/swarm tools to concrete deployed aliases or swarm names; there is no automatic group-variable lookup.</p>
+<h3 id="final-only-json">Final-Only JSON</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>curl<span class="w"> </span>--silent<span class="w"> </span>--show-error<span class="w"> </span>--fail<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>--header<span class="w"> </span><span class="s2">"API_KEY: </span><span class="nv">$KILROY_API_TOKEN</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span>--data<span class="w"> </span><span class="s1">'{"text":"What is the current timestamp?"}'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="s2">"</span><span class="nv">$KILROY_BASE_URL</span><span class="s2">/api/v1/ai/listener_agent"</span>
+</code></pre></div>
+<p>An illustrative final response is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span><span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"text"</span><span class="p">:</span><span class="s2">"The current timestamp is ..."</span><span class="p">}</span>
+</code></pre></div>
+<p>Callers supply <code>text</code>, optional boolean <code>stream</code>, and optional <code>events</code> flags. They cannot override the selected profile's execution configuration. No <code>/wa</code> prefix, session ID or callback is needed.</p>
+<h3 id="ndjson-streaming">NDJSON Streaming</h3>
+<p>Use <code>curl --no-buffer</code> and opt into streaming:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>--no-buffer<span class="w"> </span>--silent<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>--header<span class="w"> </span><span class="s2">"API_KEY: </span><span class="nv">$KILROY_API_TOKEN</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span>--data<span class="w"> </span><span class="s1">'{"text":"What is the current timestamp?","stream":true,"events":{"thinking":false,"tools":true}}'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="s2">"</span><span class="nv">$KILROY_BASE_URL</span><span class="s2">/api/v1/ai/listener_agent"</span>
+</code></pre></div>
+<p>The content type is <code>application/x-ndjson</code>. Each line is a separate JSON object:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>{"event":"accepted","seq":1}
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>{"event":"tool_start","tool":"timestamp","status":"","seq":2}
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>{"event":"tool_end","tool":"timestamp","status":"success","seq":3}
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>{"event":"result","success":true,"text":"The current timestamp is ..."}
+</code></pre></div>
+<p><code>thinking</code> and <code>tools</code> default to false. These flags control reporting, not reasoning settings or tool execution permissions. Thinking events contain provider-reported thinking text where available; providers need not emit it. Tool events report names/status, not tool arguments or full tool output. Review thinking disclosure before enabling it for sensitive tasks.</p>
+<p>The stream starts with <code>accepted</code> and ends with exactly one <code>result</code> or <code>error</code> when delivery remains possible. Intermediate events are not persisted. Validation/admission failures return normal HTTP JSON errors before streaming starts. After streaming starts, failures appear as terminal NDJSON errors and do not change the HTTP status; clients must inspect the terminal event. A lost connection or a slow client exceeding the buffer limit can prevent terminal delivery.</p>
+<h3 id="limits-and-failure-handling">Limits and Failure Handling</h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>IOC limit/default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Request body / final result</td>
+<td>32 KiB each</td>
+</tr>
+<tr>
+<td>Execution deadline</td>
+<td>120 seconds, including queue wait after preparation; profiles may lower it</td>
+</tr>
+<tr>
+<td>Active service executions</td>
+<td><code>AI_MAX_SUBAGENTS</code>, default 2, capped at 32; service pool is independent of parent subagents</td>
+</tr>
+<tr>
+<td>Waiting service requests</td>
+<td>8; overflow returns <code>429</code></td>
+</tr>
+<tr>
+<td>Tool calls</td>
+<td>150 maximum</td>
+</tr>
+<tr>
+<td>Tool webhook payload</td>
+<td>32 KiB</td>
+</tr>
+<tr>
+<td>Context settings within the fresh turn</td>
+<td>16,000 content tokens, 20 turns, 60% compaction defaults</td>
+</tr>
+<tr>
+<td>Thinking batching</td>
+<td>220 characters or 1200 ms</td>
+</tr>
+<tr>
+<td>Pending stream buffer</td>
+<td>256 KiB</td>
+</tr>
+</tbody>
+</table>
+<p>Oversized results fail explicitly rather than being silently truncated. Deadlines and disconnects request adapter cancellation and dispose the request's session when execution settles. Capacity remains occupied while cancellation is settling. Already-completed tool side effects are not rolled back, and not every tool is interruptible. Do not automatically retry side-effecting tasks.</p>
+<p>Common errors include <code>INVALID_REQUEST</code> (400), <code>PROFILE_NOT_FOUND</code> (404), <code>REQUEST_TOO_LARGE</code> (413), <code>PROFILE_CONFIGURATION</code> (422), <code>CAPACITY</code> (429), <code>EXECUTION_FAILED</code> / <code>OUTPUT_TOO_LARGE</code> (502), and <code>TIMEOUT</code> (504).</p>
+<h3 id="deferred-api-key-enforcement">Deferred API-Key Enforcement</h3>
+<p><strong>This endpoint is open for IOC.</strong> It accepts the existing key through the <code>API_KEY</code> header, <code>X-API-Key</code> header, or <code>API_KEY</code> request field/query parameter, but the shared <code>ValidateServerKey</code> implementation remains permissive. Neither a supplied key nor the <code>/system/</code> naming prefix authorizes a caller today. Keep access restricted to trusted local/network callers; do not expose the endpoint unprotected to the Internet.</p>
+<p>Deferred technical debt: implement shared backend API-key validation, reject invalid keys before profile lookup/inference, and add authorization regression tests for all affected APIs. No separate listener-agent authentication mechanism is introduced in IOC.</p>
 <h2 id="implementation-map">Implementation Map</h2>
 <table>
 <thead>

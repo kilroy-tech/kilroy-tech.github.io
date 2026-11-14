@@ -1047,6 +1047,34 @@
   
   
     <li class="md-nav__item">
+      <a href="file-tools.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Tools and Folder Locations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="agent-profiles.html" class="md-nav__link">
         
   
@@ -1942,6 +1970,7 @@ server-side webhook to process the message and optionally publish a result back 
 <li><strong>The webhooks process diagram</strong> — registers the webhook trigger endpoint</li>
 <li><strong>The workflow</strong> — implements the actual processing logic in JavaScript and workflow JSON</li>
 </ol>
+<p>For existing file operations, use the registered <code>file_read</code>, <code>file_write</code>, and <code>file_edit</code> webhooks rather than duplicating filesystem logic in a new workflow. Their structured message arguments, <code>targs</code> policy, catalog classes, and location macros are described in <a href="file-tools.html">File Tools and Folder Locations</a>. The old <code>read_file</code> and <code>write_file</code> hooks retain their separate filename-template interfaces.</p>
 <hr>
 <h2 id="overview-how-wf_agents-work">Overview: How wf_agents Work</h2>
 <p>When a <code>wf_agent</code> receives a message on its input swarm, the Kilroy runtime optionally calls a webhook on the

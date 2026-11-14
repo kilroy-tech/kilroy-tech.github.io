@@ -8,7 +8,7 @@
         <link rel="canonical" href="https://docs.kilroy.tech/developers/agent-profiles.html">
       
       
-        <link rel="prev" href="ai-agent-configuration.html">
+        <link rel="prev" href="file-tools.html">
       
       
         <link rel="next" href="technical.html">
@@ -1049,6 +1049,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="file-tools.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Tools and Folder Locations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1116,6 +1144,17 @@
     <span class="md-ellipsis">
       
         Before You Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standalone-system-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standalone System Profiles
       
     </span>
   </a>
@@ -1905,6 +1944,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#standalone-system-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standalone System Profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#managing-profiles-with-an-agent" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2129,6 +2179,12 @@
 <li><code>edit_agent_profile</code> only if you want the agent to use the profile editor.</li>
 </ul>
 <p>A sub-agent profile does not create a process diagram. Each invocation is an isolated, in-process run with its own session scope.</p>
+<h2 id="standalone-system-profiles">Standalone System Profiles</h2>
+<p>The <a href="listener-api.html#standalone-listener-agent">Listener Agent API</a> uses this same database and editing tools, but selects profiles named <code>/system/&lt;name&gt;</code>. The harness bundle ships an unconfigured example named <code>example/system/default</code>, deliberately outside that namespace so no endpoint profile name can select it. These are database identifiers, not filesystem paths.</p>
+<p>Use <code>agent_profile</code> with <code>opcode="find"</code> and <code>agent_id="example/system/default"</code>. Copy the returned profile, change <code>agent_id</code> to <code>/system/default</code>, then create it through <code>agent_profile</code> with <code>opcode="create"</code>. Configure the copy's model/provider fields, backend credential environment-variable name, working directory, system prompt, and explicit tool bindings. Do not edit or rename the bundled example; the harness loader owns that record and may update it when its bundled baseline changes. The endpoint's omitted profile name selects <code>/system/default</code>, not the example.</p>
+<p>Unlike a parented sub-agent, a system profile cannot inherit configuration: all three tool arrays and the skills array must be explicit, and <code>inherit_skills</code> must be false. Runtime limits have backend defaults and ceilings. Do not copy unresolved <code>${parent.*}</code>, <code>${alias:...}</code> or pipeline-variable references into these profiles. Concrete bindings and supported tool runtime macros are allowed.</p>
+<p>For standalone system profiles, <code>pi_working_dir</code> and explicit tool <code>bind.path_prefix</code> / <code>bind.output_dir</code> values support <code>{{kilroypublic}}</code>, <code>{{home}}</code>, <code>{{temp}}</code>, <code>{{documents}}</code>, <code>{{downloads}}</code>, and <code>{{desktop}}</code>, including path suffixes. Expansion uses the backend's shared directory resolver on a request-local copy; the database profile retains its macros. Other fields are not globally expanded.</p>
+<p>The canonical starter omits group/swarm communication, task boards, scheduling, parent controls, and UI/editor tools. Each HTTP invocation has fresh, nonpersistent conversation state and returns its own result directly. Tool-managed files or memory remain persistent according to their tool configuration.</p>
 <h2 id="managing-profiles-with-an-agent">Managing Profiles With an Agent</h2>
 <p>You can ask the agent naturally, for example:</p>
 <blockquote>
@@ -2560,7 +2616,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="ai-agent-configuration.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Agent Configuration">
+          <a href="file-tools.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: File Tools and Folder Locations">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -2570,7 +2626,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Agent Configuration
+                File Tools and Folder Locations
               </div>
             </div>
           </a>

@@ -11,7 +11,7 @@
         <link rel="prev" href="../tutorials/tutorial2.html">
       
       
-        <link rel="next" href="agent-profiles.html">
+        <link rel="next" href="file-tools.html">
       
       
         
@@ -1167,6 +1167,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#file-tools-and-folder-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Tools and Folder Locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#image-generation-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1209,6 +1220,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="file-tools.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Tools and Folder Locations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1900,6 +1939,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#file-tools-and-folder-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Tools and Folder Locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#image-generation-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2219,6 +2269,9 @@
 </tbody>
 </table>
 <p>Profiles also define <code>skills</code> and <code>inherit_skills</code>. They do not inherit the parent's system prompt: each profile must define its own <code>system_prompt</code>. See <a href="agent-profiles.html">Sub-Agent Profiles</a> for creation, tools, skills, API-key handling, and run/wait/result examples.</p>
+<h2 id="file-tools-and-folder-locations">File Tools and Folder Locations</h2>
+<p>The harness reference tool configuration replaces Pi's native <code>read</code>, <code>write</code>, and <code>edit</code> with <code>kilroy.ai.services.file_read</code>, <code>file_write</code>, and <code>file_edit</code> instances under those same names. Their <code>path_prefix</code> bindings use <code>${ai_working_dir}</code>; catalog defaults use <code>{{kilroypublic}}</code>. Pi <code>bash</code>, <code>grep</code>, <code>find</code>, and <code>ls</code> remain enabled, and Kilroy <code>system</code> is unchanged, so this is not agent-wide sandboxing.</p>
+<p>See <a href="file-tools.html">File Tools and Folder Locations</a> for tool arguments/results, instance limits, supported folder macros, Docker mappings, deployment-variable versus runtime-macro expansion, and activation steps. Inject the updated reference JSON into actual agent <code>ai_args</code>; changing the reference file alone does not update deployed agents.</p>
 <h2 id="image-generation-tool">Image Generation Tool</h2>
 <p>The harness provides an optional one-shot <code>generate_image</code> tool through the manager PDI webhook. It is an ordinary configured tool instance, not a new process-diagram class or an <code>ai_args.image_model</code> setting. The tool instance owns provider settings and paths; the model only supplies a prompt and optional output dimensions.</p>
 <p>The Basic Group Agent and Basic Task Board Agent templates expose <code>ai_image_api</code>, <code>ai_image_url</code>, <code>ai_image_model</code>, <code>ai_image_api_key</code>, <code>ai_image_size</code>, <code>ai_image_count</code>, <code>ai_image_steps</code>, <code>ai_image_response_format</code>, and <code>ai_image_keep_images</code> as group-deployment variables. Their defaults now match the tested local VMLX request: <code>openai-images</code>, <code>http://localhost:11434/v1</code>, <code>flux2-klein-4b</code>, <code>local-key</code>, <code>512x512</code>, one image, four steps, and <code>b64_json</code>. The templates default <code>ai_working_dir</code> to <code>{{kilroypublic}}</code>, which resolves to the deployment host's configured public directory.</p>
@@ -2340,13 +2393,13 @@
         
         
           
-          <a href="agent-profiles.html" class="md-footer__link md-footer__link--next" aria-label="Next: Sub-Agent Profiles">
+          <a href="file-tools.html" class="md-footer__link md-footer__link--next" aria-label="Next: File Tools and Folder Locations">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Sub-Agent Profiles
+                File Tools and Folder Locations
               </div>
             </div>
             <div class="md-footer__button md-icon">
