@@ -4,6 +4,8 @@ The listener endpoints provide one-way HTTP-to-swarm injection. They let externa
 
 For UI setup, see [External Events and Listener Bridge](../apps/groups-listener-bridge.md).
 
+For isolated request/response execution without a swarm, see [Standalone Listener Agent](#standalone-listener-agent) below. It is a separate API and does not change the one-way listener contract.
+
 ## Contract and Ownership
 
 1. The caller submits a message to the listener.
@@ -151,6 +153,102 @@ Do not treat an arbitrary callback URL in untrusted event text as permission for
 The current backend `ValidateServerKey` implementation is a permissive stub, not a demonstrated per-caller credential check. A token-shaped URL must not be presented as sufficient protection for an Internet-exposed listener. Keep access constrained to trusted callers using appropriate deployment/network controls and a verified authentication boundary.
 
 External event text can influence an AI with tools. Validate events and establish action permissions in the receiving integration. Sender labels, swarm names, and a Connected indicator do not establish caller authorization. Avoid including secrets in request text, URLs, logs, or raw forwarded arguments.
+
+## Standalone Listener Agent
+
+The combined Kilroy backend also exposes a direct Pi-backed service:
+
+```text
+POST /api/v1/ai/listener_agent
+POST /api/v1/ai/listener_agent/{profile_name}
+```
+
+The `/ai` router is backend-owned, not an app webhook. The API version prefix follows the backend's existing configuration. The omitted profile name selects `/system/default`; `research` selects the exact database profile name `/system/research`. These names are database identifiers, not filesystem paths. Names accept 1-64 letters, digits, underscores or hyphens and must start with a letter or digit. A missing explicitly named profile returns `404`, without falling back to default.
+
+Each request runs an independent agent turn, including tool calls and follow-up inference. It has no parent PDI, listener swarm, conversation reuse, or retained conversation history. Its final response is returned over the original HTTP connection. Explicitly configured memory/file tools can still persist their own data; this is distinct from conversation persistence.
+
+### Configure the Profile
+
+1. Install/update Kilroy AI Harness and load its bundled profiles using the existing manager initialization or `load_agent_profiles` operation. The bundle includes an intentionally unconfigured example named `example/system/default`; it is outside the `/system/` namespace used by this endpoint.
+2. Use the existing `agent_profile` tools to find `example/system/default`, then create a copy with `agent_id` set to `/system/default`. Configure that copy using the existing tools or profile editor; do not rename the bundled example itself. See [Agent Profiles](agent-profiles.md).
+3. Replace its model, provider URL and working-directory placeholders. Set `pi_working_dir` to an existing absolute backend directory or a supported location-macro path such as `{{kilroypublic}}`, and configure the appropriate provider/API fields.
+4. Set the backend environment variable named by `pi_api_key`. The starter names `KILROY_SYSTEM_AGENT_API_KEY`; the profile stores the variable name, not its secret value.
+5. Review the system prompt and tool permissions before making a request. Kilroy AI Services must be installed and its `kilroy.ai.webhooks` PDI running for the starter's Kilroy tools. A running group or harness agent is not required for execution.
+
+All model fields and the `tools`, `kilroy_tools`, `tool_instances`, `skills` arrays must be explicit; `inherit_skills` must be false. Empty arrays disable that category. Unresolved deployment or parent placeholders, missing credentials, and invalid tool bindings fail before inference. Supported invocation macros such as `{{text}}`, and file-location macros such as `{{kilroypublic}}`, remain available in appropriate tool definitions.
+
+The standalone service expands the six shared directory macros in `pi_working_dir` and explicit tool-instance `bind.path_prefix` / `bind.output_dir` values: `{{kilroypublic}}`, `{{home}}`, `{{temp}}`, `{{documents}}`, `{{downloads}}`, and `{{desktop}}`. Names are case insensitive; paths can include suffixes, such as `{{documents}}/project` or `{{kilroypublic}}/ai_images`. See [Directory Macros](file-tools.md) for environment overrides and container mappings. The working directory must exist after expansion. Unknown, malformed or circular location references are configuration errors.
+
+Expansion changes only the per-request configuration snapshot, not the stored profile. It does not apply to the system prompt, request text, memory IDs or command templates, and it does not substitute `${...}` variables. `{{text}}` remains an invocation-time command/template placeholder; it is not valid as a directory macro.
+
+The canonical starter includes text-file read/write/edit confined to `{{kilroypublic}}`, weather/stock/crypto lookups, GUID/timestamp tools, and explicitly scoped service memory. It excludes shell tools, scheduling, group chat, task boards, group history, parent controls, and UI tools. Advanced profiles may bind group/swarm tools to concrete deployed aliases or swarm names; there is no automatic group-variable lookup.
+
+### Final-Only JSON
+
+```bash
+curl --silent --show-error --fail \
+  --header 'Content-Type: application/json' \
+  --header "API_KEY: $KILROY_API_TOKEN" \
+  --data '{"text":"What is the current timestamp?"}' \
+  "$KILROY_BASE_URL/api/v1/ai/listener_agent"
+```
+
+An illustrative final response is:
+
+```json
+{"success":true,"text":"The current timestamp is ..."}
+```
+
+Callers supply `text`, optional boolean `stream`, and optional `events` flags. They cannot override the selected profile's execution configuration. No `/wa` prefix, session ID or callback is needed.
+
+### NDJSON Streaming
+
+Use `curl --no-buffer` and opt into streaming:
+
+```bash
+curl --no-buffer --silent --show-error \
+  --header 'Content-Type: application/json' \
+  --header "API_KEY: $KILROY_API_TOKEN" \
+  --data '{"text":"What is the current timestamp?","stream":true,"events":{"thinking":false,"tools":true}}' \
+  "$KILROY_BASE_URL/api/v1/ai/listener_agent"
+```
+
+The content type is `application/x-ndjson`. Each line is a separate JSON object:
+
+```jsonl
+{"event":"accepted","seq":1}
+{"event":"tool_start","tool":"timestamp","status":"","seq":2}
+{"event":"tool_end","tool":"timestamp","status":"success","seq":3}
+{"event":"result","success":true,"text":"The current timestamp is ..."}
+```
+
+`thinking` and `tools` default to false. These flags control reporting, not reasoning settings or tool execution permissions. Thinking events contain provider-reported thinking text where available; providers need not emit it. Tool events report names/status, not tool arguments or full tool output. Review thinking disclosure before enabling it for sensitive tasks.
+
+The stream starts with `accepted` and ends with exactly one `result` or `error` when delivery remains possible. Intermediate events are not persisted. Validation/admission failures return normal HTTP JSON errors before streaming starts. After streaming starts, failures appear as terminal NDJSON errors and do not change the HTTP status; clients must inspect the terminal event. A lost connection or a slow client exceeding the buffer limit can prevent terminal delivery.
+
+### Limits and Failure Handling
+
+| Setting | IOC limit/default |
+|---|---|
+| Request body / final result | 32 KiB each |
+| Execution deadline | 120 seconds, including queue wait after preparation; profiles may lower it |
+| Active service executions | `AI_MAX_SUBAGENTS`, default 2, capped at 32; service pool is independent of parent subagents |
+| Waiting service requests | 8; overflow returns `429` |
+| Tool calls | 150 maximum |
+| Tool webhook payload | 32 KiB |
+| Context settings within the fresh turn | 16,000 content tokens, 20 turns, 60% compaction defaults |
+| Thinking batching | 220 characters or 1200 ms |
+| Pending stream buffer | 256 KiB |
+
+Oversized results fail explicitly rather than being silently truncated. Deadlines and disconnects request adapter cancellation and dispose the request's session when execution settles. Capacity remains occupied while cancellation is settling. Already-completed tool side effects are not rolled back, and not every tool is interruptible. Do not automatically retry side-effecting tasks.
+
+Common errors include `INVALID_REQUEST` (400), `PROFILE_NOT_FOUND` (404), `REQUEST_TOO_LARGE` (413), `PROFILE_CONFIGURATION` (422), `CAPACITY` (429), `EXECUTION_FAILED` / `OUTPUT_TOO_LARGE` (502), and `TIMEOUT` (504).
+
+### Deferred API-Key Enforcement
+
+**This endpoint is open for IOC.** It accepts the existing key through the `API_KEY` header, `X-API-Key` header, or `API_KEY` request field/query parameter, but the shared `ValidateServerKey` implementation remains permissive. Neither a supplied key nor the `/system/` naming prefix authorizes a caller today. Keep access restricted to trusted local/network callers; do not expose the endpoint unprotected to the Internet.
+
+Deferred technical debt: implement shared backend API-key validation, reject invalid keys before profile lookup/inference, and add authorization regression tests for all affected APIs. No separate listener-agent authentication mechanism is introduced in IOC.
 
 ## Implementation Map
 

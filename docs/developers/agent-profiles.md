@@ -16,6 +16,18 @@ The parent AI agent needs these tool instances:
 
 A sub-agent profile does not create a process diagram. Each invocation is an isolated, in-process run with its own session scope.
 
+## Standalone System Profiles
+
+The [Listener Agent API](listener-api.md#standalone-listener-agent) uses this same database and editing tools, but selects profiles named `/system/<name>`. The harness bundle ships an unconfigured example named `example/system/default`, deliberately outside that namespace so no endpoint profile name can select it. These are database identifiers, not filesystem paths.
+
+Use `agent_profile` with `opcode="find"` and `agent_id="example/system/default"`. Copy the returned profile, change `agent_id` to `/system/default`, then create it through `agent_profile` with `opcode="create"`. Configure the copy's model/provider fields, backend credential environment-variable name, working directory, system prompt, and explicit tool bindings. Do not edit or rename the bundled example; the harness loader owns that record and may update it when its bundled baseline changes. The endpoint's omitted profile name selects `/system/default`, not the example.
+
+Unlike a parented sub-agent, a system profile cannot inherit configuration: all three tool arrays and the skills array must be explicit, and `inherit_skills` must be false. Runtime limits have backend defaults and ceilings. Do not copy unresolved `${parent.*}`, `${alias:...}` or pipeline-variable references into these profiles. Concrete bindings and supported tool runtime macros are allowed.
+
+For standalone system profiles, `pi_working_dir` and explicit tool `bind.path_prefix` / `bind.output_dir` values support `{{kilroypublic}}`, `{{home}}`, `{{temp}}`, `{{documents}}`, `{{downloads}}`, and `{{desktop}}`, including path suffixes. Expansion uses the backend's shared directory resolver on a request-local copy; the database profile retains its macros. Other fields are not globally expanded.
+
+The canonical starter omits group/swarm communication, task boards, scheduling, parent controls, and UI/editor tools. Each HTTP invocation has fresh, nonpersistent conversation state and returns its own result directly. Tool-managed files or memory remain persistent according to their tool configuration.
+
 ## Managing Profiles With an Agent
 
 You can ask the agent naturally, for example:
