@@ -165,6 +165,8 @@ POST /api/v1/ai/listener_agent/{profile_name}
 
 The `/ai` router is backend-owned, not an app webhook. The API version prefix follows the backend's existing configuration. The omitted profile name selects `/system/default`; `research` selects the exact database profile name `/system/research`. These names are database identifiers, not filesystem paths. Names accept 1-64 letters, digits, underscores or hyphens and must start with a letter or digit. A missing explicitly named profile returns `404`, without falling back to default.
 
+**Local clients only for now.** The route accepts loopback TCP peers only: IPv4 `127.0.0.0/8`, IPv6 `::1`, and IPv4-mapped loopback addresses. Other clients receive `403 LOCAL_ONLY` before profile lookup or agent execution. The check uses the socket peer address; `Host` and forwarded-IP headers do not grant access. A proxy must connect to Kilroy over loopback. This is a temporary network restriction, not API-key authentication; the existing shared API-key validation remains deferred and permissive.
+
 Each request runs an independent agent turn, including tool calls and follow-up inference. It has no parent PDI, listener swarm, conversation reuse, or retained conversation history. Its final response is returned over the original HTTP connection. Explicitly configured memory/file tools can still persist their own data; this is distinct from conversation persistence.
 
 ### Configure the Profile
