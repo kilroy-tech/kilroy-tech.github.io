@@ -118,6 +118,12 @@ The harness reference tool configuration replaces Pi's native `read`, `write`, a
 
 See [File Tools and Folder Locations](file-tools.md) for tool arguments/results, instance limits, supported folder macros, Docker mappings, deployment-variable versus runtime-macro expansion, and activation steps. Inject the updated reference JSON into actual agent `ai_args`; changing the reference file alone does not update deployed agents.
 
+## Weather Tool
+
+`kilroy.ai.services.get_weather` accepts `city_or_zip` and optional `country_code` (two-letter code), `mode` (`current`, `forecast`, or `both`; default `current`), and `forecast_days` (1-16; default 7). The tool geocodes the location, then returns model-based current conditions and/or daily forecasts from Open-Meteo. Five-digit ZIP codes default to the US unless `country_code` is supplied. Ambiguous city matches return an error suggesting a postal code or country code. Current results retain `location` and `current.temp_f`, `temp_c`, `feelslike_f`, `feelslike_c`, `humidity`, `wind_mph`, `wind_kph`, `condition.text`, and `last_updated` for existing consumers. Forecast entries include date, high/low Fahrenheit, precipitation chance and amount, maximum wind speed, and condition. Provider and timezone information accompany the data.
+
+The Open-Meteo hosted free API is for non-commercial use; commercial use requires appropriate provider terms or a subscription. Consult [Open-Meteo's terms](https://open-meteo.com/en/terms) and [pricing](https://open-meteo.com/en/pricing). Open-Meteo data requires [CC BY 4.0 attribution](https://open-meteo.com/en/licence); the response includes attribution metadata and indicates that the data was adapted. The bundled Groups weather widget displays the credit. Current conditions are model-based, not a station observation.
+
 ## Image Generation Tool
 
 The harness provides an optional one-shot `generate_image` tool through the manager PDI webhook. It is an ordinary configured tool instance, not a new process-diagram class or an `ai_args.image_model` setting. The tool instance owns provider settings and paths; the model only supplies a prompt and optional output dimensions.

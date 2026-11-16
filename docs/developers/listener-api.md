@@ -190,7 +190,7 @@ The canonical starter includes text-file read/write/edit confined to `{{kilroypu
 ```bash
 curl --silent --show-error --fail \
   --header 'Content-Type: application/json' \
-  --header "API_KEY: $KILROY_API_TOKEN" \
+  --header "Authorization: Bearer $KILROY_API_KEY" \
   --data '{"text":"What is the current timestamp?"}' \
   "$KILROY_BASE_URL/api/v1/ai/listener_agent"
 ```
@@ -210,7 +210,7 @@ Use `curl --no-buffer` and opt into streaming:
 ```bash
 curl --no-buffer --silent --show-error \
   --header 'Content-Type: application/json' \
-  --header "API_KEY: $KILROY_API_TOKEN" \
+  --header "Authorization: Bearer $KILROY_API_KEY" \
   --data '{"text":"What is the current timestamp?","stream":true,"events":{"thinking":false,"tools":true}}' \
   "$KILROY_BASE_URL/api/v1/ai/listener_agent"
 ```
@@ -248,7 +248,7 @@ Common errors include `INVALID_REQUEST` (400), `PROFILE_NOT_FOUND` (404), `REQUE
 
 ### Deferred API-Key Enforcement
 
-**This endpoint is open for IOC.** It accepts the existing key through the `API_KEY` header, `X-API-Key` header, or `API_KEY` request field/query parameter, but the shared `ValidateServerKey` implementation remains permissive. Neither a supplied key nor the `/system/` naming prefix authorizes a caller today. Keep access restricted to trusted local/network callers; do not expose the endpoint unprotected to the Internet.
+**Bearer-key preparation only; validation is deferred.** The `/ai/listener_agent` route accepts an optional `Authorization: Bearer <API_KEY>` header and passes the value to the existing shared validator. For transition compatibility, it also continues to accept the prior `API_KEY` and `X-API-Key` headers and `API_KEY` request field/query parameter. `ValidateServerKey` remains permissive today, so supplying a key does not authenticate the caller. The bundled `kilroy` CLI sends `KILROY_API_KEY`, defaulting to `local-development-placeholder`; that placeholder is not a credential. The loopback-only check remains enforced. This change is limited to `/ai`; existing `/apps` and `/pd` URL-token conventions are unchanged.
 
 Deferred technical debt: implement shared backend API-key validation, reject invalid keys before profile lookup/inference, and add authorization regression tests for all affected APIs. No separate listener-agent authentication mechanism is introduced in IOC.
 
