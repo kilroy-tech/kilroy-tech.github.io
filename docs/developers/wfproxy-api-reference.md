@@ -333,6 +333,41 @@ Reset (clear) a persisted AI session scope.
 
 ---
 
+## Device certificates
+
+Purpose-bound signing for paired devices, used by the `kilroy.groups` fileserver when pairing phones. Workflows cannot sign arbitrary messages with the user's wallet; these entrypoints only sign and verify the fixed certificate format below. See [Sharing Webwidgets over the Swarm](webwidget-sharing.md#client-roles) for how certificates are used.
+
+```
+kilroy-cert:v1:<wallet>:<device_key>:<topic>:<epoch>:<role>
+```
+
+### `issueDeviceCert(authData, claims)`
+
+Sign a device certificate with the local wallet (EIP-191). The calling process diagram must currently be serving swarm HTTP (`http_serve`) on the swarm named in `claims`; otherwise the call fails. The wallet in the certificate is the fileserver's wallet.
+
+- **Parameters**
+  - `authData` (`Object`) — Kilroy auth data for the current user/platform.
+  - `claims` (`Object`):
+    - `device_key` (`string`) — the device's Ed25519 public key, 64 hex characters.
+    - `swarm` (`string`) — the swarm name the certificate applies to. It is stored in the certificate as its base32 topic.
+    - `epoch` (`number`) — a non-negative integer revocation epoch.
+    - `role` (`string`) — `"owner"` or `"member"`.
+- **Returns**
+  - `Promise<{cert, signature, wallet, device_key, topic, epoch, role}>` — the certificate string, its signature, and the parsed claims.
+- **Errors**: rejects if the claims are invalid, the process is not serving the swarm, or the wallet cannot sign.
+
+### `verifyDeviceCert(cert, signature)`
+
+Check a certificate's format and signature. This does not check the epoch or role policy; the caller must compare `wallet`, `topic`, `epoch`, and `role` against its own rules.
+
+- **Parameters**
+  - `cert` (`string`) — the certificate string.
+  - `signature` (`string`) — its EIP-191 signature.
+- **Returns**
+  - `{success: true, wallet, device_key, topic, epoch, role}` when the signature matches the wallet in the certificate, otherwise `{success: false}`.
+
+---
+
 ## Server block invocation
 
 ### `CallServerBlock(authData, wfopsName, params)`

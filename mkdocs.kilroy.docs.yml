@@ -4,6 +4,11 @@ use_directory_urls: false
 exclude_docs: |
   copilot/
   inapp-home.md
+  developers/*
+  !developers/ai-agent-configuration.md
+  !developers/file-tools.md
+  !developers/agent-profiles.md
+  !developers/listener-api.md
 
 hooks:
   - hooks/inapp_home.py
@@ -22,6 +27,7 @@ nav:
       - Sub-Agent Profiles: developers/agent-profiles.md
   - Files and Settings: getting-started/files-and-settings.md
   - FAQ: faq.md
+  - Full Online Docs: https://docs.kilroy.tech/
 
 markdown_extensions:
   - pymdownx.highlight:

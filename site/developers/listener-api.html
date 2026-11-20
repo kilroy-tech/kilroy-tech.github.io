@@ -1618,6 +1618,34 @@
   
   
     <li class="md-nav__item">
+      <a href="webwidget-sharing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharing Webwidgets over the Swarm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="wfproxy-api-reference.html" class="md-nav__link">
         
   
@@ -2244,7 +2272,7 @@
 <h3 id="final-only-json">Final-Only JSON</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>curl<span class="w"> </span>--silent<span class="w"> </span>--show-error<span class="w"> </span>--fail<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>--header<span class="w"> </span><span class="s2">"API_KEY: </span><span class="nv">$KILROY_API_TOKEN</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>--header<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$KILROY_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span>--data<span class="w"> </span><span class="s1">'{"text":"What is the current timestamp?"}'</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="s2">"</span><span class="nv">$KILROY_BASE_URL</span><span class="s2">/api/v1/ai/listener_agent"</span>
 </code></pre></div>
@@ -2256,7 +2284,7 @@
 <p>Use <code>curl --no-buffer</code> and opt into streaming:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>--no-buffer<span class="w"> </span>--silent<span class="w"> </span>--show-error<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>--header<span class="w"> </span><span class="s2">"API_KEY: </span><span class="nv">$KILROY_API_TOKEN</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>--header<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$KILROY_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span>--data<span class="w"> </span><span class="s1">'{"text":"What is the current timestamp?","stream":true,"events":{"thinking":false,"tools":true}}'</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="s2">"</span><span class="nv">$KILROY_BASE_URL</span><span class="s2">/api/v1/ai/listener_agent"</span>
 </code></pre></div>
@@ -2318,7 +2346,7 @@
 <p>Oversized results fail explicitly rather than being silently truncated. Deadlines and disconnects request adapter cancellation and dispose the request's session when execution settles. Capacity remains occupied while cancellation is settling. Already-completed tool side effects are not rolled back, and not every tool is interruptible. Do not automatically retry side-effecting tasks.</p>
 <p>Common errors include <code>INVALID_REQUEST</code> (400), <code>PROFILE_NOT_FOUND</code> (404), <code>REQUEST_TOO_LARGE</code> (413), <code>PROFILE_CONFIGURATION</code> (422), <code>CAPACITY</code> (429), <code>EXECUTION_FAILED</code> / <code>OUTPUT_TOO_LARGE</code> (502), and <code>TIMEOUT</code> (504).</p>
 <h3 id="deferred-api-key-enforcement">Deferred API-Key Enforcement</h3>
-<p><strong>This endpoint is open for IOC.</strong> It accepts the existing key through the <code>API_KEY</code> header, <code>X-API-Key</code> header, or <code>API_KEY</code> request field/query parameter, but the shared <code>ValidateServerKey</code> implementation remains permissive. Neither a supplied key nor the <code>/system/</code> naming prefix authorizes a caller today. Keep access restricted to trusted local/network callers; do not expose the endpoint unprotected to the Internet.</p>
+<p><strong>Bearer-key preparation only; validation is deferred.</strong> The <code>/ai/listener_agent</code> route accepts an optional <code>Authorization: Bearer &lt;API_KEY&gt;</code> header and passes the value to the existing shared validator. For transition compatibility, it also continues to accept the prior <code>API_KEY</code> and <code>X-API-Key</code> headers and <code>API_KEY</code> request field/query parameter. <code>ValidateServerKey</code> remains permissive today, so supplying a key does not authenticate the caller. The bundled <code>kilroy</code> CLI sends <code>KILROY_API_KEY</code>, defaulting to <code>local-development-placeholder</code>; that placeholder is not a credential. The loopback-only check remains enforced. This change is limited to <code>/ai</code>; existing <code>/apps</code> and <code>/pd</code> URL-token conventions are unchanged.</p>
 <p>Deferred technical debt: implement shared backend API-key validation, reject invalid keys before profile lookup/inference, and add authorization regression tests for all affected APIs. No separate listener-agent authentication mechanism is introduced in IOC.</p>
 <h2 id="implementation-map">Implementation Map</h2>
 <table>

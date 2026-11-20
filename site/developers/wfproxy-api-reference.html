@@ -8,7 +8,7 @@
         <link rel="canonical" href="https://docs.kilroy.tech/developers/wfproxy-api-reference.html">
       
       
-        <link rel="prev" href="widget-window-stop.html">
+        <link rel="prev" href="webwidget-sharing.html">
       
       
         <link rel="next" href="wf-operations-reference.html">
@@ -1395,6 +1395,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="webwidget-sharing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharing Webwidgets over the Swarm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1834,6 +1862,45 @@
     <span class="md-ellipsis">
       
         resetAiSessionScope(args)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device certificates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Device certificates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issuedevicecertauthdata-claims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        issueDeviceCert(authData, claims)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifydevicecertcert-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        verifyDeviceCert(cert, signature)
       
     </span>
   </a>
@@ -2874,6 +2941,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#device-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device certificates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Device certificates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issuedevicecertauthdata-claims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        issueDeviceCert(authData, claims)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifydevicecertcert-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        verifyDeviceCert(cert, signature)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#server-block-invocation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3552,6 +3658,36 @@ configuration used by the AI agent.</p>
 <li><code>Promise&lt;{success: boolean, args?: Object, error?: string}&gt;</code> — resolves with the result of the reset operation, or a failure/error result if the session scope cannot be reset.</li>
 </ul>
 <hr>
+<h2 id="device-certificates">Device certificates</h2>
+<p>Purpose-bound signing for paired devices, used by the <code>kilroy.groups</code> fileserver when pairing phones. Workflows cannot sign arbitrary messages with the user's wallet; these entrypoints only sign and verify the fixed certificate format below. See <a href="webwidget-sharing.html#client-roles">Sharing Webwidgets over the Swarm</a> for how certificates are used.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kilroy-cert:v1:&lt;wallet&gt;:&lt;device_key&gt;:&lt;topic&gt;:&lt;epoch&gt;:&lt;role&gt;
+</code></pre></div>
+<h3 id="issuedevicecertauthdata-claims"><code>issueDeviceCert(authData, claims)</code></h3>
+<p>Sign a device certificate with the local wallet (EIP-191). The calling process diagram must currently be serving swarm HTTP (<code>http_serve</code>) on the swarm named in <code>claims</code>; otherwise the call fails. The wallet in the certificate is the fileserver's wallet.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>authData</code> (<code>Object</code>) — Kilroy auth data for the current user/platform.</li>
+<li><code>claims</code> (<code>Object</code>):<ul>
+<li><code>device_key</code> (<code>string</code>) — the device's Ed25519 public key, 64 hex characters.</li>
+<li><code>swarm</code> (<code>string</code>) — the swarm name the certificate applies to. It is stored in the certificate as its base32 topic.</li>
+<li><code>epoch</code> (<code>number</code>) — a non-negative integer revocation epoch.</li>
+<li><code>role</code> (<code>string</code>) — <code>"owner"</code> or <code>"member"</code>.</li>
+</ul>
+</li>
+<li><strong>Returns</strong></li>
+<li><code>Promise&lt;{cert, signature, wallet, device_key, topic, epoch, role}&gt;</code> — the certificate string, its signature, and the parsed claims.</li>
+<li><strong>Errors</strong>: rejects if the claims are invalid, the process is not serving the swarm, or the wallet cannot sign.</li>
+</ul>
+<h3 id="verifydevicecertcert-signature"><code>verifyDeviceCert(cert, signature)</code></h3>
+<p>Check a certificate's format and signature. This does not check the epoch or role policy; the caller must compare <code>wallet</code>, <code>topic</code>, <code>epoch</code>, and <code>role</code> against its own rules.</p>
+<ul>
+<li><strong>Parameters</strong></li>
+<li><code>cert</code> (<code>string</code>) — the certificate string.</li>
+<li><code>signature</code> (<code>string</code>) — its EIP-191 signature.</li>
+<li><strong>Returns</strong></li>
+<li><code>{success: true, wallet, device_key, topic, epoch, role}</code> when the signature matches the wallet in the certificate, otherwise <code>{success: false}</code>.</li>
+</ul>
+<hr>
 <h2 id="server-block-invocation">Server block invocation</h2>
 <h3 id="callserverblockauthdata-wfopsname-params"><code>CallServerBlock(authData, wfopsName, params)</code></h3>
 <p><code>CallServerBlock</code> is the primary mechanism for calling additional Kilroy
@@ -3607,10 +3743,10 @@ catalog of available <code>wfopsName</code> values and the <code>params</code> e
 </table>
 <p><code>options.path_prefix</code> sets the allowed directory and relative-path base. Folder macros such as <code>{{kilroypublic}}</code>, <code>{{documents}}</code>, and <code>{{downloads}}</code> are expanded by service discovery. For direct proxy calls, an omitted or empty prefix means unrestricted access; relative paths then use <code>kilroypublic</code>. This differs from agent catalog instances, which default to a <code>{{kilroypublic}}</code> prefix. A nonempty prefix must identify an existing absolute directory.</p>
 <p>All three return a Promise resolving to <code>{success: true, path, ...}</code> or <code>{success: false, error, code}</code>. File-operation and directory-resolution failures are trapped and logged in the library. Existing <code>loadFile</code> behavior is unchanged.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">readTextFile</span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">"notes.txt"</span><span class="p">,</span><span class="w"> </span><span class="nx">offset</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">path_prefix</span><span class="o">:</span><span class="w"> </span><span class="s2">"{{kilroypublic}}/projects/example"</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">readTextFile</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">"notes.txt"</span><span class="p">,</span><span class="w"> </span><span class="nx">offset</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">path_prefix</span><span class="o">:</span><span class="w"> </span><span class="s2">"{{kilroypublic}}/projects/example"</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">);</span>
 </code></pre></div>
 <p>See <a href="file-tools.html">File Tools and Folder Locations</a> for all policy options, result fields, platform overrides, and confinement limitations. Low-level directory discovery methods are available from service discovery, not as additional <code>wfProxy</code> methods.</p>
 <h3 id="loadfilepath"><code>loadFile(path)</code></h3>
@@ -3651,25 +3787,25 @@ JSON-serializable object for that piece of the form. Only the outermost
 <code>Form.value</code> needs to be returned to the workflow runtime — it already
 contains the full nested structure of panels, sections, and fields.</p>
 <h3 id="building-a-form">Building a form</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">begin</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">,</span><span class="w"> </span><span class="nx">step</span><span class="p">,</span><span class="w"> </span><span class="nx">theForm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Form</span><span class="p">,</span><span class="w"> </span><span class="nx">Panel</span><span class="p">,</span><span class="w"> </span><span class="nx">Section</span><span class="p">,</span><span class="w"> </span><span class="nx">TextField</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">formGen</span><span class="p">;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Form</span><span class="p">(</span><span class="s2">"survey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quick Survey"</span><span class="p">);</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">panel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Panel</span><span class="p">(</span><span class="s2">"Page 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Please answer the following:"</span><span class="p">);</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Section</span><span class="p">();</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_color"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite color"</span><span class="p">));</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_food"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite food"</span><span class="p">));</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="nx">panel</span><span class="p">.</span><span class="nx">addSection</span><span class="p">(</span><span class="nx">section</span><span class="p">);</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="nx">form</span><span class="p">.</span><span class="nx">addPanel</span><span class="p">(</span><span class="nx">panel</span><span class="p">);</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">PATH_SUCCESS</span><span class="p">,</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">        </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="p">});</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">begin</span><span class="p">(</span><span class="nx">authData</span><span class="p">,</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">,</span><span class="w"> </span><span class="nx">step</span><span class="p">,</span><span class="w"> </span><span class="nx">theForm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Form</span><span class="p">,</span><span class="w"> </span><span class="nx">Panel</span><span class="p">,</span><span class="w"> </span><span class="nx">Section</span><span class="p">,</span><span class="w"> </span><span class="nx">TextField</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">formGen</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Form</span><span class="p">(</span><span class="s2">"survey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Quick Survey"</span><span class="p">);</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">panel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Panel</span><span class="p">(</span><span class="s2">"Page 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Please answer the following:"</span><span class="p">);</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Section</span><span class="p">();</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_color"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite color"</span><span class="p">));</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nx">section</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">TextField</span><span class="p">(</span><span class="s2">"favorite_food"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Favorite food"</span><span class="p">));</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nx">panel</span><span class="p">.</span><span class="nx">addSection</span><span class="p">(</span><span class="nx">section</span><span class="p">);</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nx">form</span><span class="p">.</span><span class="nx">addPanel</span><span class="p">(</span><span class="nx">panel</span><span class="p">);</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">        </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">wfProxy</span><span class="p">.</span><span class="nx">PATH_SUCCESS</span><span class="p">,</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">        </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">form</span><span class="o">:</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="form"><code>Form</code></h3>
 <p>Represents the top-level form definition.</p>
@@ -3925,7 +4061,7 @@ comparisons and return values; they are not functions.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="widget-window-stop.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Implementing the Stop Button">
+          <a href="webwidget-sharing.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Sharing Webwidgets over the Swarm">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
@@ -3935,7 +4071,7 @@ comparisons and return values; they are not functions.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Implementing the Stop Button
+                Sharing Webwidgets over the Swarm
               </div>
             </div>
           </a>
